@@ -1,0 +1,26 @@
+version: 0.2
+
+env:
+  git-credential-helper: yes
+phases:
+  install:
+    runtime-versions:
+      nodejs: 10
+    commands:
+      - node --version
+      - npm --version
+      - npm install
+  pre_build:
+    commands:
+      - ls -lt
+  build:
+    commands:
+      - npm run build
+      - ls -lt
+  post_build:
+    commands:
+      - aws s3 sync ./build s3://$S3_BUCKET/home --delete --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --exact-timestamps
+
+artifacts:
+  files:
+    - build/**/*
