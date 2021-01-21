@@ -1,0 +1,13 @@
+.header {
+  display: flex;
+  justify-content: center;
+  padding: 20px 60px;
+
+  &__logo {
+      margin-right: auto;
+  }
+
+  &__login {
+      margin-left: auto;
+  }
+}
