@@ -1,8 +1,9 @@
 const routesConstants = {
   HOME: "/",
   PROFILES: "/profiles",
-  SERVICE: "/service",
-  LOGIN: "login",
+  CABINET: "/cabinet",
+  RULES: "/rules",
+  LOGIN: "/login",
 };
 
 export default routesConstants;

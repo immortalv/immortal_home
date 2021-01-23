@@ -1,13 +1,39 @@
+@import 'style/variables.module';
+
 .header {
   display: flex;
   justify-content: center;
-  padding: 20px 60px;
+  padding: 25px 90px;
+  margin-bottom: 50px;
 
   &__logo {
-      margin-right: auto;
   }
 
-  &__login {
-      margin-left: auto;
+  &__navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__link {
+    font-size: 16px;
+    color: $theme-c-black;
+    text-decoration: none;
+    margin: 0 50px;
+    padding-bottom: 5px;
+
+    &:hover {
+      border-bottom: 3px solid $theme-c-black;
+      color: $theme-c-black;
+    }
+
+    &--active {
+      border-bottom: 3px solid $theme-c-black;
+    }
+  }
+
+  &__login-btn {
+    width: 170px;
   }
 }

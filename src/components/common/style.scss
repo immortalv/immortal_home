@@ -1,0 +1,38 @@
+@import "style/variables.module";
+
+.icon-block {
+  display: inline-block;
+  padding: 20px 50px;
+  margin: 20px 16px;
+  width: 384px;
+  height: 384px;
+  background-color: $theme-c-white;
+  text-align: center;
+
+  &:first-child {
+      margin-left: 0;
+  }
+  &:last-child {
+      margin-right: 0;
+  }
+
+  .icon {
+    margin: 15px 0;
+  }
+
+  &__title {
+    font-weight: 800;
+    font-size: 20px;
+    margin: 0 20px;
+  }
+
+  &__text {
+    font-size: 20px;
+  }
+
+  &--wide {
+    width: 100%;
+    height: auto;
+    margin: 20px 0;
+  }
+}

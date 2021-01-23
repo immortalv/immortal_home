@@ -1,4 +1,5 @@
 import routesConstants from "constants/routes.constants";
+import HomePage from 'pages/home'
 
 const routes = [
   {
@@ -6,7 +7,7 @@ const routes = [
     isInNavigation: true,
     exact: true,
     path: routesConstants.HOME,
-    component: () => "home",
+    component: HomePage,
   },
   {
     name: "Профілі",
@@ -16,11 +17,18 @@ const routes = [
     component: () => "profile",
   },
   {
-    name: "Сервіс",
+    name: "Кабінет",
     isInNavigation: true,
     exact: true,
-    path: routesConstants.SERVICE,
-    component: () => "profile",
+    path: routesConstants.CABINET,
+    component: () => "cabinet",
+  },
+  {
+    name: "Правила",
+    isInNavigation: true,
+    exact: true,
+    path: routesConstants.RULES,
+    component: () => "Rules",
   },
   {
     name: "Ввійти",
