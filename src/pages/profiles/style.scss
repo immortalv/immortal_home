@@ -1,0 +1,21 @@
+.profiles {
+  .title {
+    font-size: 40px;
+    margin: 30px 0 50px;
+  }
+}
+
+.search {
+  &__container {
+    margin: 20px 0;
+  }
+
+  &__input {
+    width: 624px;
+    height: 64px;
+  }
+  &__btn {
+    width: 200px;
+    text-align: center;
+  }
+}

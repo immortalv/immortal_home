@@ -1,0 +1,22 @@
+@import "style/variables.module";
+
+.profiles-card {
+  display: flex;
+  margin-bottom: 50px;
+  color: $theme-c-black;
+  &__img {
+    width: 312px;
+    height: 312px;
+  }
+
+  &__text-content {
+      margin-left: 25px;
+  }
+
+  &__full-name {
+    font-weight: bold;
+  }
+
+  &__description {
+  }
+}

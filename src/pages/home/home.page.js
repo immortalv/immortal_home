@@ -1,7 +1,7 @@
-import IconBlock from "components/common/icon-block";
-import { PeopleGroupIcon, PhoneIcon, ScriptIcon, TouchIcon } from "icons";
 import React from "react";
 import { Button } from "semantic-ui-react";
+import { IconBlock } from "components/common";
+import { PeopleGroupIcon, PhoneIcon, ScriptIcon, TouchIcon } from "icons";
 
 import "./style.scss";
 
@@ -38,6 +38,8 @@ const HomePage = () => {
           title="Пам'ять про людину живе:"
           text="її зовнішність у її фотографіях та 3D моделях, її голос у відео та аудіо записах"
         />
+      </section>
+      <section className="home__top-block home__top-block--second">
         <div className="quoute-block  quoute-block--inverted">
           <h2 className="quoute__title">
             Вдячність дітей виявляється у <br /> збереженні пам&apos;яті про
@@ -45,6 +47,33 @@ const HomePage = () => {
           </h2>
         </div>
         <Button className="home__btn btn">Залишити пам’ятку</Button>
+      </section>
+      <section className="home__otpions">
+        <h4 className="title">Варіанти оформлення пам’ятної сторінки:</h4>
+        <div className="block-group">
+          <IconBlock
+            icon={<ScriptIcon />}
+            text="Ви зберігаєте пам'ять за веб-сторінці"
+          />
+          <IconBlock
+            icon={<PhoneIcon />}
+            text="Створюється унікальний QR –код котрий веде на створену сторінку"
+          />
+          <IconBlock
+            icon={<TouchIcon />}
+            text="Код розміщується на унікальній таблиці або вибивається на пам’ятнику"
+          />
+        </div>
+      </section>
+      <section className="home__top-block home__price">
+        <div className="quoute-block  quoute-block--inverted">
+          <h2 className="quoute__title">
+            Ціна: <br /> 300 гривень
+          </h2>
+          <Button secondary className="home__btn">
+            Залишити пам’ятку
+          </Button>
+        </div>
       </section>
     </main>
   );

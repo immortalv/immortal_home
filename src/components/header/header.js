@@ -10,7 +10,6 @@ import "./style.scss";
 const Header = () => {
   const location = useLocation();
 
-  console.log(location);
   return (
     <header className="header">
       <img className="header__logo" src={logo} alt="Immortal logo" />
