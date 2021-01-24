@@ -38,7 +38,7 @@ const profileDataMock = {
   templateType: PROFILE_TEMPLATE_TYPES.BOOK,
 };
 
-const ProfilePage = () => {
+const ProfilePage = ({ templateType }) => {
   const { profileId } = useParams();
   //   console.log("Params", profileId);
   const [profileData, setProfileData] = useState();
@@ -50,7 +50,7 @@ const ProfilePage = () => {
 
   if (!profileData) return <p>Loading...</p>;
 
-  switch (profileData.templateType) {
+  switch (templateType) {
     case PROFILE_TEMPLATE_TYPES.SIMPLE:
       return <ProfileSimple profileData={profileData} />;
     case PROFILE_TEMPLATE_TYPES.BOOK:
