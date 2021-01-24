@@ -1,7 +1,12 @@
 .profiles {
+  .home__top-block {
+    background: url("../../assets/home-background.jpg") no-repeat,
+      linear-gradient(to bottom, #d5d6da 50%, #f3f3f3 100%);
+  }
   .title {
     font-size: 40px;
-    margin: 30px 0 50px;
+    margin: 50px auto;
+    width: fit-content;
   }
 }
 
@@ -13,9 +18,13 @@
   &__input {
     width: 624px;
     height: 64px;
+    font-style: italic;
+    letter-spacing: 0.04em;
+    font-size: 16px;
   }
   &__btn {
     width: 200px;
     text-align: center;
+    justify-content: center;
   }
 }

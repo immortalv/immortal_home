@@ -36,10 +36,15 @@
     width: 380px;
     height: 64px;
     margin: 20px 0;
+
+    &:hover {
+      background-color: #cacbcd;
+      background-image: none;
+    }
   }
 
   &__otpions {
-      padding: 50px 0;
+    padding: 50px 0;
     .title {
       font-weight: bold;
       font-size: 40px;
@@ -113,5 +118,9 @@
     color: $theme-c-white;
     font-size: 40px;
     line-height: 150%;
+  }
+
+  .home__btn {
+    background-color: $theme-c-black;
   }
 }

@@ -56,7 +56,7 @@ const HomePage = () => {
         <div className="search__container">
           <Input type="text" placeholder="Введіть запит" action>
             <input className="search__input" />
-            <Button secondary className="search__btn">
+            <Button size='large' secondary className="search__btn">
               Знайти
             </Button>
           </Input>
