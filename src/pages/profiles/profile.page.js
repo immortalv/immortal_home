@@ -38,7 +38,7 @@ const profileDataMock = {
   templateType: PROFILE_TEMPLATE_TYPES.BOOK,
 };
 
-const ProfilePage = ({ templateType }) => {
+const ProfilePage = () => {
   const { profileId } = useParams();
   //   console.log("Params", profileId);
   const [profileData, setProfileData] = useState();
@@ -50,16 +50,21 @@ const ProfilePage = ({ templateType }) => {
 
   if (!profileData) return <p>Loading...</p>;
 
-  switch (templateType) {
-    case PROFILE_TEMPLATE_TYPES.SIMPLE:
-      return <ProfileSimple profileData={profileData} />;
-    case PROFILE_TEMPLATE_TYPES.BOOK:
-      return <ProfileBook profileData={profileData} />;
-    case PROFILE_TEMPLATE_TYPES.ARTICLE:
-      return <ProfileArticle profileData={profileData} />;
-    default:
-      return <ProfileSimple profileData={profileData} />;
-  }
+  if (Math.random() < 0.3) return <ProfileSimple profileData={profileData} />;
+  if (Math.random() > 0.7) return <ProfileBook profileData={profileData} />;
+  return <ProfileArticle profileData={profileData} />;
+
+
+//   switch (profileData.templateType) {
+//     case PROFILE_TEMPLATE_TYPES.SIMPLE:
+//       return <ProfileSimple profileData={profileData} />;
+//     case PROFILE_TEMPLATE_TYPES.BOOK:
+//       return <ProfileBook profileData={profileData} />;
+//     case PROFILE_TEMPLATE_TYPES.ARTICLE:
+//       return <ProfileArticle profileData={profileData} />;
+//     default:
+//       return <ProfileSimple profileData={profileData} />;
+//   }
 };
 
 export default ProfilePage;
