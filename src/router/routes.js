@@ -1,6 +1,6 @@
 import routesConstants from "constants/routes.constants";
 import HomePage from "pages/home";
-import ProfilesPage from "pages/profiles";
+import { ProfilesPage, ProfilePage } from "pages/profiles";
 
 const routes = [
   {
@@ -16,6 +16,12 @@ const routes = [
     exact: true,
     path: routesConstants.PROFILES,
     component: ProfilesPage,
+  },
+  {
+    name: "Профілі",
+    exact: true,
+    path: routesConstants.PROFILE,
+    component: ProfilePage,
   },
   {
     name: "Кабінет",
@@ -45,7 +51,7 @@ const routes = [
   {
     exact: true,
     path: "/*",
-    component: () => "home",
+    component: HomePage,
   },
 ];
 

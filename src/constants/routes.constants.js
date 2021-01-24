@@ -1,6 +1,9 @@
+const PROFILES = "/profiles";
+
 const routesConstants = {
   HOME: "/",
-  PROFILES: "/profiles",
+  PROFILES,
+  PROFILE: `${PROFILES}/:profileId`,
   CABINET: "/cabinet",
   RULES: "/rules",
   LOGIN: "/login",
