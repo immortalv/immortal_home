@@ -30,7 +30,7 @@ const ProfileArticle = ({ profileData }) => {
           <h1 className="title profile__name profile-article__name">
             {fullName}
           </h1>
-          <p className="text profile__description profile-article__description">
+          <p className="profile__description profile-article__description">
             {description}
           </p>
           <div className="quoute-block  quoute-block--inverted">

@@ -31,7 +31,7 @@ const ProfileSimple = ({ profileData }) => {
         </span>
       </div>
       <h1 className="title profile__name profile-simple__name">{fullName}</h1>
-      <p className="text profile__description profile-simple__description">{description}</p>
+      <p className="profile__description profile-simple__description">{description}</p>
       <div className="image-data__container">
         {imageData.map((img) => (
           <img
