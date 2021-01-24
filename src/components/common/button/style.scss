@@ -1,0 +1,36 @@
+@import "style/variables.module";
+
+.button {
+  cursor: pointer;
+  min-width: fit-content;
+  outline: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 150%;
+  padding: 20px 50px;
+
+  &--primary {
+    border: none;
+    background-color: $theme-c-white;
+    color: $theme-c-black;
+
+    &:hover,
+    &:active {
+      background-color: #cacbcd;
+    }
+  }
+
+  &--secondary {
+    border: none;
+    background-color: $theme-c-black;
+    color: $theme-c-white;
+
+    &:hover,
+    &:active {
+      background-color: #2c3232;
+    }
+  }
+}

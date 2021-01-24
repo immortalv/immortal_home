@@ -9,22 +9,3 @@
     width: fit-content;
   }
 }
-
-.search {
-  &__container {
-    margin: 20px 0;
-  }
-
-  &__input {
-    width: 624px;
-    height: 64px;
-    font-style: italic;
-    letter-spacing: 0.04em;
-    font-size: 16px;
-  }
-  &__btn {
-    width: 200px;
-    text-align: center;
-    justify-content: center;
-  }
-}

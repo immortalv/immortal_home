@@ -1,0 +1,23 @@
+@import "style/variables.module";
+
+.search-container {
+  margin: 20px 0;
+
+  &__input {
+    width: 624px;
+    height: 64px;
+    font-style: italic;
+    letter-spacing: 0.04em;
+    font-size: 16px;
+    padding: 10px 16px;
+    background: $theme-c-white;
+    border: 1px solid rgba(34, 36, 38, 0.15);
+    color: rgba(0, 0, 0, 0.87);
+    border-radius: 5px 0 0 5px;
+  }
+
+  &__btn {
+    width: 200px;
+    border-radius: 0 5px 5px 0;
+  }
+}

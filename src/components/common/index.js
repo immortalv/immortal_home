@@ -1,4 +1,4 @@
-import IconBlock from "./icon-block/icon-block";
-import ProfilesCard from "./profiles-card/profiles-card.component";
+import IconBlock from "./icon-block";
+import Button from "./button";
 
-export { IconBlock, ProfilesCard };
+export { IconBlock, Button };

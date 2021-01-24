@@ -36,6 +36,7 @@
   }
 
   &__login-btn {
-    width: 170px;
+    display: flex;
+    align-items: center;
   }
 }

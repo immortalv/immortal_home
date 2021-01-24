@@ -1,6 +1,5 @@
 import React from "react";
-import { Button } from "semantic-ui-react";
-import { IconBlock } from "components/common";
+import { IconBlock, Button } from "components/common";
 import { PeopleGroupIcon, PhoneIcon, ScriptIcon, TouchIcon } from "icons";
 
 import "./style.scss";
@@ -17,7 +16,7 @@ const HomePage = () => {
             Оживіть спогади вашої родини, досліджуючи життя тих, хто був до вас.
           </p>
         </div>
-        <Button className="home__btn btn">Залишити пам’ятку</Button>
+        <Button className="home__btn">Залишити пам’ятку</Button>
         <div className="block-group">
           <IconBlock
             icon={<ScriptIcon />}
@@ -46,7 +45,7 @@ const HomePage = () => {
             батьків
           </h2>
         </div>
-        <Button className="home__btn btn">Залишити пам’ятку</Button>
+        <Button className="home__btn">Залишити пам’ятку</Button>
       </section>
       <section className="home__otpions">
         <h4 className="title">Варіанти оформлення пам’ятної сторінки:</h4>
@@ -70,7 +69,7 @@ const HomePage = () => {
           <h2 className="quoute__title">
             Ціна: <br /> 300 гривень
           </h2>
-          <Button secondary className="home__btn">
+          <Button type="secondary" className="home__btn">
             Залишити пам’ятку
           </Button>
         </div>

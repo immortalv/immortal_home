@@ -1,12 +1,9 @@
-import { ProfilesCard } from "components/common";
 import React from "react";
-import { Button, Input } from "semantic-ui-react";
+import ProfilesCard from "components/profiles/profiles-card";
 import { getProfileImg } from "utils/image.utils";
 
-// import IconBlock from "components/common/icon-block";
-// import { PeopleGroupIcon, PhoneIcon, ScriptIcon, TouchIcon } from "icons";
-
 import "./style.scss";
+import SearchContainer from "components/common/search-input";
 
 const profilesData = [
   {
@@ -53,14 +50,7 @@ const HomePage = () => {
             Оживіть спогади вашої родини, досліджуючи життя тих, хто був до вас.
           </p>
         </div>
-        <div className="search__container">
-          <Input type="text" placeholder="Введіть запит" action>
-            <input className="search__input" />
-            <Button size='large' secondary className="search__btn">
-              Знайти
-            </Button>
-          </Input>
-        </div>
+        <SearchContainer />
         <div className="profiles__list">
           <h3 className="title">Публічні профілі</h3>
           {profilesData.map((profile, index) => (

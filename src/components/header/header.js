@@ -1,7 +1,8 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import clsx from "clsx";
-import { Button } from "semantic-ui-react";
+// import { Button } from "semantic-ui-react";
+import { Button } from "components/common";
 import routes from "router/routes";
 import logo from "assets/logo.svg";
 
@@ -31,7 +32,7 @@ const Header = () => {
         )}
       </nav>
 
-      <Button secondary className="header__login-btn">
+      <Button type="secondary" className="header__login-btn">
         Увійти
       </Button>
     </header>

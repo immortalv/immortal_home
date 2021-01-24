@@ -1,0 +1,38 @@
+@import "variables.module";
+
+// Final media queries, please do not edit it until you discuss with team
+
+/* Large desktop > 1200 */
+@mixin for-desktop-up {
+  @media (min-width: $shared-bp-desktop) {
+    @content;
+  }
+}
+
+/* Portrait tablet and desktop max width 979 */
+@mixin for-tablet-landscape-up {
+  @media (max-width: $shared-bp-tablet-landscape-up) {
+    @content;
+  }
+}
+
+/* Landscape big phone < 969 */
+@mixin for-phone-landscape {
+  @media (max-width: $shared-bp-tablet-landscape-up) and (orientation: landscape) {
+    @content;
+  }
+}
+
+/* Phablet < 767 */
+@mixin for-phablet {
+  @media (max-width: $shared-iPad-portrait-up-min-width) {
+    @content;
+  }
+}
+
+/* Landscape phones and down < 480 */
+@mixin for-phone-only {
+  @media (max-width: $shared-bp-tablet-portrait-up) {
+    @content;
+  }
+}
