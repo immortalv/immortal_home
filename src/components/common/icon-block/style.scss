@@ -1,11 +1,13 @@
 @import "styles/variables.module";
+@import "styles/media-queries.module";
 
 .icon-block {
   display: inline-block;
-  padding: 40px 65px;
+  padding: 30px;
   margin: 20px 16px;
-  width: 384px;
-  height: 384px;
+  width: -webkit-fill-available;
+  max-height: 384px;
+  max-width: 384px;
   background-color: $theme-c-white;
   text-align: center;
 
@@ -16,21 +18,42 @@
       margin-right: 0;
   }
 
+  @include for-phablet {
+    margin: 10px 0;
+    max-width: 300px;
+    padding: 10px;
+  }
+
   .icon {
+    height: auto;
     margin: 15px 0;
+
+    @include for-phablet {
+      max-width: 85px;
+      margin: 5px 0;
+    }
   }
 
   &__title {
     font-weight: 800;
     font-size: 20px;
     margin: 0 20px;
+
+    @include for-tablet-landscape-up {
+      font-size: 16px;
+    }
   }
 
   &__text {
     font-size: 20px;
+
+    @include for-tablet-landscape-up {
+      font-size: 16px;
+    }
   }
 
   &--wide {
+    max-width: 100%;
     width: 100%;
     height: auto;
     margin: 20px 0 0;

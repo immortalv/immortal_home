@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { Button } from "components/common";
 import routes from "router/routes";
 import logo from "assets/logo.svg";
+import logoSmall from "assets/logo-small.svg";
 
 import "./style.scss";
 
@@ -14,6 +15,7 @@ const Header = () => {
   return (
     <header className="header">
       <img className="header__logo" src={logo} alt="Immortal logo" />
+      <img className="header__logo header__logo--small" src={logoSmall} alt="Immortal logo" />
       <nav className="header__navigation">
         {routes.map(
           (route) =>

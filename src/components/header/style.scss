@@ -1,29 +1,62 @@
-@import 'styles/variables.module';
+@import "styles/variables.module";
+@import "styles/media-queries.module";
+
+:root {
+  @include for-phablet {
+    --header-height: 65px;
+  }
+}
 
 .header {
   position: absolute;
   width: 100%;
   display: flex;
+  align-items: center;
   justify-content: center;
   padding: 25px 90px;
   height: var(--header-height);
   z-index: 2;
 
+  @include for-tablet-landscape-up {
+    padding: 25px;
+  }
+
+  @include for-phablet {
+    padding: 10px;
+    --header-height: 65px;
+  }
+
   &__logo {
+    height: max-content;
+
+    @include for-phablet {
+      display: none;
+    }
+
+    &--small {
+      display: none;
+      max-height: 30px;
+      padding-left: 15px;
+
+      @include for-phablet {
+        display: inline-block;
+      }
+    }
   }
 
   &__navigation {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     width: 100%;
+    max-width: 980px;
   }
 
   &__link {
     font-size: 16px;
     color: $theme-c-black;
     text-decoration: none;
-    margin: 0 50px;
+    margin: 0 10px;
     padding-bottom: 5px;
 
     &:hover {
@@ -38,6 +71,12 @@
 
   &__login-btn {
     display: flex;
+    max-height: 30px;
     align-items: center;
+
+    @include for-phablet {
+      padding: 10px 20px;
+      font-size: 12px;
+    }
   }
 }
