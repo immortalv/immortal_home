@@ -113,6 +113,10 @@
     @include for-tablet-landscape-up {
       font-size: 50px;
     }
+
+    @include for-phone-only {
+      font-size: 30px;
+    }
   }
 
   &__text {
