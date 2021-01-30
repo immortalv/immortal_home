@@ -29,6 +29,14 @@
       width: -webkit-fill-available;
       background-size: cover;
       padding-bottom: 200px;
+
+      @include for-phablet {
+        padding-top: 45px;
+      }
+
+      @include for-phone-only {
+        padding-top: 25px;
+      }
     }
 
     @include for-tablet-landscape-up {
@@ -36,19 +44,44 @@
       padding-left: 60px;
       padding-right: 60px;
     }
+
+    @include for-phone-only {
+      --header-offset: 0px;
+      padding-left: 30px;
+      padding-right: 30px;
+    }
   }
 
   &__btn {
     width: 380px;
     height: 64px;
+
+    @include for-tablet-landscape-up {
+      width: auto;
+    }
   }
 
   &__otpions {
     padding: 50px 0;
+
+    @include for-phablet {
+      padding: 25px 0;
+    }
+
     .title {
       font-weight: bold;
       font-size: 40px;
       margin-left: 110px;
+
+      @include for-phablet {
+        font-size: 32px;
+        margin: 10px 0 10px 25px;
+      }
+
+      @include for-phone-only {
+        font-size: 18px;
+        margin: 5px 0 5px 20px;
+      }
     }
   }
 
@@ -62,12 +95,31 @@
       );
     height: 760px;
     padding-bottom: 200px;
+
+    @include for-phablet {
+      height: auto;
+    }
+
+    @include for-phone-only {
+      padding: 45px 30px;
+    }
+
     .quoute-block {
       position: relative;
       background-color: $theme-c-white;
+      height: 216px;
+
+      @include for-phone-only {
+        height: 120px;
+        max-width: 60vw;
+      }
+
       .quoute__title {
-        color: $theme-c-black;
         font-size: 48px;
+
+        @include for-phone-only {
+          font-size: 24px;
+        }
       }
     }
 
@@ -75,6 +127,8 @@
       position: absolute;
       bottom: 0;
       transform: translateY(50%);
+      height: 45px;
+      padding: 10px 25px;
     }
   }
 
@@ -98,8 +152,15 @@
 
 .quoute {
   &-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     margin: 50px 0;
+    width: 100%;
+    max-width: 800px;
+    padding: 25px 0;
 
     @include for-tablet-landscape-up {
       margin: 25px 0;
@@ -109,36 +170,63 @@
   &__title {
     font-weight: bold;
     font-size: 64px;
+    margin: 0;
+    line-height: 150%;
 
     @include for-tablet-landscape-up {
       font-size: 50px;
     }
+
+    @include for-phablet {
+      font-size: 36px;
+      line-height: 100%;
+    }
+
+    @include for-phone-only {
+      font-size: 24px;
+    }
   }
 
   &__text {
-    font-weight: 600;
     font-size: 24px;
     margin-top: 25px;
 
     @include for-tablet-landscape-up {
       font-size: 20px;
     }
+
+    @include for-phone-only {
+      font-size: 16px;
+      margin: 15px 0 0;
+    }
   }
 }
 
 .quoute-block--inverted {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-color: $theme-c-black;
-  width: 800px;
   height: 204px;
   margin-bottom: 25px;
+  padding: 25px 0;
+
+  @include for-phone-only {
+    height: auto;
+  }
 
   .quoute__title {
     color: $theme-c-white;
     font-size: 40px;
-    line-height: 150%;
+
+    @include for-tablet-landscape-up {
+      font-size: 36px;
+    }
+
+    @include for-phablet {
+      font-size: 26px;
+    }
+
+    @include for-phone-only {
+      font-size: 18px;
+    }
   }
 
   .home__btn {

@@ -1,7 +1,16 @@
 @import "styles/variables.module";
+@import "styles/media-queries.module";
 
 .search-container {
   margin: 20px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  @include for-phone-only {
+    flex-direction: column;
+    align-items: center;
+  }
 
   &__input {
     width: 624px;
@@ -14,10 +23,20 @@
     border: 1px solid rgba(34, 36, 38, 0.15);
     color: rgba(0, 0, 0, 0.87);
     border-radius: 5px 0 0 5px;
+
+    @include for-phone-only {
+      width: 100%;
+      margin-bottom: 15px;
+    }
   }
 
   &__btn {
     width: 200px;
     border-radius: 0 5px 5px 0;
+
+    @include for-phone-only {
+      width: 50%;
+      margin-bottom: 15px;
+    }
   }
 }

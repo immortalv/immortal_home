@@ -2,5 +2,7 @@ import PeopleGroupIcon from "./people-group-icon.component";
 import PhoneIcon from "./phone-icon.component";
 import ScriptIcon from "./script-icon.component";
 import TouchIcon from "./touch-icon.component";
+import AccountIcon from "./account-icon.component";
+import LoginIcon from "./login-icon.component";
 
-export { PeopleGroupIcon, PhoneIcon, ScriptIcon, TouchIcon };
+export { PeopleGroupIcon, PhoneIcon, ScriptIcon, TouchIcon, AccountIcon, LoginIcon };

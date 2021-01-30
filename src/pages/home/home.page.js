@@ -65,7 +65,7 @@ const HomePage = () => {
         </div>
       </section>
       <section className="home__top-block home__price">
-        <div className="quoute-block  quoute-block--inverted">
+        <div className="quoute-block">
           <h2 className="quoute__title">
             Ціна: <br /> 300 гривень
           </h2>

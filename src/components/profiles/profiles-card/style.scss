@@ -1,16 +1,38 @@
 @import "styles/variables.module";
+@import "styles/media-queries.module";
 
 .profiles-card {
   display: flex;
+  padding: 0 90px;
   margin-bottom: 50px;
   color: $theme-c-black;
+
+  @include for-tablet-landscape-up {
+    padding: 0;
+  }
+
+  @include for-phablet {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
   &__img {
     width: 312px;
     height: 312px;
+
+    @include for-phone-only {
+      width: 204px;
+      height: 204px;
+    }
   }
 
   &__text-content {
       margin-left: 25px;
+
+    @include for-phablet {
+      margin-left: 0;
+    }
   }
 
   &__full-name {
