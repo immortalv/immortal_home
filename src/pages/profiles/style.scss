@@ -1,3 +1,5 @@
+@import "styles/media-queries.module";
+
 .profiles {
   .home__top-block {
     background: url("../../assets/home-background.jpg") no-repeat,
@@ -7,5 +9,9 @@
     font-size: 40px;
     margin: 50px auto;
     width: fit-content;
+
+    @include for-phone-only {
+      font-size: 30px;
+    }
   }
 }
