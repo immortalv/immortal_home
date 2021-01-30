@@ -1,14 +1,35 @@
 @import "styles/variables.module";
+@import "styles/media-queries.module";
 
 .footer {
   padding: 50px 150px;
   border-bottom: 1px solid $theme-c-black;
-  background-color: #F3F3F3;
+  background-color: $theme-c-white;
+
+  @include for-tablet-landscape-up {
+    padding: 25px 65px;
+  }
+
+  @include for-phablet {
+    padding: 15px;
+  }
+
+  @include for-phone-only {
+    padding: 15px 5px;
+  }
 
   &__block-container {
     display: flex;
     padding-bottom: 50px;
     border-bottom: 1px solid $theme-c-black;
+
+    @include for-phablet {
+      padding-bottom: 15px;
+    }
+
+    @include for-phone-only {
+      justify-content: space-around;
+    }
   }
 
   &__block {
@@ -21,39 +42,85 @@
     &:last-child {
       border-right: none;
     }
+
+    @include for-phablet {
+      padding: 0 0 10px;
+    }
+
+    @include for-phone-only {
+      border-right: none;
+      padding: 0;
+    }
+  }
+
+  &__title,
+  &__text {
+    @include for-phablet {
+      font-size: 14px;
+    }
   }
 
   &__title {
+    font-size: 16px;
     font-weight: bold;
+    margin: 10px 0;
+
+    @include for-phone-only {
+      margin: 0;
+    }
   }
 
   &__text {
+    @include for-phablet {
+      margin: 10px;
+    }
+
+    @include for-phone-only {
+      display: none;
+    }
   }
 
   &__link-container {
     display: flex;
-    justify-content: flex-start;
     margin: 30px 0 0;
+
+    @include for-phablet {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    @include for-phone-only {
+      flex-direction: column;
+    }
   }
 
   &__link {
     color: $theme-c-black;
     margin-right: 15px;
 
+    &:first-of-type {
+      margin-left: 20px;
+    }
+
+    &:last-of-type {
+      margin-right: auto;
+    }
+
     &:hover {
       color: $theme-c-black;
       border-bottom: 1px solid $theme-c-black;
     }
 
-    &--last {
+    &:last-child {
       margin-right: auto;
     }
   }
   &__copyright {
-    margin-right: auto;
-  }
-  .align-span {
-    margin-left: auto;
-    visibility: hidden;
+    margin: auto;
+
+    @include for-phone-only {
+      flex-direction: column;
+      margin-top: 15px;
+    }
   }
 }

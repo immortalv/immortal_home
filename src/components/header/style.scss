@@ -13,7 +13,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 25px 90px;
+  padding: 10px 90px;
   height: var(--header-height);
   z-index: 2;
 
@@ -23,24 +23,16 @@
 
   @include for-phablet {
     padding: 10px;
-    --header-height: 65px;
   }
 
   &__logo {
     height: max-content;
+  }
 
-    @include for-phablet {
+  &__logo-picture {
+    display: flex;
+    @include for-phone-only {
       display: none;
-    }
-
-    &--small {
-      display: none;
-      max-height: 30px;
-      padding-left: 15px;
-
-      @include for-phablet {
-        display: inline-block;
-      }
     }
   }
 
@@ -67,16 +59,47 @@
     &--active {
       border-bottom: 3px solid $theme-c-black;
     }
-  }
-
-  &__login-btn {
-    display: flex;
-    max-height: 30px;
-    align-items: center;
 
     @include for-phablet {
-      padding: 10px 20px;
-      font-size: 12px;
+     margin: 0 5px;
+    }
+
+    @include for-phone-only {
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &__login {
+    &-btn {
+      display: flex;
+      max-height: 30px;
+      align-items: center;
+
+      @include for-phablet {
+        padding: 10px 20px;
+        font-size: 12px;
+      }
+
+      @include for-phone-only {
+        background-color: transparent;
+        padding: 0;
+      }
+    }
+
+    &-text {
+      @include for-phone-only {
+        display: none;
+      }
+    }
+
+    &-icon {
+      display: none;
+
+      @include for-phone-only {
+        display: inline-block;
+      }
     }
   }
 }

@@ -25,17 +25,18 @@ const Footer = () => {
         />
       </div>
       <div className="footer__link-container">
-        <a href="#" className="footer__link">
-          Privacy policy
-        </a>
-        <a href="#" className="footer__link">
-          Term of service
-        </a>
-        <a href="#" className="footer__link footer__link--last">
-          Language
-        </a>
-        <span className="footer__copyright">&copy; Immortal</span>
-        <span className="align-span" />
+        <div className="footer__links">
+          <a href="#" className="footer__link">
+            Privacy policy
+          </a>
+          <a href="#" className="footer__link">
+            Term of service
+          </a>
+          <a href="#" className="footer__link">
+            Language
+          </a>
+        </div>
+        <span className="footer__copyright">&copy; 2021 Immortal</span>
       </div>
     </footer>
   );
