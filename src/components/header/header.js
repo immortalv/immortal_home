@@ -37,11 +37,11 @@ const Header = () => {
         )}
       </nav>
 
-      <Link to={routesConstants.LOGIN}>
+      {/* <Link to={routesConstants.LOGIN}> */}
         <Button type="secondary" className="header__login-btn">
           Увійти
         </Button>
-      </Link>
+      {/* </Link> */}
     </header>
   );
 };

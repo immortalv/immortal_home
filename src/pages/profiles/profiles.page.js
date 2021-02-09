@@ -2,7 +2,7 @@ import React from "react";
 import ProfilesCard from "components/profiles/profiles-card";
 import SearchContainer from "components/common/search-input";
 import { getProfileImg } from "utils/image.utils";
-import profilesData from "components/common/profile/profile.data";
+import profilesData from "./profile.data";
 
 import "./style.scss";
 import { Link } from "react-router-dom";
