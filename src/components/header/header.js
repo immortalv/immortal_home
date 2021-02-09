@@ -3,11 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 import clsx from "clsx";
 // import { Button } from "semantic-ui-react";
 import { Button } from "components/common";
+
 import routes from "router/routes";
 import logo from "assets/logo.svg";
 import logoSmall from "assets/logo-small.svg";
 
 import "./style.scss";
+import routesConstants from "constants/routes.constants";
 
 const Header = () => {
   const location = useLocation();
@@ -29,14 +31,17 @@ const Header = () => {
                 )}
               >
                 {route.name}
+                
               </Link>
             )
         )}
       </nav>
 
-      <Button type="secondary" className="header__login-btn">
-        Увійти
-      </Button>
+      <Link to={routesConstants.LOGIN}>
+        <Button type="secondary" className="header__login-btn">
+          Увійти
+        </Button>
+      </Link>
     </header>
   );
 };
