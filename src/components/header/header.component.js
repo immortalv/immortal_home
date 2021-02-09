@@ -1,12 +1,13 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import clsx from "clsx";
-// import { Button } from "semantic-ui-react";
+
 import routes from "router/routes";
 import logo from "assets/logo.svg";
 import logoSmall from "assets/logo-small.svg";
 
 import "./style.scss";
+
 import HeaderAccount from "./header-account.component";
 
 const Header = () => {
@@ -31,10 +32,12 @@ const Header = () => {
                 )}
               >
                 {route.name}
+                
               </Link>
             )
         )}
       </nav>
+
       <HeaderAccount />
     </header>
   );
