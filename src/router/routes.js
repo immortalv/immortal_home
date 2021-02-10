@@ -1,7 +1,7 @@
 import routesConstants from "constants/routes.constants";
 import HomePage from "pages/home";
 import { ProfilesPage, ProfilePage } from "pages/profiles";
-import LoginPage from "pages/login";
+// import LoginPage from "pages/login";
 
 const routes = [
   {
