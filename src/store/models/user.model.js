@@ -1,4 +1,4 @@
-// import AppLogin from "services/auth/";
+import { signUp, signIn } from "services/api/auth.service";
 
 export const user = {
   state: {
@@ -22,20 +22,19 @@ export const user = {
     },
   },
   effects: (dispatch) => ({
-    async login() {
+    async signUp(data) {
       try {
-          console.log('login-----')
-        // const {
-        //   fullName,
-        //   isVerified,
-        //   profiles,
-        // } = await AppLogin.performLogin();
+        const user = await signUp(data);
+        dispatch.user.setUser(user);
+      } catch {
+        dispatch.user.setIsLoginError(true);
+      }
+    },
 
-        // dispatch.user.setUser({
-        //   fullName,
-        //   isVerified,
-        //   profiles,
-        // });
+    async signIn(data) {
+      try {
+        const user = await signIn(data);
+        dispatch.user.setUser(user);
       } catch {
         dispatch.user.setIsLoginError(true);
       }

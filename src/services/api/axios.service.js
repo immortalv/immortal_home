@@ -1,25 +1,26 @@
 import axios from "axios";
+import { BASE_API_URL } from "constants/api.constants";
 
 const getToken = () => localStorage.getItem("access-token");
 
-const baseURL =
-  process.env.NODE_ENV === "production"
-    ? process.env.SERVER_URL
-    : "http://localhost:8081";
+console.log(" process.env.", process.env);
 
-const client = axios.create({ baseURL });
+const client = axios.create({ BASE_API_URL });
 
 client.interceptors.request.use(
   (config) => {
     const authorization = getToken();
     config.headers = { authorization };
+
+    return config
   },
   (error) => {
     console.log("error", error);
+    return Promise.reject(error);
   }
 );
 
-const get = (url, params, auth = true) => client.get(url, { params }, auth);
+const get = (url, params) => client.get(url, { params });
 const post = (url, params) => client.post(url, params, {});
 const put = (url, params) => client.put(url, params, {});
 const del = (url) => client.delete(url, {});
@@ -30,8 +31,6 @@ export default {
   put,
   delete: del,
 };
-
-
 
 // import LocalStorageService from "./services/storage/localstorageservice";
 // import router from "./router/router";
@@ -53,8 +52,6 @@ export default {
 //        Promise.reject(error)
 //    });
 
-
-
 // //Add a response interceptor
 
 // axios.interceptors.response.use((response) => {
@@ -62,7 +59,7 @@ export default {
 // }, function (error) {
 //    const originalRequest = error.config;
 
-//    if (error.response.status === 401 && originalRequest.url === 
+//    if (error.response.status === 401 && originalRequest.url ===
 // 'http://13.232.130.60:8081/v1/auth/token) {
 //        router.push('/login');
 //        return Promise.reject(error);
