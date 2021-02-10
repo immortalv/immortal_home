@@ -1,6 +1,7 @@
 import routesConstants from "constants/routes.constants";
 import HomePage from "pages/home";
 import { ProfilesPage, ProfilePage } from "pages/profiles";
+import LoginPage from "pages/login";
 
 const routes = [
   {
@@ -38,7 +39,7 @@ const routes = [
     component: HomePage,
   },
   {
-    name: "Ввійти",
+    name: "Увійти",
     exact: true,
     path: routesConstants.LOGIN,
     component: HomePage,
