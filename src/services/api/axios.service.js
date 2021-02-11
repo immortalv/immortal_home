@@ -3,8 +3,6 @@ import { BASE_API_URL } from "constants/api.constants";
 
 const getToken = () => localStorage.getItem("access-token");
 
-console.log(" process.env.", process.env);
-
 const client = axios.create({ BASE_API_URL });
 
 client.interceptors.request.use(
@@ -12,7 +10,7 @@ client.interceptors.request.use(
     const authorization = getToken();
     config.headers = { authorization };
 
-    return config
+    return config;
   },
   (error) => {
     console.log("error", error);
@@ -21,9 +19,9 @@ client.interceptors.request.use(
 );
 
 const get = (url, params) => client.get(url, { params });
-const post = (url, params) => client.post(url, params, {});
-const put = (url, params) => client.put(url, params, {});
-const del = (url) => client.delete(url, {});
+const post = (url, params) => client.post(url, params);
+const put = (url, params) => client.put(url, params);
+const del = (url) => client.delete(url);
 
 export default {
   get,

@@ -2,6 +2,8 @@ import routesConstants from "constants/routes.constants";
 import HomePage from "pages/home";
 import { ProfilesPage, ProfilePage } from "pages/profiles";
 // import LoginPage from "pages/login";
+import CabinetPage from "pages/cabinet";
+import AddProfile from 'components/profiles/add-profile'
 
 const routes = [
   {
@@ -29,7 +31,7 @@ const routes = [
     isInNavigation: true,
     exact: true,
     path: routesConstants.CABINET,
-    component: HomePage,
+    component: CabinetPage,
   },
   {
     name: "Правила",
@@ -43,6 +45,11 @@ const routes = [
     exact: true,
     path: routesConstants.LOGIN,
     component: HomePage,
+  },
+  {
+    exact: true,
+    path: routesConstants.ADD_PROFILE,
+    component: AddProfile,
   },
   {
     exact: true,

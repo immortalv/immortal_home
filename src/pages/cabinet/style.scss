@@ -1,0 +1,9 @@
+.cabinet {
+  padding-top: var(--header-height, 90px);
+
+  &__btn {
+    padding: 10px 50px;
+    width: 344px;
+    font-size: 18px;
+  }
+}

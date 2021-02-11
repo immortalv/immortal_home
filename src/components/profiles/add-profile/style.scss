@@ -1,0 +1,12 @@
+.add-profile {
+  text-align: center;
+  &__title {
+    font-weight: bold;
+    font-size: 64px;
+    line-height: 150%;
+  }
+
+  &__btn {
+    width: 426px;
+  }
+}
