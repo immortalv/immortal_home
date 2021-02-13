@@ -4,5 +4,16 @@ import ScriptIcon from "./script-icon.component";
 import TouchIcon from "./touch-icon.component";
 import AccountIcon from "./account-icon.component";
 import LoginIcon from "./login-icon.component";
+import LogoIcon from "./logo-icon.component";
+import ChevronLeftIcon from "./chevron-left-icon.component";
 
-export { PeopleGroupIcon, PhoneIcon, ScriptIcon, TouchIcon, AccountIcon, LoginIcon };
+export {
+  PeopleGroupIcon,
+  PhoneIcon,
+  ScriptIcon,
+  TouchIcon,
+  AccountIcon,
+  LoginIcon,
+  LogoIcon,
+  ChevronLeftIcon,
+};

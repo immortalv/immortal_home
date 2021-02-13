@@ -1,9 +1,10 @@
+import { store } from "store";
 import routesConstants from "constants/routes.constants";
 import HomePage from "pages/home";
 import { ProfilesPage, ProfilePage } from "pages/profiles";
 // import LoginPage from "pages/login";
 import CabinetPage from "pages/cabinet";
-import AddProfile from 'components/profiles/add-profile'
+import AddProfile from "components/profiles/add-profile";
 
 const routes = [
   {
@@ -30,6 +31,7 @@ const routes = [
     name: "Кабінет",
     isInNavigation: true,
     exact: true,
+    checkAccess: () => store.getState().user.isAuthenticated,
     path: routesConstants.CABINET,
     component: CabinetPage,
   },
@@ -48,13 +50,17 @@ const routes = [
   },
   {
     exact: true,
-    path: routesConstants.ADD_PROFILE,
-    component: AddProfile,
-  },
-  {
-    exact: true,
     path: "/*",
     component: HomePage,
+  },
+];
+
+export const subRoutes = [
+  {
+    exact: true,
+    path: routesConstants.ADD_PROFILE,
+    checkAccess: () => store.getState().user.isAuthenticated,
+    component: AddProfile,
   },
 ];
 

@@ -6,14 +6,13 @@ export const user = {
     isVerified: false,
     profiles: [],
     isLoginError: false,
+    isAuthenticated: false,
   },
   reducers: {
     setUser(state, payload) {
       return {
         ...state,
-        fullName: payload.fullName,
-        isVerified: payload.isVerified,
-        profiles: payload.profiles,
+        ...payload,
       };
     },
 

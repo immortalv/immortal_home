@@ -1,12 +1,18 @@
 .add-profile {
   text-align: center;
+  margin-bottom: 30px;
   &__title {
     font-weight: bold;
     font-size: 64px;
     line-height: 150%;
   }
 
+  &__content {
+    margin-bottom: 60px;
+  }
+
   &__btn {
-    width: 426px;
+    width: 400px;
+    border-radius: 6px;
   }
 }
