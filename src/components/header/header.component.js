@@ -9,6 +9,7 @@ import logoSmall from "assets/logo-small.svg";
 import "./style.scss";
 
 import HeaderAccount from "./header-account.component";
+import routesConstants from "constants/routes.constants";
 
 const Header = () => {
   const location = useLocation();
@@ -38,7 +39,10 @@ const Header = () => {
         )}
       </nav>
 
-      <HeaderAccount />
+      <Link to={routesConstants.LOGIN}>
+        <HeaderAccount />
+      </Link>
+
     </header>
   );
 };

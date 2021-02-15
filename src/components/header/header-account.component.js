@@ -8,12 +8,10 @@ const HeaderAccount = () => {
   if (isLoggedIn) return <AccountIcon />;
 
   return (
-    <>
       <Button type="secondary" className="header__login-btn">
         <span className="header__login-text">Увійти</span>
         <LoginIcon className="header__login-icon" />
       </Button>
-    </>
   );
 };
 

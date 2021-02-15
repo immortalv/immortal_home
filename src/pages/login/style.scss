@@ -1,0 +1,129 @@
+@import "styles/variables.module";
+@import "styles/media-queries.module";
+
+// login page
+.login {
+  display: flex;
+  height: 100vh;
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+    justify-content: center;
+    background-color: $theme-c-black;
+
+    &-title {
+      margin: 0 auto;
+      max-width: 473px;
+    }
+
+    &-text {
+      font-family: $theme-f-exo;
+      font-size: 24px;
+      line-height: 36px;
+      color: $theme-c-white;
+    }
+
+    &-signature {
+      font-family: $theme-f-opensans;
+      color: $theme-c-white;
+      line-height: 24px;
+      font-size: 16px;
+    }
+  }
+
+  &__main {
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: $theme-c-white;
+}
+
+  &__entrance {
+    &-title {
+      color: $theme-c-black;
+      font-family: $theme-f-exo;
+      font-size: 24px;
+      font-weight: 700;
+      text-align: center;
+    }
+  }
+}
+
+.login__description-text::before {
+    content: open-quote;
+    position: absolute;
+    font-family: $theme-f-gayathri;
+    font-size: 96px;
+}
+
+
+// login form
+
+.login__form {
+  flex-direction: column;
+  display: flex;
+  margin: 0 auto;
+  width: 426px;
+
+  &-input {
+    margin-bottom: 21px;
+    border: 1px solid $theme-c-black;
+    border-radius: 6px;
+    padding: 19px 30px;
+    
+    font-family: $theme-f-opensans;
+    font-size: 16px;
+
+    line-height: 24px;
+  }
+
+  &-text {
+    margin-bottom: 12px;
+
+    font-family: $theme-f-opensans;
+    font-size: 16px;
+  }
+
+  &-button {
+    font-family: $theme-f-opensans;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background-color: $theme-c-black;
+    border-radius: 6px;
+    color: $theme-c-white;
+    padding: 20px 0px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  &-social {
+    font-family: $theme-f-opensans;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background-color: #fff;
+    border-radius: 6px;
+    color: $theme-c-black;
+    padding: 20px 0px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+
+// style not yet login?
+.registration__page {
+  margin-bottom: 42px;
+
+  &-title {
+    font-family: $theme-f-inter;
+    font-size: 12px;
+  }
+
+  &-text {
+    text-decoration: underline;
+    color: $theme-c-black;
+  }
+}
