@@ -2,8 +2,7 @@ import React from "react";
 import { dispatch } from "store";
 import { Button } from "components/common";
 import HeaderDark from "./header/header-dark";
-
-import SelectProfile from "./steps/select-profile.component";
+import { SelectProfile, AddProfileMainInfo } from "./steps";
 
 import "./style.scss";
 
@@ -20,7 +19,8 @@ const AddProfile = () => {
       <HeaderDark />
       <h1 className="title add-profile__title">Додати профіль</h1>
       <div className="add-profile__content">
-        <SelectProfile />
+        {/* <SelectProfile /> */}
+        <AddProfileMainInfo />
       </div>
       <Button type="secondary" className="add-profile__btn">
         Реєстрація
