@@ -1,0 +1,37 @@
+@import "styles/variables.module";
+@import "styles/media-queries.module";
+
+.header-dark {
+  display: flex;
+  align-items: center;
+  padding: 20px 60px;
+  height: 150px;
+  background-color: $theme-c-black;
+
+  &__logo {
+    width: 300px;
+    height: 50px;
+
+    path {
+      fill: $theme-c-white;
+    }
+  }
+
+  &__btn {
+    margin-left: auto;
+  }
+}
+
+.btn-back {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  color: $theme-c-white;
+  font-size: 24px;
+
+  &__icon {
+    margin-right: 20px;
+  }
+}

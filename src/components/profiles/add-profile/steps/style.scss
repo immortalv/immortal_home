@@ -1,0 +1,28 @@
+.select-profile {
+  display: flex;
+  justify-content: center;
+
+  &__item {
+    cursor: pointer;
+    width: 312px;
+    transition: transform 0.2s ease;
+    margin: 0 35px;
+
+    &--active {
+      transform: scale(1.1);
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.add-profile__main-info {
+  width: 100%;
+}
+
+.add-profile__description {
+  width: 100%;
+  height: 365px;
+}
