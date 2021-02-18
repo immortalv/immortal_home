@@ -8,9 +8,9 @@ import "./style.scss";
 function App() {
   return (
     <div className="App">
-      <Header />
+      {/* <Header /> */}
       <AppRouter />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

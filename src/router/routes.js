@@ -1,6 +1,6 @@
 import routesConstants from "constants/routes.constants";
 import HomePage from "pages/home";
-import LoginPage from "pages/login/login.page";
+import LoginPage from "pages/auth/auth.page";
 
 import { ProfilesPage, ProfilePage } from "pages/profiles";
 
