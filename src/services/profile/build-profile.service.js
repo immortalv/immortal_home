@@ -1,6 +1,6 @@
 import { ADD_PROFILE_STEPS } from "constants/profile.constants";
 
-class ProfileService {
+class BuildProfileService {
   constructor() {
     this.steps = ADD_PROFILE_STEPS;
     this.activeIndex = 0;
@@ -19,4 +19,4 @@ class ProfileService {
   }
 }
 
-export default ProfileService;
+export default BuildProfileService;

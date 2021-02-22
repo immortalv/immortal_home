@@ -3,25 +3,23 @@ import clsx from "clsx";
 
 import "./style.scss";
 
-const FormField = ({
+const DateField = ({
   label,
   placeholder = "",
-  type = "text",
   name = "",
   className,
   onChange,
-  attribute: Attribute = "input",
 }) => {
   return (
-    <div className={clsx("form-field", `form-field--${type}`, className)}>
+    <div className={clsx("form-field date", className)}>
       {label && (
         <label className="form-field__label" htmlFor={label}>
           {label}
         </label>
       )}
-      <Attribute
-        className="form-field__input"
-        type={type}
+      <input
+        className="form-field__input date__input"
+        type="date"
         name={name}
         id={label}
         placeholder={placeholder}
@@ -31,4 +29,4 @@ const FormField = ({
   );
 };
 
-export default FormField;
+export default DateField;

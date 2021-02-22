@@ -1,4 +1,3 @@
-import SelectProfile from "./select-profile.component";
-import AddProfileMainInfo from "./main-info.component";
-
-export { SelectProfile, AddProfileMainInfo };
+export { default as SelectProfile } from "./select-profile.component";
+export { default as MainInfo } from "./main-info.component";
+export { default as AdditionalInfo } from "./additional-info.component";

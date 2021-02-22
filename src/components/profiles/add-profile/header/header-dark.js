@@ -3,11 +3,11 @@ import { LogoIcon, ChevronLeftIcon } from "icons";
 
 import "./style.scss";
 
-const HeaderDark = () => {
+const HeaderDark = ({ onBackClick }) => {
   return (
     <header className="header-dark">
       <LogoIcon className="header-dark__logo" />
-      <button className="btn-back header-dark__btn">
+      <button onClick={onBackClick} className="btn-back header-dark__btn">
         <ChevronLeftIcon className="btn-back__icon" />
         Назад
       </button>

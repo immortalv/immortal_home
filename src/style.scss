@@ -2,7 +2,7 @@
 
 .App {
     max-width: 1440px;
-    height: 100vh;
+    min-height: 100vh;
     margin: auto;
     position: relative;
     background-color: $theme-c-mercury;
