@@ -4,9 +4,9 @@ import Footer from "components/footer";
 
 const App = ({ children }) => (
   <>
-    <Header />
+    {/* <Header /> */}
     {children}
-    <Footer />
+    {/* <Footer /> */}
   </>
 );
 

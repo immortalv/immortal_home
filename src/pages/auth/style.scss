@@ -14,11 +14,14 @@
     background-color: $theme-c-black;
 
     &-title {
+      position: relative;
       margin: 0 auto;
       max-width: 473px;
     }
 
     &-text {
+      padding: 0;
+      margin: 0;
       font-family: $theme-f-exo;
       font-size: 24px;
       line-height: 36px;
@@ -59,8 +62,21 @@
     font-size: 96px;
 }
 
+.login__description-text::after {
+  content: "";
+  border-bottom: 15px solid;
+  border-right: 15px solid;
+  width: 33px;
+  height: 33px;
+  bottom: -33px;
+  position: absolute;
+  font-family: "Gayathri";
+  font-size: 96px;
+}
 
-// login form
+
+
+// login wrapper
 
 .login__form {
   flex-direction: column;
@@ -68,26 +84,8 @@
   margin: 0 auto;
   width: 426px;
 
-  &-input {
-    margin-bottom: 21px;
-    border: 1px solid $theme-c-black;
-    border-radius: 6px;
-    padding: 19px 30px;
-    
-    font-family: $theme-f-opensans;
-    font-size: 16px;
-
-    line-height: 24px;
-  }
-
-  &-text {
-    margin-bottom: 12px;
-
-    font-family: $theme-f-opensans;
-    font-size: 16px;
-  }
-
   &-button {
+    margin-top: 24px;
     font-family: $theme-f-opensans;
     font-weight: 700;
     margin-bottom: 8px;

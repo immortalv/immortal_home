@@ -8,8 +8,9 @@ const FormField = ({
   placeholder = "",
   type = "text",
   className,
+  value,
   onChange,
-  type: Type = "input",
+  tag: Tag = "input",
 }) => {
   return (
     <div className={clsx("form-field", `form-field--${type}`, className)}>
@@ -18,11 +19,12 @@ const FormField = ({
           {label}
         </label>
       )}
-      <Type
+      <Tag
         className="form-field__input"
         type={type}
         id={label}
         placeholder={placeholder}
+        value={value}
         onChange={onChange}
       />
     </div>
