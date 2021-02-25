@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FormField from 'components/common/form-field/form-field.component';
 import GoogleIcon from "icons/google-icon.component";
 import FacebookIcon from "icons/facebook-icon.component";
@@ -6,27 +6,16 @@ import AppleIcon from "icons/apple-icon.component";
 
 import "./style.scss";
 
-class AuthPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-    };
+const AuthPage = () => {
+  const [ state, setState ] = useState({email: '', password: ''});
 
-    
-  }
-
-  handleChange (e) {
+ const handleChange = (e) => {
     const value = e.target.value;
-    this.setState({
-      ...this.state,
+      setState({
+      ...state,
       [e.target.name]: value,
-});
-  }
-
-  render () {
-    const { email, password } = this.state;
+  });
+}
 
     return(
       <main className="login">
@@ -46,23 +35,17 @@ class AuthPage extends React.Component {
             <h2 className="login__entrance-title">Вхід</h2>
             <div className="login__form">
               <FormField
-                value={email}
-                onChange={(event) => {
-                  this.setState({
-                    email: event.target.value
-                  })
-                }}
+                value={state.email}
+                name="email"
+                onChange={handleChange}
                 type="email"
                 label="Email*"
                 placeholder="Впишіть актуальну поштову адресу"
               />
               <FormField
-                value={password}
-                onChange={(event) => {
-                  this.setState({
-                    password: event.target.value
-                  })
-                }}
+                value={state.password}
+                name="password"
+                onChange={handleChange}
                 type="password"
                 label="Пароль*"
               />
@@ -96,7 +79,7 @@ class AuthPage extends React.Component {
   
       </main>
     )
-  }
+  // }
 }
 
 export default AuthPage;

@@ -9,6 +9,7 @@ const FormField = ({
   type = "text",
   className,
   value,
+  name,
   onChange,
   tag: Tag = "input",
 }) => {
@@ -22,6 +23,7 @@ const FormField = ({
       <Tag
         className="form-field__input"
         type={type}
+        name={name}
         id={label}
         placeholder={placeholder}
         value={value}
