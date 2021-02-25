@@ -3,7 +3,7 @@
 
 .form-field {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   width: 350px;
   max-width: 100%;
 
@@ -53,6 +53,37 @@
 
   .form-field__label {
     margin: 0 auto 10px;
+  }
+}
+
+.form-field--radio {
+  display: inline-block;
+  max-width: max-content;
+
+  .form-field__label {
+    cursor: pointer;
+    background: #f9f9f9;
+    border: 1px solid #212121;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #494949;
+
+    padding: 8px 12px;
+  }
+
+  .form-field__input {
+    display: none;
+    appearance: none;
+    -webkit-appearance: none;
+
+    &:checked {
+      display: block;
+    }
+
+    &:checked + .form-field__label {
+      background: #494949;
+      color: #f9f9f9;
+    }
   }
 }
 

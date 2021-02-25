@@ -8,7 +8,7 @@ const AddProfileAdditionalInfo = ({ profile = {}, onSubmit }) => {
   const [state, setState] = useState({
     birthDate: "",
     deathDate: "",
-    profileType: "publick",
+    profileType: "public",
     epitaph: "",
   });
 
@@ -31,12 +31,40 @@ const AddProfileAdditionalInfo = ({ profile = {}, onSubmit }) => {
 
   return (
     <>
-      <h1 className="title add-profile__title">Розкажіть про людину</h1>
+      <h1 className="title add-profile__title">Вкажіть інформацію</h1>
       <div className="add-profile__content">
         <div className="add-profile__main-info">
           {/* <DateField label="Дата народження" /> */}
-          <FormField type="date" label="Дата народження" />
-          <FormField type="date" label="Дата смерті" />
+          <FormField
+            className="add-profile__date"
+            type="date"
+            label="Дата народження"
+          />
+          <FormField
+            className="add-profile__date"
+            type="date"
+            label="Дата смерті"
+          />
+
+          <div className="profile-type__container">
+            <label className="form-field__label">Публічність профілю</label>
+            <div className="form-radio-group">
+              <FormField
+                className="form-field__radio"
+                type="radio"
+                label="Публічний"
+                id="profile-type-public"
+                name="profileType"
+              />
+              <FormField
+                className="form-field__radio"
+                type="radio"
+                label="Приватний"
+                id="profile-type-private"
+                name="profileType"
+              />
+            </div>
+          </div>
           {/* <FormField
             className="add-profile__epitaph"
             placeholder="Починайте тут..."

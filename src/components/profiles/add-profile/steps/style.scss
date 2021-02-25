@@ -1,7 +1,6 @@
 @import "styles/variables.module";
 @import "styles/media-queries.module";
 
-
 .select-profile {
   display: flex;
   flex-wrap: wrap;
@@ -35,7 +34,7 @@
 .add-profile__description {
   width: 100%;
   height: 385px;
-  
+
   .form-field__label {
     margin-bottom: 20px;
   }
@@ -47,4 +46,23 @@
 
 .add-profile__description--secondary {
   height: 450px;
+}
+
+.add-profile__date {
+  margin-bottom: 50px;
+}
+
+.form-radio-group {
+  display: flex;
+
+  .form-field {
+    margin: 20px;
+  }
+}
+
+.profile-type__container {
+  width: 350px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
