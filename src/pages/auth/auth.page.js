@@ -1,5 +1,8 @@
 import React from 'react';
 import FormField from 'components/common/form-field/form-field.component';
+import GoogleIcon from "icons/google-icon.component";
+import FacebookIcon from "icons/facebook-icon.component";
+import AppleIcon from "icons/apple-icon.component";
 
 import "./style.scss";
 
@@ -10,26 +13,37 @@ class AuthPage extends React.Component {
       email: '',
       password: '',
     };
+
+    
   }
+
+  handleChange (e) {
+    const value = e.target.value;
+    this.setState({
+      ...this.state,
+      [e.target.name]: value,
+});
+  }
+
   render () {
     const { email, password } = this.state;
 
     return(
       <main className="login">
-        <div className="login__description">
-          <div className="login__description-title"> 
-            <blockquote className="login__description-text">
+        <div className="quote__block">
+          <div className="quote__block-wrapper"> 
+            <blockquote className="quote__block-text">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             Aliquet mauris facilisis amet, dignissim fermentum venenatis ultrices
             mattis elementum. Feugiat non cursus sollicitudin etiam egestas vel in.
             Aliquet ornare a urna amet gravida.
             </blockquote>
-            <span className="login__description-signature">Khtos Tam</span>
+            <span className="quote__block-signature">Khtos Tam</span>
         </div>
         </div>
         <div className="login__main">
           <div className="login__entrance">
-            <p className="login__entrance-title">Вхід</p>
+            <h2 className="login__entrance-title">Вхід</h2>
             <div className="login__form">
               <FormField
                 value={email}
@@ -64,9 +78,18 @@ class AuthPage extends React.Component {
                 </a>
                 </span>
               </div>
-              <button type="button" className="login__form-social">Вхід через Google</button>
-              <button type="button" className="login__form-social">Вхід через Facebook</button>
-              <button type="button" className="login__form-social">Вхід через Apple</button>
+              <button type="button" className="login__form-social">
+                <GoogleIcon  className="login__icon"/>
+                Вхід через Google
+              </button>
+              <button type="button" className="login__form-social">
+                <FacebookIcon  className="login__icon-facebook"/>
+                Вхід через Facebook
+              </button>
+              <button type="button" className="login__form-social">
+                <AppleIcon  className="login__icon"/>
+                Вхід через Apple
+              </button>
             </div>
           </div>
         </div>

@@ -8,6 +8,8 @@ import { ProfilesPage, ProfilePage } from "pages/profiles";
 import CabinetPage from "pages/cabinet";
 import AddProfile from "components/profiles/add-profile";
 
+// this is main routes with main layout
+
 const routes = [
   {
     name: "Головна",
@@ -44,12 +46,7 @@ const routes = [
     path: routesConstants.RULES,
     component: HomePage,
   },
-  {
-    name: "Увійти",
-    exact: true,
-    path: routesConstants.LOGIN,
-    component: LoginPage,
-  },
+
   {
     exact: true,
     path: "/*",
@@ -63,6 +60,12 @@ export const subRoutes = [
     path: routesConstants.ADD_PROFILE,
     checkAccess: () => store.getState().user.isAuthenticated,
     component: AddProfile,
+  },
+  {
+    name: "Увійти",
+    exact: true,
+    path: routesConstants.LOGIN,
+    component: LoginPage,
   },
 ];
 
