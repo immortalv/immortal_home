@@ -38,7 +38,8 @@ const Header = () => {
         )}
       </nav>
 
-      <HeaderAccount />
+        <HeaderAccount />
+
     </header>
   );
 };

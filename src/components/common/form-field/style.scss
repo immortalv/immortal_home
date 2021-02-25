@@ -7,9 +7,8 @@
   text-align: left;
 
   &__label {
-    font-family: Exo 2;
+    font-family: $theme-f-exo;
     font-style: normal;
-    font-weight: bold;
     font-size: 24px;
     line-height: 150%;
     margin-bottom: 10px;
@@ -17,7 +16,7 @@
   }
 
   &__input {
-    width: 350px;
+    width: 426px;
     max-width: 100%;
     height: 45px;
     background: $theme-c-alabaster;
