@@ -1,0 +1,148 @@
+@import "styles/variables.module";
+@import "styles/media-queries.module";
+
+// login page
+.login {
+  display: flex;
+  height: 100vh;
+
+  &__main {
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: $theme-c-white;
+}
+
+  &__entrance {
+    &-title {
+      color: $theme-c-black;
+      font-family: $theme-f-exo;
+      font-size: 24px;
+      font-weight: 700;
+      text-align: center;
+    }
+  }
+}
+
+
+// quote__block
+
+.quote__block {
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+    justify-content: center;
+    background-color: $theme-c-black;
+
+    @include  for-phablet {
+      display: none;
+    }
+
+    &-wrapper {
+      position: relative;
+      margin: 0 auto;
+      max-width: 473px;
+    }
+
+    &-text {
+      padding: 0;
+      margin: 0;
+      font-family: $theme-f-exo;
+      font-size: 24px;
+      line-height: 36px;
+      color: $theme-c-white;
+
+      &::before {
+        content: open-quote;
+        position: absolute;
+        font-family: $theme-f-gayathri;
+        font-size: 96px;
+      }
+
+      &::after {
+        content: "";
+        border-bottom: 15px solid;
+        border-right: 15px solid;
+        width: 33px;
+        height: 33px;
+        bottom: -33px;
+        right: 5px;
+        position: absolute;
+        font-family: "Gayathri";
+        font-size: 96px;
+      }
+    }
+
+    &-signature {
+      font-family: $theme-f-opensans;
+      color: $theme-c-white;
+      line-height: 24px;
+      font-size: 16px;
+    }
+}
+
+
+// login wrapper
+
+.login__form {
+  flex-direction: column;
+  display: flex;
+  margin: 0 auto;
+  width: 426px;
+
+  &-button {
+    margin-top: 24px;
+    font-family: $theme-f-opensans;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background-color: $theme-c-black;
+    border-radius: 6px;
+    color: $theme-c-white;
+    padding: 20px 0px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  &-social {
+    font-family: $theme-f-opensans;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background-color: #fff;
+    border-radius: 6px;
+    color: $theme-c-black;
+    padding: 20px 0px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+.login__icon {
+    display: inline-block;
+    vertical-align: text-bottom;
+    position: relative;
+    right: 100px;
+
+    &-facebook {
+      display: inline-block;
+      vertical-align: text-bottom;
+      position: relative;
+      right: 90px;
+    }
+}
+
+
+// style not yet login?
+.registration__page {
+  margin-bottom: 42px;
+
+  &-title {
+    font-family: $theme-f-inter;
+    font-size: 12px;
+  }
+
+  &-text {
+    text-decoration: underline;
+    color: $theme-c-black;
+  }
+}
