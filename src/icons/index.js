@@ -6,6 +6,9 @@ import AccountIcon from "./account-icon.component";
 import LoginIcon from "./login-icon.component";
 import LogoIcon from "./logo-icon.component";
 import ChevronLeftIcon from "./chevron-left-icon.component";
+import GoogleIcon from "./google-icon.component";
+import FacebookIcon from "./facebook-icon.component";
+import AppleIcon from "./apple-icon.component";
 
 export {
   PeopleGroupIcon,
@@ -16,4 +19,7 @@ export {
   LoginIcon,
   LogoIcon,
   ChevronLeftIcon,
+  GoogleIcon,
+  FacebookIcon,
+  AppleIcon,
 };

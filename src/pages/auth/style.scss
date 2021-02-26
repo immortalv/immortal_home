@@ -1,18 +1,26 @@
 @import "styles/variables.module";
 @import "styles/media-queries.module";
 
-// login page
-.login {
+// auth page
+.auth {
   display: flex;
   height: 100vh;
+
+  &__logo {
+    margin: 0 auto;
+    width: 245px;
+    height: 40px;
+  }
 
   &__main {
     flex: auto;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    position: relative;
+    padding: 20px 40px;
     background-color: $theme-c-white;
-}
+  }
 
   &__entrance {
     &-title {
@@ -23,116 +31,125 @@
       text-align: center;
     }
   }
-}
 
+  &__form {
+    flex-direction: column;
+    display: flex;
+    margin: 0 auto;
+    width: 30vw;
+    min-width: 300px;
+
+    @include for-phablet {
+      width: 50vw;
+    }
+  }
+
+  &__form-field {
+    width: 100%;
+    margin-bottom: 15px;
+
+    .form-field__label {
+      font-size: 16px;
+      font-family: $theme-f-opensans;
+    }
+
+    @include for-phablet {
+      max-width: 100%;
+
+      .form-field__input {
+        height: 45px;
+      }
+    }
+  }
+
+  &__button-back.btn-back {
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    font-size: 22px;
+    color: #212121;
+
+    .btn-back__icon {
+      height: 22px;
+      margin-right: 12px;
+
+      path {
+        fill: #212121;
+      }
+    }
+  }
+
+  &__button {
+    margin: 10px 0 8px;
+    font-family: $theme-f-opensans;
+    border-radius: 6px;
+  }
+
+  &__button-social {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: center;
+    grid-template-columns: 1fr 8fr;
+    margin-top: 8px;
+    font-family: $theme-f-opensans;
+    background-color: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+  }
+}
 
 // quote__block
-
 .quote__block {
-    display: flex;
-    flex-direction: column;
-    flex: auto;
+  &-container {
+    display: grid;
     justify-content: center;
-    background-color: $theme-c-black;
 
-    @include  for-phablet {
+    flex: auto;
+    background-color: $theme-c-black;
+    padding: 40px 40px 20px;
+    color: $theme-c-white;
+
+    @include for-phablet {
       display: none;
     }
-
-    &-wrapper {
-      position: relative;
-      margin: 0 auto;
-      max-width: 473px;
-    }
-
-    &-text {
-      padding: 0;
-      margin: 0;
-      font-family: $theme-f-exo;
-      font-size: 24px;
-      line-height: 36px;
-      color: $theme-c-white;
-
-      &::before {
-        content: open-quote;
-        position: absolute;
-        font-family: $theme-f-gayathri;
-        font-size: 96px;
-      }
-
-      &::after {
-        content: "";
-        border-bottom: 15px solid;
-        border-right: 15px solid;
-        width: 33px;
-        height: 33px;
-        bottom: -33px;
-        right: 5px;
-        position: absolute;
-        font-family: "Gayathri";
-        font-size: 96px;
-      }
-    }
-
-    &-signature {
-      font-family: $theme-f-opensans;
-      color: $theme-c-white;
-      line-height: 24px;
-      font-size: 16px;
-    }
-}
-
-
-// login wrapper
-
-.login__form {
-  flex-direction: column;
-  display: flex;
-  margin: 0 auto;
-  width: 426px;
-
-  &-button {
-    margin-top: 24px;
-    font-family: $theme-f-opensans;
-    font-weight: 700;
-    margin-bottom: 8px;
-    background-color: $theme-c-black;
-    border-radius: 6px;
-    color: $theme-c-white;
-    padding: 20px 0px;
-    font-size: 16px;
-    line-height: 24px;
   }
 
-  &-social {
-    font-family: $theme-f-opensans;
-    font-weight: 700;
-    margin-bottom: 8px;
-    background-color: #fff;
-    border-radius: 6px;
-    color: $theme-c-black;
-    padding: 20px 0px;
-    font-size: 16px;
-    line-height: 24px;
-  }
-}
-
-.login__icon {
-    display: inline-block;
-    vertical-align: text-bottom;
+  &-text {
     position: relative;
-    right: 100px;
+    max-width: 473px;
+    padding: 0;
+    margin: 0;
+    font-family: $theme-f-exo;
+    font-size: 24px;
+    line-height: 36px;
 
-    &-facebook {
-      display: inline-block;
-      vertical-align: text-bottom;
-      position: relative;
-      right: 90px;
+    &::before {
+      content: open-quote;
+      position: absolute;
+      font-family: $theme-f-gayathri;
+      font-size: 96px;
+      left: 0;
+      top: 15px;
     }
+
+    &::after {
+      content: "";
+      position: absolute;
+      right: 10px;
+      bottom: -60px;
+      border-bottom: 13px solid #f3f3f3;
+      border-right: 13px solid #f3f3f3;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &-figcaption {
+    font-family: $theme-f-opensans;
+    margin-top: 10px;
+  }
 }
 
-
-// style not yet login?
+// style not yet auth?
 .registration__page {
   margin-bottom: 42px;
 
