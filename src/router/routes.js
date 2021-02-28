@@ -1,6 +1,14 @@
+import { store } from "store";
 import routesConstants from "constants/routes.constants";
 import HomePage from "pages/home";
+import LoginPage from "pages/auth/auth.page";
+
 import { ProfilesPage, ProfilePage } from "pages/profiles";
+// import LoginPage from "pages/login";
+import CabinetPage from "pages/cabinet";
+import AddProfile from "components/profiles/add-profile";
+
+// this is main routes with main layout
 
 const routes = [
   {
@@ -27,8 +35,9 @@ const routes = [
     name: "Кабінет",
     isInNavigation: true,
     exact: true,
+    checkAccess: () => store.getState().user.isAuthenticated,
     path: routesConstants.CABINET,
-    component: HomePage,
+    component: CabinetPage,
   },
   {
     name: "Правила",
@@ -37,16 +46,26 @@ const routes = [
     path: routesConstants.RULES,
     component: HomePage,
   },
-  {
-    name: "Ввійти",
-    exact: true,
-    path: routesConstants.LOGIN,
-    component: HomePage,
-  },
+
   {
     exact: true,
     path: "/*",
     component: HomePage,
+  },
+];
+
+export const subRoutes = [
+  {
+    exact: true,
+    path: routesConstants.ADD_PROFILE,
+    checkAccess: () => store.getState().user.isAuthenticated,
+    component: AddProfile,
+  },
+  {
+    name: "Увійти",
+    exact: true,
+    path: routesConstants.LOGIN,
+    component: LoginPage,
   },
 ];
 

@@ -7,6 +7,8 @@ const routesConstants = {
   CABINET: "/cabinet",
   RULES: "/rules",
   LOGIN: "/login",
+
+  ADD_PROFILE: "/add-profile",
 };
 
 export default routesConstants;

@@ -1,5 +1,9 @@
+@import "styles/variables.module"; 
+
 .App {
     max-width: 1440px;
+    min-height: 100vh;
     margin: auto;
     position: relative;
+    background-color: $theme-c-mercury;
 }

@@ -1,0 +1,60 @@
+@import "styles/variables.module";
+@import "styles/media-queries.module";
+
+.header-dark {
+  display: flex;
+  align-items: center;
+  padding: 20px 60px;
+  height: 150px;
+  max-height: 10vh;
+  min-height: 80px;
+  background-color: $theme-c-black;
+
+  @include for-phablet {
+    padding: 10px 30px;
+  }
+
+  &__logo {
+    width: 300px;
+    height: 50px;
+    max-height: 100%;
+
+    @include for-phablet {
+      width: 200px;
+    }
+
+    @include for-phone-only {
+      width: 150px;
+    }
+
+    path {
+      fill: $theme-c-white;
+    }
+  }
+
+  &__btn {
+    margin-left: auto;
+  }
+}
+
+.btn-back {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  color: $theme-c-white;
+  font-size: 24px;
+
+  @include for-phablet {
+    font-size: 20px;
+  }
+
+  &__icon {
+    margin-right: 20px;
+
+    @include for-phablet {
+      height: 20px;
+    }
+  }
+}
