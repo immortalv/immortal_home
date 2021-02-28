@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import routesConstants from "constants/routes.constants";
-import { Button, FormField } from "components/common";
+// import { Button } from "components/common";
 import {
   LogoIcon,
   ChevronLeftIcon,
@@ -10,21 +10,16 @@ import {
   GoogleIcon,
 } from "icons";
 
+import AuthComponent from "./auth.component";
+
 import "./style.scss";
 
 const AuthPage = () => {
-  const [state, setState] = useState({ email: "", password: "" });
+  const [isRegistration, setIsRegistration] = useState(false);
   const history = useHistory();
 
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setState({
-      ...state,
-      [e.target.name]: value,
-    });
-  };
-
   const goBack = () => {
+    if (isRegistration) return setIsRegistration(false);
     if (history.length > 1) return history.goBack();
     history.push(routesConstants.HOME);
   };
@@ -50,54 +45,41 @@ const AuthPage = () => {
           Назад
         </button>
         <div className="auth__entrance">
-          <h1 className="auth__entrance-title">Вхід</h1>
+          <h1 className="auth__entrance-title mbs">
+            {isRegistration ? "Реєстрація приватного акаунту" : "Вхід"}
+          </h1>
           <div className="auth__form">
-            <FormField
-              className="auth__form-field"
-              value={state.email}
-              name="email"
-              onChange={handleChange}
-              type="email"
-              label="Email*"
-              placeholder="Впишіть актуальну поштову адресу"
-            />
-            <FormField
-              className="auth__form-field"
-              value={state.password}
-              name="password"
-              onChange={handleChange}
-              type="password"
-              label="Пароль*"
-            />
-            <Button type="secondary" className="auth__button">
-              ВХІД
-            </Button>
-            <div className="registration__page">
-              <span className="registration__page-title">
+            <AuthComponent isRegistration={isRegistration} />
+
+            {!isRegistration && (
+              <span className="auth__register">
                 Ще немає облікового запису?
-                <a href="#" className="registration__page-text">
+                <button
+                  onClick={() => setIsRegistration(true)}
+                  className="auth__register-button"
+                >
                   Зареєструватись
-                </a>
+                </button>
               </span>
-            </div>
-            <Button className="auth__button auth__button-social">
+            )}
+
+            {/* <Button className="auth__button auth__button-social mtm">
               <GoogleIcon className="auth__button-icon auth__button-icon" />
-              Вхід через Google
+              {`${isRegistration ? "Реєстрація" : "Вхід"} через Google`}
             </Button>
             <Button className="auth__button auth__button-social">
               <FacebookIcon className="auth__button-icon auth__button-icon-facebook" />
-              Вхід через Facebook
+              {`${isRegistration ? "Реєстрація" : "Вхід"} через Facebook`}
             </Button>
             <Button className="auth__button auth__button-social">
               <AppleIcon className="auth__button-icon" />
-              Вхід через Apple ID
-            </Button>
+              {`${isRegistration ? "Реєстрація" : "Вхід"} через  Apple ID`}
+            </Button> */}
           </div>
         </div>
       </div>
     </main>
   );
-  // }
 };
 
 export default AuthPage;

@@ -1,28 +1,26 @@
 import React from "react";
-import { dispatch } from "store";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { Button } from "components/common";
 import { AccountIcon, LoginIcon } from "icons";
-import { Link, useLocation } from "react-router-dom";
 import routesConstants from "constants/routes.constants";
 
-const userData = {
-  // name: "Some random nmae",
-  email: "qsdasd@gmail.com",
-  password: "asddasd121",
-};
-
 const HeaderAccount = () => {
-  const isLoggedIn = false;
+  const { isAuthenticated, name } = useSelector((state) => state.user);
 
-  if (isLoggedIn) return <AccountIcon />;
+  if (isAuthenticated)
+    return (
+      <Link to={routesConstants.CABINET}>
+        <div className="header__account">
+          <span className="header__account-name">{name}</span>
+          <AccountIcon className="header__account-icon" />
+        </div>
+      </Link>
+    );
 
   return (
     <Link to={routesConstants.LOGIN}>
-      <Button
-        type="secondary"
-        className="header__login-btn"
-        onClick={() => dispatch.user.signIn(userData)}
-      >
+      <Button type="secondary" className="header__login-btn">
         <span className="header__login-text">Увійти</span>
         <LoginIcon className="header__login-icon" />
       </Button>

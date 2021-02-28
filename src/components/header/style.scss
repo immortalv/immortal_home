@@ -61,7 +61,7 @@
     }
 
     @include for-phablet {
-     margin: 0 5px;
+      margin: 0 5px;
     }
 
     @include for-phone-only {
@@ -100,6 +100,31 @@
       @include for-phone-only {
         display: inline-block;
       }
+    }
+  }
+
+  &__account {
+    display: flex;
+    align-items: center;
+    min-width: max-content;
+  }
+
+  &__account-name {
+    margin-right: 10px;
+    font-family: $theme-f-opensans;
+    font-weight: bold;
+    color: #212121;
+
+    @include for-phablet {
+      display: none;
+    }
+  }
+
+  &__account-icon {
+    width: 45px;
+
+    @include for-phone-only {
+      width: 35px;
     }
   }
 }

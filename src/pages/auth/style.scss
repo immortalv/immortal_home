@@ -44,21 +44,33 @@
     }
   }
 
-  &__form-field {
+  .form-field {
     width: 100%;
+    max-width: 450px;
     margin-bottom: 15px;
+  }
 
-    .form-field__label {
-      font-size: 16px;
-      font-family: $theme-f-opensans;
-    }
+  .form-field__label {
+    display: inline-block;
+    font-size: 16px;
+    font-family: $theme-f-opensans;
+    margin: 20px 0 8px;
+  }
 
-    @include for-phablet {
-      max-width: 100%;
+  .form-field__input {
+    width: 100%;
+    max-width: 450px;
+  }
 
-      .form-field__input {
-        height: 45px;
-      }
+  .form-field__input-container {
+    margin-bottom: 25px;
+  }
+
+  @include for-phablet {
+    max-width: 100%;
+
+    .form-field__input {
+      height: 45px;
     }
   }
 
@@ -80,6 +92,8 @@
   }
 
   &__button {
+    width: 100%;
+    max-width: 450px;
     margin: 10px 0 8px;
     font-family: $theme-f-opensans;
     border-radius: 6px;
@@ -149,17 +163,62 @@
   }
 }
 
-// style not yet auth?
-.registration__page {
-  margin-bottom: 42px;
+.auth__register {
+  margin-top: 5px;
+  font-family: $theme-f-inter;
+  font-size: 14px;
+  color: rgba(33, 33, 33, 0.5);
 
-  &-title {
-    font-family: $theme-f-inter;
-    font-size: 12px;
-  }
-
-  &-text {
+  &-button {
+    cursor: pointer;
+    color: rgba(33, 33, 33, 0.5);
     text-decoration: underline;
-    color: $theme-c-black;
+    border: none;
   }
+}
+
+.mlb {
+  margin-left: 60px;
+}
+.mlm {
+  margin-left: 40px;
+}
+.mls {
+  margin-left: 20px;
+}
+
+.mtb {
+  margin-top: 60px;
+}
+.mtm {
+  margin-top: 40px;
+}
+.mts {
+  margin-top: 20px;
+}
+
+.mbb {
+  margin-bottom: 60px;
+}
+.mbm {
+  margin-bottom: 40px;
+}
+.mbs {
+  margin-bottom: 20px;
+}
+
+.pbb {
+  padding-bottom: 60px;
+}
+.pbm {
+  padding-bottom: 40px;
+}
+.ptm {
+  padding-top: 40px;
+}
+.pres {
+  padding-right: 10px;
+}
+.ples {
+  padding-right: 10px;
 }

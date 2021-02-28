@@ -40,6 +40,14 @@
     }
   }
 
+  &__error {
+    margin: 10px 0 5px 5px;
+    font-size: 16px;
+    color: red;
+    font-weight: bold;
+    font-family: $theme-f-exo;
+  }
+
   &__input-container {
     position: relative;
     display: flex;
@@ -129,7 +137,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  
+
   font-family: $theme-f-opensans;
   letter-spacing: 0.03em;
   text-transform: uppercase;

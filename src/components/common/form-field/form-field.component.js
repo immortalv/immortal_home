@@ -12,12 +12,14 @@ const FormField = ({
   className,
   value,
   onChange,
+  required = false,
   tag: Tag = "input",
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const tagElement = (inputType) => (
     <Tag
+      required={required}
       className="form-field__input"
       type={inputType || type}
       name={name}

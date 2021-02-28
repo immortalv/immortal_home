@@ -12,6 +12,7 @@ export const AUTH_URL = {
   REGISTER: `${BASE_AUTH_URL}/register`,
   LOGIN: `${BASE_AUTH_URL}/login`,
   LOGOUT: `${BASE_AUTH_URL}/logout`,
+  VALIDATE: `${BASE_AUTH_URL}/validate`,
   REFRESH_TOKEN: `${BASE_AUTH_URL}/refresh-tokens`,
   FORGOT_PASSWORD: `${BASE_AUTH_URL}//forgot-password`,
 };
