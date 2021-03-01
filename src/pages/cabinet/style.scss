@@ -1,5 +1,43 @@
+@import "styles/variables.module";
+@import "styles/media-queries.module";
+
 .cabinet {
-  padding-top: var(--header-height, 90px);
+  background-color: $theme-c-white;
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+    min-width: 60vw;
+    margin: auto;
+  }
+
+  &__img-container {
+    display: inline-block;
+    width: 265px;
+    height: 265px;
+    background-color: #fff;
+    text-align: center;
+
+    transform: translateY(-50%);
+  }
+
+  &__account {
+    display: flex;
+    width: 100%;
+  }
+
+  &__account-info {
+    display: inline-block;
+    margin: 20px 40px;
+    font-size: 18px;
+  }
+
+  &__link {
+    height: fit-content;
+    margin-left: auto;
+    transform: translateY(-50%);
+  }
 
   &__btn {
     padding: 10px 50px;
