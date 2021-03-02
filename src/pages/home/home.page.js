@@ -2,7 +2,11 @@ import React from "react";
 import { IconBlock, Button } from "components/common";
 import { PeopleGroupIcon, PhoneIcon, ScriptIcon, TouchIcon } from "icons";
 
+import firsttemplate from "./assets/firsttemplate.jpg";
+import secondtemplate from "./assets/secondtemplate.jpg";
+import thirdtemplate from "./assets/thirdtemplate.jpg";
 import "./style.scss";
+
 
 const HomePage = () => {
   return (
@@ -47,21 +51,19 @@ const HomePage = () => {
         </div>
         <Button className="home__btn">Залишити пам’ятку</Button>
       </section>
-      <section className="home__otpions">
+      <section className="home__options">
         <h4 className="title">Варіанти оформлення пам’ятної сторінки:</h4>
-        <div className="block-group">
-          <IconBlock
-            icon={<ScriptIcon />}
-            text="Ви зберігаєте пам'ять за веб-сторінці"
-          />
-          <IconBlock
-            icon={<PhoneIcon />}
-            text="Створюється унікальний QR –код котрий веде на створену сторінку"
-          />
-          <IconBlock
-            icon={<TouchIcon />}
-            text="Код розміщується на унікальній таблиці або вибивається на пам’ятнику"
-          />
+        <div className="home__template">
+          <div className="home__template-block">
+            <img src={firsttemplate} className="home__template-img" />
+          </div>
+          <div className="home__template-block">
+            <img src={secondtemplate} className="home__template-img" />
+          </div>
+          <div className="home__template-block">
+            <img src={thirdtemplate} className="home__template-img" />
+          </div>
+
         </div>
       </section>
       <section className="home__top-block home__price">
