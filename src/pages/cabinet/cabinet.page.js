@@ -1,16 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { getProfileImg } from "utils/image.utils";
+import routesConstants from "constants/routes.constants";
 import { Button } from "components/common";
+import ProfileItem from "components/cabinet";
+import { ProfileAccountIcon } from "icons";
 
 import coverImg from "./cover.jpg";
 
-import routesConstants from "constants/routes.constants";
-
 import "./style.scss";
-import { ProfileAccountIcon } from "icons";
 
-const profiles = [];
+const profiles = [
+  {
+    name: "Василевська Василина",
+    description:
+      "Тисячі любителів футболу та спорту мають причини бути вдячними моїй сестрі Василині, яка поме...",
+    type: "Публічний",
+    avatar: getProfileImg("avatar-image-1", "jpg"),
+    qrCode: getProfileImg("avatar-image-1", "jpg"),
+  },
+  {
+    name: "Василевська Василина",
+    description:
+      "Тисячі любителів футболу та спорту мають причини бути вдячними моїй сестрі Василині, яка поме...",
+    type: "Публічний",
+    avatar: getProfileImg("avatar-image-1", "jpg"),
+    qrCode: getProfileImg("avatar-image-1", "jpg"),
+  },
+];
 
 const CabinetPage = () => {
   const { name } = useSelector((state) => state.user);
@@ -40,9 +58,9 @@ const CabinetPage = () => {
         </div>
 
         <div className="cabinet__profile-list">
-          {profiles.map((profile) => {
-            <div>{profile}</div>;
-          })}
+          {profiles.map((profile) => (
+            <ProfileItem key={profile.name} profile={profile} />
+          ))}
         </div>
       </div>
     </main>
