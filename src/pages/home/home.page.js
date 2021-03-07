@@ -41,8 +41,6 @@ const HomePage = () => {
           title="Пам'ять про людину живе:"
           text="її зовнішність у її фотографіях та 3D моделях, її голос у відео та аудіо записах"
         />
-      </section>
-      <section className="home__top-block home__top-block--second">
         <div className="quoute-block  quoute-block--inverted">
           <h2 className="quoute__title">
             Вдячність дітей виявляється у <br /> збереженні пам&apos;яті про
