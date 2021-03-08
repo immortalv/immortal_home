@@ -1,0 +1,32 @@
+@import "variables.module";
+@import "media-queries.module.scss";
+
+@mixin styled-scrollbar(
+  $background-color: transparent,
+  $thumb-color: $theme-c-black
+) {
+  &::-webkit-scrollbar {
+    width: 12px;
+    background-color: $background-color;
+    border: none;
+    height: 8px;
+  }
+
+  body::-webkit-scrollbar-track {
+    background-color: $background-color;
+    border: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: $thumb-color;
+  }
+}
+
+@mixin active-state {
+  &:hover,
+  &:active,
+  &:focus {
+    @content;
+  }
+}

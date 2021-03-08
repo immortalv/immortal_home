@@ -1,3 +1,7 @@
+@import "styles/variables.module";
+@import "styles/mixins.module";
+@import "styles/media-queries.module";
+
 .add-file {
   &__container {
     cursor: pointer;
@@ -22,16 +26,27 @@
     height: 100%;
   }
 
+  &__item {
+    position: relative;
+  }
+
   &__file {
     width: auto;
     height: 100%;
   }
 
-  &__icon-add {
+  &__add {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  &__icon-add {
     width: 40px;
     height: 40px;
   }
@@ -49,6 +64,38 @@
     &-icon {
       width: 30px;
       height: 30px;
+    }
+  }
+
+  &__files-container {
+    display: flex;
+    width: 100%;
+    padding: 10px 5px;
+    overflow-x: auto;
+
+    @include styled-scrollbar();
+
+    .add-file__file {
+      max-height: 200px;
+      max-width: 200px;
+      width: 100%;
+      aspect-ratio: 1/1;
+      margin: 5px 10px;
+      object-fit: contain;
+
+      @include for-phone-only {
+        max-width: 120px;
+        margin: 5px 0;
+      }
+    }
+
+    .add-file__remove {
+      transform: translate(20%, -40%);
+    }
+
+    .add-file__remove-icon {
+      width: 20px;
+      height: 20px;
     }
   }
 }

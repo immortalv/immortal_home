@@ -16,10 +16,8 @@ import "./style.scss";
 
 const AddProfile = () => {
   const history = useHistory();
-  const [activeStep, setActiveStep] = useState(
-    ADD_PROFILE_STEPS_NAME.PHOTOS
-  );
-  const { profile } = useSelector((state) => state.profile);
+  const [activeStep, setActiveStep] = useState(ADD_PROFILE_STEPS_NAME.TEMPLATE);
+  const { profile } = useSelector((state) => state);
   const setProfileInfo = (data) => dispatch.profile.setProfile(data);
 
   const nextStep = () => {
@@ -56,7 +54,7 @@ const AddProfile = () => {
             secondary
             profile={profile}
             onSubmit={handleNextStep}
-            skip={nextStep}
+            onSkip={handleNextStep}
           />
         );
       case ADD_PROFILE_STEPS_NAME.ADDITIONAL_INFORMATION:
