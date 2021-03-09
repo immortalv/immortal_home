@@ -17,6 +17,7 @@ const AddFile = ({
     accept,
     maxFiles,
     onDrop: (acceptedFiles) => {
+      console.log('acceptedFiles', acceptedFiles);
       const dataToSet = [
         ...(multipleFiles ? files : []),
         ...acceptedFiles.map((file) =>
@@ -48,6 +49,7 @@ const AddFile = ({
         className={clsx(
           "add-file__container",
           className,
+          !!files.length && "add-file__container--full",
           isDragActive && "add-file__container--active"
         )}
       >

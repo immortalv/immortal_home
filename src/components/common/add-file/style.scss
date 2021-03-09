@@ -13,6 +13,10 @@
     background: #bdbdbd;
   }
 
+  &__container--full {
+    width: fit-content;
+  }
+
   &__container--active {
     border: 4px #212121 dashed;
     background-color: #999696;
@@ -75,12 +79,15 @@
 
     @include styled-scrollbar();
 
-    .add-file__file {
+    .add-file__item {
+      margin: 5px 10px;
       max-height: 200px;
       max-width: 200px;
       width: 100%;
       aspect-ratio: 1/1;
-      margin: 5px 10px;
+    }
+
+    .add-file__file {
       object-fit: contain;
 
       @include for-phone-only {

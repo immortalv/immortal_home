@@ -187,6 +187,37 @@
   }
 }
 
+.add-profile__media-container {
+  padding: 0 20px;
+
+  .add-file__label {
+    margin-bottom: 24px;
+  }
+
+  .add-file__container {
+    max-width: 350px;
+    width: 100%;
+    margin-right: 25px;
+  }
+
+  .add-file-video,
+  .add-file-audio {
+    display: flex;
+  }
+
+  .add-file-video {
+    .add-file__container {
+      aspect-ratio: 1/1;
+      max-height: 317px;
+    }
+    
+    .add-file__item {
+      max-height: 100%;
+      // max-width: 250px;
+    }
+  }
+}
+
 .add-file__label {
   display: inline-block;
   font-family: $theme-f-opensans;
