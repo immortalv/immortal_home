@@ -94,24 +94,22 @@
   &__price {
     background: url("../../assets/home-background-price.jpg") no-repeat;
     background-size: cover;
-    height: 565px;
-    padding-bottom: 200px;
-
-    @include for-phablet {
-      height: auto;
-    }
-
-    @include for-phone-only {
-      padding: 45px 30px;
-    }
+    width: 100vw;
+    --ratio: 2.54;
+    height: calc(100vw / var(--ratio));
 
     .quoute-block {
       position: relative;
       background-color: $theme-c-white;
       height: 216px;
 
+      @include for-phone-landscape {
+        height: auto;
+      }
+
       @include for-phone-only {
-        height: 120px;
+        height: 0;
+        padding: 30px;
         max-width: 60vw;
       }
 
@@ -131,8 +129,16 @@
       height: 45px;
       padding: 10px 25px;
 
+      @include for-phone-landscape {
+        top: 150px;
+      }
+
+      @include for-phablet {
+        top: 110px
+      }
+
       @include for-phone-only {
-        top: 110px;
+        top: 50px;
       }
     }
   }
@@ -171,9 +177,9 @@
     width: 100%;
     max-width: 800px;
     padding: 25px 0;
-
+    
     @include for-tablet-landscape-up {
-      margin: 25px 0;
+      margin: 0;
     }
   }
 
