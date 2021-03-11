@@ -2,9 +2,9 @@ import React from "react";
 import { IconBlock, Button } from "components/common";
 import { PeopleGroupIcon, PhoneIcon, ScriptIcon, TouchIcon } from "icons";
 
-import FirstTemplate from "./assets/FirstTemplate.jpg";
-import SecondTemplate from "./assets/SecondTemplate.jpg";
-import ThirdTemplate from "./assets/ThirdTemplate.jpg";
+import firstTemplate from "./assets/FirstTemplate.jpg";
+import secondTemplate from "./assets/SecondTemplate.jpg";
+import thirdTemplate from "./assets/ThirdTemplate.jpg";
 import "./style.scss";
 
 
@@ -53,13 +53,13 @@ const HomePage = () => {
         <h4 className="title">Варіанти оформлення пам’ятної сторінки:</h4>
         <div className="home__template">
           <div className="home__template-block">
-            <img src={FirstTemplate} className="home__template-img" />
+            <img src={firstTemplate} className="home__template-img" />
           </div>
           <div className="home__template-block">
-            <img src={SecondTemplate} className="home__template-img" />
+            <img src={secondTemplate} className="home__template-img" />
           </div>
           <div className="home__template-block">
-            <img src={ThirdTemplate} className="home__template-img" />
+            <img src={thirdTemplate} className="home__template-img" />
           </div>
 
         </div>
