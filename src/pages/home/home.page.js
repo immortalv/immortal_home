@@ -2,9 +2,9 @@ import React from "react";
 import { IconBlock, Button } from "components/common";
 import { PeopleGroupIcon, PhoneIcon, ScriptIcon, TouchIcon } from "icons";
 
-import firstTemplate from "./assets/FirstTemplate.jpg";
-import secondTemplate from "./assets/SecondTemplate.jpg";
-import thirdTemplate from "./assets/ThirdTemplate.jpg";
+import firstTemplate from "./assets/first-template.jpg";
+import secondTemplate from "./assets/second-template.jpg";
+import thirdTemplate from "./assets/third-template.jpg";
 import "./style.scss";
 
 
