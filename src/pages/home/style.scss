@@ -98,6 +98,7 @@
     padding: 0;
     --ratio: 2.54;
     height: calc(100vw / var(--ratio));
+    max-height: 500px;
 
     .quoute-block {
       position: relative;
