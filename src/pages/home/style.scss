@@ -104,10 +104,6 @@
       background-color: $theme-c-white;
       height: 216px;
 
-      @include for-phone-only {
-        max-width: 50%;
-      }
-
       .quoute__title {
         font-size: 48px;
 
@@ -174,11 +170,9 @@
     padding: 25px 0;
 
     &--price {
-      @include for-phone-landscape {
-        width: 50%;
-      }
+      width: 60%;
 
-      @include for-phablet {
+      @include for-phone-only {
         width: 50%;
       }
     }
