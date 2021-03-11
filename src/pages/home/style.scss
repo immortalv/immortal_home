@@ -9,35 +9,9 @@
     flex-direction: column;
     align-items: center;
     padding: calc(var(--header-height) + var(--header-offset)) 120px 0;
-    background: linear-gradient(
-        180deg,
-        rgba(212, 213, 217, 0) 45.93%,
-        #d4d5d9 91.52%
-      ),
-      url("../../assets/home-background.jpg") no-repeat;
+    background: url("../../assets/home-background.jpg") no-repeat;
     width: -webkit-fill-available;
     background-size: cover;
-
-    &--second {
-      background: linear-gradient(
-          180deg,
-          #d4d5d9 0%,
-          rgba(212, 213, 217, 0) 50.66%,
-          #d4d5d9 100%
-        ),
-        url("../../assets/home-background-second.jpg") no-repeat;
-      width: -webkit-fill-available;
-      background-size: cover;
-      padding-bottom: 200px;
-
-      @include for-phablet {
-        padding-top: 45px;
-      }
-
-      @include for-phone-only {
-        padding-top: 25px;
-      }
-    }
 
     @include for-tablet-landscape-up {
       --header-offset: 30px;
@@ -53,15 +27,18 @@
   }
 
   &__btn {
+    margin-bottom: 180px;
     width: 380px;
     height: 64px;
 
     @include for-tablet-landscape-up {
+      margin-bottom: 20px;
       width: auto;
     }
   }
 
-  &__otpions {
+  &__options {
+    background-color: $theme-c-white;
     padding: 50px 0;
 
     @include for-phablet {
@@ -71,7 +48,7 @@
     .title {
       font-weight: bold;
       font-size: 40px;
-      margin-left: 110px;
+      margin-left: 90px;
 
       @include for-phablet {
         font-size: 32px;
@@ -85,58 +62,83 @@
     }
   }
 
-  &__price {
-    background: url("../../assets/home-background-price.jpg") no-repeat,
-      linear-gradient(
-        180deg,
-        #d4d5d9 0%,
-        rgba(212, 213, 217, 0) 50.66%,
-        #d4d5d9 100%
-      );
-    height: 760px;
-    padding-bottom: 200px;
+  &__template {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 90px;
 
     @include for-phablet {
-      height: auto;
+      flex-direction: column;
     }
 
-    @include for-phone-only {
-      padding: 45px 30px;
+    &-block {
+      margin-right: 32px;
+
+      @include for-phablet {
+        margin-right: 0px;
+        margin-bottom: 10px;
+        text-align: center;
+        
+      }
     }
+
+    &-img {
+      margin: auto;
+      width: 100%;
+      max-width: 300px;
+    }
+
+  }
+
+  &__price {
+    background: url("../../assets/home-background-price.jpg") no-repeat;
+    background-size: cover;
+    justify-content: center;
+    padding: 0;
+    --ratio: 2.54;
+    height: calc(100vw / var(--ratio));
 
     .quoute-block {
       position: relative;
       background-color: $theme-c-white;
       height: 216px;
 
-      @include for-phone-only {
-        height: 120px;
-        max-width: 60vw;
-      }
-
       .quoute__title {
         font-size: 48px;
 
+        @include for-phablet {
+          font-size: 36px;
+        }
+
         @include for-phone-only {
-          font-size: 24px;
+          font-size: 20px;
         }
       }
     }
 
     .home__btn {
       position: absolute;
-      bottom: 0;
       transform: translateY(50%);
+      margin-bottom: 0;
+      bottom: 0;
       height: 45px;
       padding: 10px 25px;
+
+      @include for-phone-only {
+        margin: 0;
+        padding: 0 10px;
+        font-size: 10px;
+        height: 30px;
+      }
     }
   }
 
   .block-group {
     display: flex;
+    height: 500px;
     width: 100%;
     justify-content: space-between;
-    margin-top: 120px;
 
     @include for-tablet-landscape-up {
       margin-top: 45px;
@@ -146,6 +148,11 @@
       flex-direction: column;
       align-items: center;
       margin-top: 25px;
+      margin-bottom: 100px;
+    }
+
+    @include for-phone-only {
+      margin-bottom: 20px;
     }
   }
 }
@@ -162,8 +169,12 @@
     max-width: 800px;
     padding: 25px 0;
 
-    @include for-tablet-landscape-up {
-      margin: 25px 0;
+    &--price {
+      width: 60%;
+
+      @include for-phone-only {
+        width: 50%;
+      }
     }
   }
 

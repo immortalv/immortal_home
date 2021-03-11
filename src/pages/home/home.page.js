@@ -2,7 +2,11 @@ import React from "react";
 import { IconBlock, Button } from "components/common";
 import { PeopleGroupIcon, PhoneIcon, ScriptIcon, TouchIcon } from "icons";
 
+import firstTemplate from "./assets/FirstTemplate.jpg";
+import secondTemplate from "./assets/SecondTemplate.jpg";
+import thirdTemplate from "./assets/ThirdTemplate.jpg";
 import "./style.scss";
+
 
 const HomePage = () => {
   return (
@@ -37,8 +41,6 @@ const HomePage = () => {
           title="Пам'ять про людину живе:"
           text="її зовнішність у її фотографіях та 3D моделях, її голос у відео та аудіо записах"
         />
-      </section>
-      <section className="home__top-block home__top-block--second">
         <div className="quoute-block  quoute-block--inverted">
           <h2 className="quoute__title">
             Вдячність дітей виявляється у <br /> збереженні пам&apos;яті про
@@ -47,25 +49,23 @@ const HomePage = () => {
         </div>
         <Button className="home__btn">Залишити пам’ятку</Button>
       </section>
-      <section className="home__otpions">
+      <section className="home__options">
         <h4 className="title">Варіанти оформлення пам’ятної сторінки:</h4>
-        <div className="block-group">
-          <IconBlock
-            icon={<ScriptIcon />}
-            text="Ви зберігаєте пам'ять за веб-сторінці"
-          />
-          <IconBlock
-            icon={<PhoneIcon />}
-            text="Створюється унікальний QR –код котрий веде на створену сторінку"
-          />
-          <IconBlock
-            icon={<TouchIcon />}
-            text="Код розміщується на унікальній таблиці або вибивається на пам’ятнику"
-          />
+        <div className="home__template">
+          <div className="home__template-block">
+            <img src={firstTemplate} className="home__template-img" />
+          </div>
+          <div className="home__template-block">
+            <img src={secondTemplate} className="home__template-img" />
+          </div>
+          <div className="home__template-block">
+            <img src={thirdTemplate} className="home__template-img" />
+          </div>
+
         </div>
       </section>
       <section className="home__top-block home__price">
-        <div className="quoute-block">
+        <div className="quoute-block quoute-block--price">
           <h2 className="quoute__title">
             Ціна: <br /> 300 гривень
           </h2>

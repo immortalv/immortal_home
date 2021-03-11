@@ -51,7 +51,7 @@
   }
 
   .form-field__label {
-    display: inline-block;
+    display: block;
     font-size: 16px;
     font-family: $theme-f-opensans;
     margin: 20px 0 8px;
@@ -64,6 +64,7 @@
 
   .form-field__input-container {
     margin-bottom: 25px;
+    max-width: 450px;
   }
 
   @include for-phablet {

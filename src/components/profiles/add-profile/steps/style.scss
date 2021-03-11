@@ -66,3 +66,169 @@
   align-items: center;
   flex-direction: column;
 }
+
+.add-profile__images-container {
+  display: grid;
+  grid-template-areas:
+    "main cover cover"
+    "main  others others";
+
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr 1fr;
+
+  grid-row-gap: 40px;
+  grid-column-gap: 30px;
+
+  width: 100%;
+  max-width: 1320px;
+
+  padding: 0 60px 60px;
+  margin: auto;
+
+  @include for-tablet-landscape-up {
+    padding: 0 30px 30px;
+  }
+
+  @include for-phablet {
+    grid-template-areas:
+      "main"
+      "cover"
+      "others";
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+}
+
+.add-file {
+  &-block {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  &-main {
+    grid-area: main;
+    aspect-ratio: 1/1;
+    width: 100%;
+    max-height: 384px;
+
+    @include for-tablet-landscape-up {
+      max-height: 250px;
+    }
+
+    @include for-phablet {
+      margin: auto;
+    }
+
+    @include for-phone-only {
+      max-height: 175px;
+    }
+
+    @include for-tablet-landscape-up {
+    }
+  }
+
+  &-cover {
+    display: flex;
+    flex-direction: column;
+    grid-area: cover;
+    height: 205px;
+
+    @include for-phablet {
+      flex-direction: column-reverse;
+    }
+
+    .add-file__label {
+      margin: 0 0 16px;
+
+      @include for-phablet {
+        margin-top: 16px;
+      }
+    }
+  }
+
+  &-others {
+    max-height: 200px;
+    max-width: 200px;
+    margin: 0 25px;
+
+    aspect-ratio: 1/1;
+    width: 100%;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    @include for-phone-only {
+      max-width: 120px;
+      margin: 5px 0;
+    }
+
+    .add-file__file {
+      max-height: 200px;
+      max-width: 200px;
+    }
+  }
+
+  &-others-container {
+    display: flex;
+    justify-content: flex-start;
+
+    @include for-phone-only {
+      flex-wrap: wrap;
+    }
+  }
+
+  &-others-block {
+    grid-area: others;
+  }
+}
+
+.add-profile__media-container {
+  padding: 0 20px;
+
+  .add-file__label {
+    margin-bottom: 24px;
+  }
+
+  .add-file__container {
+    max-width: 350px;
+    width: 100%;
+    margin-right: 25px;
+  }
+
+  .add-file-video,
+  .add-file-audio {
+    display: flex;
+  }
+
+  .add-file-video {
+    .add-file__container {
+      aspect-ratio: 1/1;
+      max-height: 317px;
+    }
+    
+    .add-file__item {
+      max-height: 100%;
+      // max-width: 250px;
+    }
+  }
+}
+
+.add-file__label {
+  display: inline-block;
+  font-family: $theme-f-opensans;
+  font-weight: bold;
+  margin-top: 24px;
+
+  @include for-phone-only {
+    margin-top: 15px;
+  }
+}
+
+.label--necessary {
+  color: #ff4c4c;
+}

@@ -1,7 +1,7 @@
 export const profile = {
   state: {
     firstName: "",
-    secondName: "",
+    lastName: "",
     surName: "",
     description: "",
     descriptionAdditional: "",
@@ -11,13 +11,13 @@ export const profile = {
     profileType: "", // public/privat
     epitaph: "",
 
-    mainPhoto: "",
-    coverPhoto: "",
-    photos: [],
+    mainPhoto: null,
+    coverPhoto: null,
+    otherPhotos: [],
     video: [],
     audio: [],
 
-    template: '',
+    template: "",
   },
   reducers: {
     setProfile(state, payload) {

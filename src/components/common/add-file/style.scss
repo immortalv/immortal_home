@@ -1,0 +1,108 @@
+@import "styles/variables.module";
+@import "styles/mixins.module";
+@import "styles/media-queries.module";
+
+.add-file {
+  &__container {
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-width: 100px;
+    min-height: 100px;
+    background: #bdbdbd;
+  }
+
+  &__container--full {
+    width: fit-content;
+  }
+
+  &__container--active {
+    border: 4px #212121 dashed;
+    background-color: #999696;
+  }
+
+  &__add-field {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__item {
+    position: relative;
+  }
+
+  &__file {
+    width: auto;
+    height: 100%;
+  }
+
+  &__add {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  &__icon-add {
+    width: 40px;
+    height: 40px;
+  }
+
+  &__remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    &-icon {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  &__files-container {
+    display: flex;
+    width: 100%;
+    padding: 10px 5px;
+    overflow-x: auto;
+
+    @include styled-scrollbar();
+
+    .add-file__item {
+      margin: 5px 10px;
+      max-height: 200px;
+      max-width: 200px;
+      width: 100%;
+      aspect-ratio: 1/1;
+    }
+
+    .add-file__file {
+      object-fit: contain;
+
+      @include for-phone-only {
+        max-width: 120px;
+        margin: 5px 0;
+      }
+    }
+
+    .add-file__remove {
+      transform: translate(20%, -40%);
+    }
+
+    .add-file__remove-icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

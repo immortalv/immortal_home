@@ -39,13 +39,13 @@ const AddProfileMainInfo = ({ profile = {}, onSubmit, onSkip, secondary }) => {
             <div className="form-field__group">
               <FormField
                 label="Прізвище"
-                value={state?.firstName || ""}
-                name="secondName"
+                value={state?.lastName || ""}
+                name="lastName"
                 onChange={handleChange}
               />
               <FormField
                 label="Ім’я"
-                value={state?.lastName || ""}
+                value={state?.firstName || ""}
                 name="firstName"
                 onChange={handleChange}
               />
@@ -65,6 +65,7 @@ const AddProfileMainInfo = ({ profile = {}, onSubmit, onSkip, secondary }) => {
             placeholder="Починайте тут..."
             label={`( блок ${secondary ? 2 : 1}  )`}
             type="textarea"
+            tag="textarea"
             name={secondary ? "descriptionAdditional" : "description"}
             onChange={handleChange}
             value={

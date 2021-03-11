@@ -28,9 +28,8 @@ export const user = {
 
         if (tokens.access) {
           localStorage.setItem("access-token", tokens.access.token);
+          localStorage.setItem("immortal-user-name", user.name);
         }
-
-        localStorage.setItem("immortal-user-name", user.name);
 
         dispatch.user.setUser({ ...user, isAuthenticated: true });
       } catch (error) {
@@ -42,7 +41,7 @@ export const user = {
     async signIn(data) {
       try {
         const accessToken = localStorage.getItem("access-token");
-        const userName = localStorage.getItem("mmortal-user-name");
+        const userName = localStorage.getItem("immortal-user-name");
 
         if (accessToken && userName) {
           dispatch.user.setUser({ name: userName, isAuthenticated: true });
@@ -54,8 +53,8 @@ export const user = {
 
         if (tokens.access) {
           localStorage.setItem("access-token", tokens.access.token);
+          localStorage.setItem("immortal-user-name", user.name);
         }
-        localStorage.setItem("immortal-user-name", user.name);
 
         dispatch.user.setUser({ ...user, isAuthenticated: true });
       } catch (error) {
