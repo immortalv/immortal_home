@@ -7,22 +7,22 @@ import {
   ADD_PROFILE_STEPS,
 } from "constants/profile.constants";
 import routesConstants from "constants/routes.constants";
-// import ProfileBuilder from "services/profile/build-profile.service";
-import { Button } from "components/common";
 import HeaderDark from "./header/header-dark";
 import {
   SelectProfile,
   MainInfo,
   AdditionalInfo,
   AddImages,
-  AddMedia,
+  FinalStep,
 } from "./steps";
 
 import "./style.scss";
 
 const AddProfile = () => {
   const history = useHistory();
-  const [activeStep, setActiveStep] = useState(ADD_PROFILE_STEPS_NAME.MEDIA);
+  const [activeStep, setActiveStep] = useState(
+    ADD_PROFILE_STEPS_NAME.ADDITIONAL_INFORMATION
+  );
   const { profile } = useSelector((state) => state);
   const setProfileInfo = (data) => dispatch.profile.setProfile(data);
 
@@ -41,7 +41,7 @@ const AddProfile = () => {
     setActiveStep(previousStep);
   };
 
-  const handleNextStep = (data) => {
+  const handleNextStep = (data, isFinal) => {
     setProfileInfo(data);
     nextStep();
   };
@@ -63,16 +63,11 @@ const AddProfile = () => {
             onSkip={handleNextStep}
           />
         );
-      case ADD_PROFILE_STEPS_NAME.MEDIA:
-        return (
-          <AddMedia
-            profile={profile}
-            onSubmit={handleNextStep}
-            onSkip={handleNextStep}
-          />
-        );
       case ADD_PROFILE_STEPS_NAME.ADDITIONAL_INFORMATION:
         return <AdditionalInfo profile={profile} onSubmit={handleNextStep} />;
+
+      case ADD_PROFILE_STEPS_NAME.ALL_IS_DONE:
+        return <FinalStep />;
 
       default:
         return (

@@ -45,7 +45,7 @@ const FormField = ({
         tagElement()
       )}
       {label && (
-        <label className="form-field__label" htmlFor={label}>
+        <label className="form-field__label" htmlFor={id}>
           {label}
         </label>
       )}

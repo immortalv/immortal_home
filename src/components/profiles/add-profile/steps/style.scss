@@ -31,6 +31,37 @@
   width: 100%;
 }
 
+.add-profile--final {
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  align-items: center;
+
+  .add-profile__btn {
+    margin: 15px 0;
+    min-width: 265px;
+  }
+}
+
+.add-profile__additional-info {
+  display: grid;
+  grid-template-areas:
+    "date-birth epitaph"
+    "date-death ."
+    "type  .";
+
+  width: 100%;
+  justify-items: center;
+
+  @include for-phablet {
+    grid-template-areas:
+      "date-birth"
+      "date-death"
+      "epitaph"
+      "type";
+  }
+}
+
 .add-profile__description {
   width: 100%;
   height: 385px;
@@ -49,11 +80,33 @@
 }
 
 .add-profile__date {
+  min-width: 200px;
   margin-bottom: 50px;
+
+  @include for-phablet {
+    margin-bottom: 30px;
+  }
+
+  &:first-child {
+    grid-area: date-birth;
+  }
+
+  &:last-child {
+    grid-area: date-death;
+  }
+}
+
+.add-profile__epitaph {
+  grid-area: epitaph;
+  max-width: 320px;
 }
 
 .form-radio-group {
   display: flex;
+
+  @include for-phone-only {
+    flex-direction: column;
+  }
 
   .form-field {
     margin: 20px;
@@ -61,10 +114,18 @@
 }
 
 .profile-type__container {
+  grid-area: type;
   width: 350px;
+  max-width: 90vw;
   display: flex;
   align-items: center;
   flex-direction: column;
+
+  @include for-phablet {
+    .form-field__label {
+      margin-top: 30px;
+    }
+  }
 }
 
 .add-profile__images-container {
@@ -189,9 +250,10 @@
 
 .add-profile__media-container {
   padding: 0 20px;
+  margin-bottom: 45px;
 
   .add-file__label {
-    margin-bottom: 24px;
+    margin: 5px 0 24px;
   }
 
   .add-file__container {
@@ -210,7 +272,7 @@
       aspect-ratio: 1/1;
       max-height: 317px;
     }
-    
+
     .add-file__item {
       max-height: 100%;
       // max-width: 250px;

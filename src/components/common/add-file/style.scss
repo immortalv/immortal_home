@@ -37,6 +37,8 @@
   &__file {
     width: auto;
     height: 100%;
+    max-width: 100%;
+    object-fit: contain;
   }
 
   &__add {
@@ -88,8 +90,6 @@
     }
 
     .add-file__file {
-      object-fit: contain;
-
       @include for-phone-only {
         max-width: 120px;
         margin: 5px 0;
