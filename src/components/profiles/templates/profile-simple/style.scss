@@ -110,8 +110,9 @@
   }
 
   &__img {
-    @include for-phone-landscape {
-      margin-bottom: 15px;
+    margin-bottom: 15px;
+
+    @include for-phablet {
       width: 70vw;
     }
   }
