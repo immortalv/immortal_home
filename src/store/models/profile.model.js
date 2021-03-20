@@ -1,8 +1,6 @@
 export const profile = {
   state: {
-    firstName: "",
-    lastName: "",
-    surName: "",
+    name: "",
     description: "",
     descriptionAdditional: "",
 
@@ -13,9 +11,7 @@ export const profile = {
 
     mainPhoto: null,
     coverPhoto: null,
-    otherPhotos: [],
-    video: [],
-    audio: [],
+    media: [],
 
     template: "",
   },

@@ -5,7 +5,7 @@ import { Button } from "components/common";
 
 import "./style.scss";
 
-const FinalStep = () => {
+const ProfileCreated = () => {
   const history = useHistory();
 
   const openProfile = () => {
@@ -33,4 +33,4 @@ const FinalStep = () => {
   );
 };
 
-export default FinalStep;
+export default ProfileCreated;

@@ -4,7 +4,15 @@ import clsx from "clsx";
 
 import "./style.scss";
 
-const AddProfileMainInfo = ({ profile = {}, onSubmit, onSkip, secondary }) => {
+const getFullName = (firstName, lastName, surName) =>
+  `${firstName || ""} ${lastName || ""} ${surName || ""}`;
+
+const AddProfileMainInfo = ({
+  profile = {},
+  onSubmit,
+  onSkip,
+  isSecondary,
+}) => {
   const [state, setState] = useState({
     firstName: "",
     lastName: "",
@@ -22,12 +30,37 @@ const AddProfileMainInfo = ({ profile = {}, onSubmit, onSkip, secondary }) => {
   };
 
   const handleSubmit = () => {
-    onSubmit(state);
+    const {
+      firstName,
+      lastName,
+      surName,
+      description,
+      descriptionAdditional,
+    } = state;
+
+    if (!isSecondary) {
+      if (!firstName || !lastName || !description) return;
+    }
+
+    onSubmit({
+      name: getFullName(firstName, lastName, surName),
+      description,
+      descriptionAdditional,
+    });
     setState({});
   };
 
   useEffect(() => {
-    setState(profile);
+    const { name, description, descriptionAdditional } = profile;
+    const [firstName, lastName, surName] = name.split(" ");
+
+    setState({
+      firstName,
+      lastName,
+      surName,
+      description,
+      descriptionAdditional,
+    });
   }, []);
 
   return (
@@ -35,16 +68,16 @@ const AddProfileMainInfo = ({ profile = {}, onSubmit, onSkip, secondary }) => {
       <h1 className="title add-profile__title">Розкажіть про людину</h1>
       <div className="add-profile__content">
         <div className="add-profile__main-info">
-          {!secondary && (
+          {!isSecondary && (
             <div className="form-field__group">
               <FormField
-                label="Прізвище"
+                label="Прізвище*"
                 value={state?.lastName || ""}
                 name="lastName"
                 onChange={handleChange}
               />
               <FormField
-                label="Ім’я"
+                label="Ім’я*"
                 value={state?.firstName || ""}
                 name="firstName"
                 onChange={handleChange}
@@ -60,22 +93,22 @@ const AddProfileMainInfo = ({ profile = {}, onSubmit, onSkip, secondary }) => {
           <FormField
             className={clsx(
               "add-profile__description",
-              secondary && "add-profile__description--secondary"
+              isSecondary && "add-profile__description--isSecondary"
             )}
             placeholder="Починайте тут..."
-            label={`( блок ${secondary ? 2 : 1}  )`}
+            label={!isSecondary ? "Опис*" : `( блок 2 )`}
             type="textarea"
             tag="textarea"
-            name={secondary ? "descriptionAdditional" : "description"}
+            name={isSecondary ? "descriptionAdditional" : "description"}
             onChange={handleChange}
             value={
-              (secondary ? state.descriptionAdditional : state.description) ||
+              (isSecondary ? state.descriptionAdditional : state.description) ||
               ""
             }
           />
         </div>
       </div>
-      {secondary && (
+      {isSecondary && (
         <Button onClick={onSkip} className="add-profile__btn btn--skip">
           Пропустити
         </Button>

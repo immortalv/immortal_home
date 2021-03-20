@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { dispatch } from "store";
+import { createProfile } from "services/api/profile.service";
 import {
   ADD_PROFILE_STEPS_NAME,
   ADD_PROFILE_STEPS,
@@ -13,16 +14,15 @@ import {
   MainInfo,
   AdditionalInfo,
   AddImages,
-  FinalStep,
+  ProfileCreated,
 } from "./steps";
 
 import "./style.scss";
 
 const AddProfile = () => {
   const history = useHistory();
-  const [activeStep, setActiveStep] = useState(
-    ADD_PROFILE_STEPS_NAME.ADDITIONAL_INFORMATION
-  );
+  const [activeStep, setActiveStep] = useState(ADD_PROFILE_STEPS_NAME.TEMPLATE);
+
   const { profile } = useSelector((state) => state);
   const setProfileInfo = (data) => dispatch.profile.setProfile(data);
 
@@ -41,8 +41,11 @@ const AddProfile = () => {
     setActiveStep(previousStep);
   };
 
-  const handleNextStep = (data, isFinal) => {
-    setProfileInfo(data);
+  const handleNextStep = async (data, isFinal) => {
+    await setProfileInfo(data);
+
+    // Check whether all needed profile data is present
+    if (isFinal) createProfile(profile);
     nextStep();
   };
 
@@ -57,7 +60,7 @@ const AddProfile = () => {
       case ADD_PROFILE_STEPS_NAME.DESCRIPTION:
         return (
           <MainInfo
-            secondary
+            isSecondary
             profile={profile}
             onSubmit={handleNextStep}
             onSkip={handleNextStep}
@@ -66,8 +69,8 @@ const AddProfile = () => {
       case ADD_PROFILE_STEPS_NAME.ADDITIONAL_INFORMATION:
         return <AdditionalInfo profile={profile} onSubmit={handleNextStep} />;
 
-      case ADD_PROFILE_STEPS_NAME.ALL_IS_DONE:
-        return <FinalStep />;
+      case ADD_PROFILE_STEPS_NAME.PROFILE_CREATED:
+        return <ProfileCreated />;
 
       default:
         return (

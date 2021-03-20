@@ -16,3 +16,9 @@ export const AUTH_URL = {
   REFRESH_TOKEN: `${BASE_AUTH_URL}/refresh-tokens`,
   FORGOT_PASSWORD: `${BASE_AUTH_URL}//forgot-password`,
 };
+
+export const BASE_PROFILE_URL = `${BASE_API_URL}/v1/profile`;
+
+export const PROFILE_URL = {
+
+};
