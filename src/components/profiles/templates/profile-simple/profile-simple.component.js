@@ -12,8 +12,10 @@ const ProfileSimple = ({ profileData }) => {
     imageData,
     videoData,
     description,
+    additionalDescription,
   } = profileData;
 
+  console.log(profileData);
   return (
     <main className="profile profile-simple">
       <div className="profile-simple__top-container">
@@ -42,11 +44,19 @@ const ProfileSimple = ({ profileData }) => {
           />
         ))}
       </div>
-      <div className="video-data__container">
+      {videoData.length > 0 && (
+        <div className="video-data__container">
         {videoData.map((img) => (
-          <img key={img.src} src={img.src} alt={`${fullName} image data`} />
+          <img
+            key={img.src}
+            src={img.src}
+            alt={`${fullName} image data`}
+            className="video-data__img"
+          />
         ))}
       </div>
+      )}
+      <p className="profile__description profile-simple__description">{additionalDescription}</p>
     </main>
   );
 };

@@ -1,0 +1,37 @@
+@import "styles/variables.module";
+@import "styles/media-queries.module";
+
+.profile-article {
+  // background-image: url("../../../assets/profile-article-background.jpg");
+  padding-top: var(--header-height);
+
+  &__top-container {
+    display: flex;
+  }
+
+  &__data-container {
+    display: flex;
+    flex-direction: column;
+    padding: 50px 25px;
+
+    &:first-child {
+      padding-left: 0;
+    }
+  }
+
+  &__avatar-img {
+    filter: drop-shadow(4px 4px 25px rgba(0, 0, 0, 0.15));
+    border-radius: 20px;
+  }
+
+  &__date {
+    margin: 15px auto;
+  }
+
+  .quoute-block {
+    width: 384px;
+    height: 176px;
+    margin-top: 25px;
+    margin-left: auto;
+  }
+}
