@@ -66,9 +66,9 @@ const ProfilePage = () => {
 
   if (!profileData) return <p>Loading...</p>;
 
-  return <ProfileSimple profileData={profileData} />;
-  // return <ProfileBook profileData={profileData} />
-  // return <ProfileArticle profileData={profileData} />;
+  if (Math.random() < 0.3) return <ProfileSimple profileData={profileData} />;
+  if (Math.random() > 0.7) return <ProfileBook profileData={profileData} />;
+  return <ProfileArticle profileData={profileData} />;
 
 
 //   switch (profileData.templateType) {

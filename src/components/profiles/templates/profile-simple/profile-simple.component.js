@@ -55,7 +55,9 @@ const ProfileSimple = ({ profileData }) => {
         ))}
       </div>
       )}
-      <p className="profile__description profile-simple__description">{additionalDescription}</p>
+      {additionalDescription && (
+        <p className="profile__description profile-simple__description">{additionalDescription}</p>
+      ) }
     </main>
   );
 };
