@@ -1,5 +1,4 @@
 import React from "react";
-import forestImg from "assets/profile-simple-background.jpg";
 
 import "./style.scss";
 
