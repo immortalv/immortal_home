@@ -14,7 +14,7 @@ const profileDataMock = {
   fullName: "Василевська Василина",
   birthDate: "29.02.1956",
   deathDate: "31.12.2020",
-  profileImg: getProfileImg("avatar-image-1", "jpg"),
+  profileImg: getProfileImg("profile-image-1", "jpg"),
   imageData: [
     {
       src: getProfileImg("avatar-image-1", "jpg"),
@@ -32,9 +32,25 @@ const profileDataMock = {
       src: getProfileImg("avatar-image-1", "jpg"),
     },
   ],
-  videoData: [],
+  videoData: [
+    {
+      src: getProfileImg("profile-video", "jpg"),
+    },
+    {
+      src: getProfileImg("profile-video-1", "jpg"),
+    }
+  ],
   description:
-    "maecenas platea sit integer suscipit sit et tellus purus. Et tristique pellentesque nisi aliquam quis tristique. Blandit quis ligula viverra egestas tempor scelerisque nibh nunc pulvinar. Nunc pellentesque sed auctor lorem et. Semper montes, donec feugiat at eu faucibus dolor arcu. Dui nibh iaculis nunc orci id senectus pellentesque eget cursus. Leo faucibus nisi cum commodo lectus egestas tincidunt mi. Potenti dictum sit tincidunt orci arcu laoreet ut vitae, urna. Semper lectus sed risus, pellentesque. Aliquam, venenatis sed nibh consequat auctor donec nunc tortor in. Elit enim nibh pulvinar gravida porta imperdiet. Aliquam nulla nisl tellus, magna tellus enim lectus tristique. Convallis iaculis turpis felis, dolor ac vitae vulputate. Turpis posuere tempor pretium sapien. Urna, tincidunt nullam ac in facilisi purus mauris pharetra sagittis. Nunc nibh est at venenatis tempus, ac arcu tincidunt donec. Mi neque, vitae elit suspendisse pretium condimentum tincidunt eget commodo. In turpis dolor lectus ultricies aliquet. Sollicitudin natoque vehicula est pellentesque in lacus.",
+    `Тисячі любителів футболу та спорту мають причини бути вдячними моїй сестрі Василині, яка померла у віці 55 років від множинних ракових захворювань через дев'ять років після першого діагнозу рак молочної залози.
+
+    Як керівник судових справ та конституційних справ у Supporter Direct, організації, яка сприяє залученню вболівальників до управління їх клубами та заохочує їх створювати акціонерні фонди, вона допомогла створити майже 200 таких трестів по всій країні.
+
+    У 2017 році вона заснувала Жінки в грі, щоб заохотити більше жінок ходити на прямі матчі. Вона хотіла допомогти жінкам почуватись комфортно, відвідуючи матчі. Ініціатива розпочалася на нелігових іграх і швидко закріпилася в Прем'єр-лізі. У минулому сезоні "Манчестер Сіті" і "Хаддерсфілд Таун"`,
+  additionalDescription: `Джекі народився і виховувався в м. Альтрінчам, Чешир, дочка Джойс (уроджена Ботам), перукарня, і Сем Форстер, столяр і колишній суднобудівник. Її пристрасть до футболу протягом усього життя, особливо не в лізі, спалахнула, коли наш батько взяв її до місцевої команди у віці п’яти років. Вона швидко зачепилася.
+
+  У 1980 році вона приєдналася до адвокатів компанії Hills в Альтрінчамі на посаді секретаря, але зацікавилася юридичною практикою і почала навчатися на посаду юриста. У 1983 році вона приєдналася до юридичного департаменту ради Траффорда, а потім перейшла на більш керівну посаду до ради Вейл-Роял (нині частина Заходу Чешира та Честера) у 1990 році. Пізніше того ж року вона переїхала до Оксфордширу, приєднавшись до юридичного відділу ради округу Бакінгемшир , а пізніше став старшим юрисконсультом районної ради Вале Білого Коня.
+  
+  Вона стала управителем магазину та активісткою "Юнісон" на місцевому, регіональному та національному рівнях, розвиваючи прихильність до рівності, різноманітності та чесної гри, що стало її торговою маркою.`,
   templateType: PROFILE_TEMPLATE_TYPES.BOOK,
 };
 
