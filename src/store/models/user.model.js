@@ -1,4 +1,4 @@
-import { signUp, signIn } from "services/api/auth.service";
+import { signUp, signIn, signOut } from "services/api/auth.service";
 
 export const user = {
   state: {
@@ -45,7 +45,7 @@ export const user = {
 
         if (accessToken && userName) {
           dispatch.user.setUser({ name: userName, isAuthenticated: true });
-          return;
+          // return;
         }
 
         if (!data) return;
@@ -57,6 +57,18 @@ export const user = {
         }
 
         dispatch.user.setUser({ ...user, isAuthenticated: true });
+      } catch (error) {
+        const message = error?.response?.data?.message;
+        dispatch.user.setIsLoginError(message || true);
+      }
+    },
+
+    async signOut() {
+      try {
+        localStorage.removeItem("access-token");
+        dispatch.user.setUser({ isAuthenticated: false });
+
+        signOut();
       } catch (error) {
         const message = error?.response?.data?.message;
         dispatch.user.setIsLoginError(message || true);

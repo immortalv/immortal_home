@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from "components/common";
 import { AccountIcon, LoginIcon } from "icons";
+import HeaderSubMenu from "./header-submenu.component";
 import routesConstants from "constants/routes.constants";
 
 const HeaderAccount = () => {
@@ -10,12 +11,13 @@ const HeaderAccount = () => {
 
   if (isAuthenticated)
     return (
-      <Link to={routesConstants.CABINET}>
+      <div className="header__account-container">
         <div className="header__account">
           <span className="header__account-name">{name}</span>
           <AccountIcon className="header__account-icon" />
         </div>
-      </Link>
+        <HeaderSubMenu />
+      </div>
     );
 
   return (

@@ -1,0 +1,39 @@
+@import "styles/variables.module";
+@import "styles/media-queries.module";
+
+.spinner {
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: $theme-c-white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+
+  &--no-background {
+    background-color: transparent;
+  }
+
+  &__icon {
+    animation: rotating 2.5s linear infinite;
+    width: 120px;
+    height: 120px;
+
+    @include for-phone-only {
+      width: 90px;
+      height: 90px;
+    }
+  }
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

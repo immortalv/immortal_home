@@ -7,10 +7,7 @@ export const signIn = async (values) =>
 export const signUp = async (values) =>
   axios.post(AUTH_URL.REGISTER, values).then(({ data }) => data);
 
-export const signOut = async () =>
-  axios
-    .post(AUTH_URL.LOGOUT)
-    .then(() => localStorage.removeItem("access-token"));
+export const signOut = async () => axios.post(AUTH_URL.LOGOUT);
 
 export const validateCookieToken = async () =>
   axios.post(AUTH_URL.VALIDATE).then(({ data }) => data);
