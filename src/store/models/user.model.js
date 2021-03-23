@@ -45,7 +45,7 @@ export const user = {
 
         if (accessToken && userName) {
           dispatch.user.setUser({ name: userName, isAuthenticated: true });
-          // return;
+          return;
         }
 
         if (!data) return;

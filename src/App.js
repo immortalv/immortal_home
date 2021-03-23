@@ -9,8 +9,6 @@ import "./style.scss";
 function App() {
   const { user, loading } = useSelector((state) => state);
 
-  console.log("loading", loading);
-
   useEffect(() => {
     if (user.isAuthenticated) return;
     dispatch.user.signIn();
