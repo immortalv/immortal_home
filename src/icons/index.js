@@ -10,8 +10,9 @@ import GoogleIcon from "./google-icon.component";
 import FacebookIcon from "./facebook-icon.component";
 import AppleIcon from "./apple-icon.component";
 import ProfileAccountIcon from "./profile-account-icon.component";
-import PlusIcon from './plus-icon.component';
-import CrossIcon from './cross-icon.component';
+import PlusIcon from "./plus-icon.component";
+import CrossIcon from "./cross-icon.component";
+import ImmortalSmallIcon from "./immortal-small-icon.component";
 
 export {
   PeopleGroupIcon,
@@ -28,4 +29,5 @@ export {
   ProfileAccountIcon,
   PlusIcon,
   CrossIcon,
+  ImmortalSmallIcon,
 };

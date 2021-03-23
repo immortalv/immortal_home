@@ -31,6 +31,7 @@
 
   &__logo-picture {
     display: flex;
+    // cursor: pointer;
     @include for-phone-only {
       display: none;
     }
@@ -103,6 +104,16 @@
     }
   }
 
+  &__account-container {
+    position: relative;
+    cursor: pointer;
+    &:hover {
+      .header__submenu {
+        display: block;
+      }
+    }
+  }
+
   &__account {
     display: flex;
     align-items: center;
@@ -125,6 +136,24 @@
 
     @include for-phone-only {
       width: 35px;
+    }
+  }
+
+  &__submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding-top: 5px;
+  }
+
+  &__submenu-item {
+    padding: 5px 50px;
+
+    &:hover {
+      .header__submenu {
+        display: block;
+      }
     }
   }
 }

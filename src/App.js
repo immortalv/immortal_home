@@ -2,16 +2,21 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { dispatch } from "store";
 import AppRouter from "router";
+import Spinner from "components/spinner/spinner.component";
 
 import "./style.scss";
 
 function App() {
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const { user, loading } = useSelector((state) => state);
+
+  console.log("loading", loading);
 
   useEffect(() => {
-    if (isAuthenticated) return;
+    if (user.isAuthenticated) return;
     dispatch.user.signIn();
   }, []);
+
+  if (loading.global) return <Spinner />;
 
   return (
     <div className="App">
