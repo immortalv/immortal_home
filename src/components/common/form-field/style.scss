@@ -82,18 +82,15 @@
     border-radius: 6px;
     font-size: 14px;
     color: #494949;
-
     padding: 8px 12px;
+
+
   }
 
   .form-field__input {
     display: none;
     appearance: none;
     -webkit-appearance: none;
-
-    &:checked {
-      display: block;
-    }
 
     &:checked + .form-field__label {
       background: #494949;

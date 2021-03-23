@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FormField, Button, DateField } from "components/common";
-import clsx from "clsx";
+import { FormField, Button } from "components/common";
 
 import "./style.scss";
 
@@ -13,15 +12,15 @@ const AddProfileAdditionalInfo = ({ profile = {}, onSubmit }) => {
   });
 
   const handleChange = (e) => {
-    const value = e.target.value;
     setState({
       ...state,
-      [e.target.name]: value,
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = () => {
-    onSubmit(state);
+    console.log("state", state);
+    onSubmit(state, true);
     setState({});
   };
 
@@ -33,17 +32,20 @@ const AddProfileAdditionalInfo = ({ profile = {}, onSubmit }) => {
     <>
       <h1 className="title add-profile__title">Вкажіть інформацію</h1>
       <div className="add-profile__content">
-        <div className="add-profile__main-info">
-          {/* <DateField label="Дата народження" /> */}
+        <div className="add-profile__additional-info">
           <FormField
             className="add-profile__date"
             type="date"
+            name="birthDate"
             label="Дата народження"
+            onChange={handleChange}
           />
           <FormField
             className="add-profile__date"
             type="date"
+            name="deathDate"
             label="Дата смерті"
+            onChange={handleChange}
           />
 
           <div className="profile-type__container">
@@ -53,36 +55,33 @@ const AddProfileAdditionalInfo = ({ profile = {}, onSubmit }) => {
                 className="form-field__radio"
                 type="radio"
                 label="Публічний"
-                id="profile-type-public"
+                id="public"
+                value="private"
                 name="profileType"
+                onChange={handleChange}
               />
               <FormField
                 className="form-field__radio"
                 type="radio"
                 label="Приватний"
-                id="profile-type-private"
+                id="private"
+                value="private"
                 name="profileType"
+                onChange={handleChange}
               />
             </div>
           </div>
-          {/* <FormField
-            className="add-profile__epitaph"
-            placeholder="Починайте тут..."
-            label="Обрати епітафію"
-            type="textarea"
-            name={"epitaph"}
-            onChange={handleChange}
-            value={state.description}
-          />
+
           <FormField
             className="add-profile__epitaph"
             placeholder="Починайте тут..."
-            label="Написати власноруч"
+            label="Епітафія"
             type="textarea"
-            name={"epitaph"}
+            tag="textarea"
+            name="epitaph"
             onChange={handleChange}
-            value={state.description}
-          /> */}
+            value={state.epitaph}
+          />
         </div>
       </div>
 

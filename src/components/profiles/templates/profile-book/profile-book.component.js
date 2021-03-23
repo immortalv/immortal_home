@@ -1,5 +1,5 @@
 import React from "react";
-import forestImg from "assets/profile-article-background.jpg";
+import forestImg from "assets/profile-simple-background.jpg";
 
 import "./style.scss";
 
@@ -24,7 +24,6 @@ const ProfileBook = ({ profileData }) => {
     videoData,
     description,
   } = profileData;
-
   return (
     <main className="profile profile-book">
       <section className="profile-book__page-container">

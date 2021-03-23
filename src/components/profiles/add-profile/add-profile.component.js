@@ -2,27 +2,27 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { dispatch } from "store";
+import { createProfile } from "services/api/profile.service";
 import {
   ADD_PROFILE_STEPS_NAME,
   ADD_PROFILE_STEPS,
 } from "constants/profile.constants";
 import routesConstants from "constants/routes.constants";
-// import ProfileBuilder from "services/profile/build-profile.service";
-import { Button } from "components/common";
 import HeaderDark from "./header/header-dark";
 import {
   SelectProfile,
   MainInfo,
   AdditionalInfo,
   AddImages,
-  AddMedia,
+  ProfileCreated,
 } from "./steps";
 
 import "./style.scss";
 
 const AddProfile = () => {
   const history = useHistory();
-  const [activeStep, setActiveStep] = useState(ADD_PROFILE_STEPS_NAME.MEDIA);
+  const [activeStep, setActiveStep] = useState(ADD_PROFILE_STEPS_NAME.TEMPLATE);
+
   const { profile } = useSelector((state) => state);
   const setProfileInfo = (data) => dispatch.profile.setProfile(data);
 
@@ -41,8 +41,11 @@ const AddProfile = () => {
     setActiveStep(previousStep);
   };
 
-  const handleNextStep = (data) => {
-    setProfileInfo(data);
+  const handleNextStep = async (data, isFinal) => {
+    await setProfileInfo(data);
+
+    // Check whether all needed profile data is present
+    if (isFinal) createProfile(profile);
     nextStep();
   };
 
@@ -57,15 +60,7 @@ const AddProfile = () => {
       case ADD_PROFILE_STEPS_NAME.DESCRIPTION:
         return (
           <MainInfo
-            secondary
-            profile={profile}
-            onSubmit={handleNextStep}
-            onSkip={handleNextStep}
-          />
-        );
-      case ADD_PROFILE_STEPS_NAME.MEDIA:
-        return (
-          <AddMedia
+            isSecondary
             profile={profile}
             onSubmit={handleNextStep}
             onSkip={handleNextStep}
@@ -73,6 +68,9 @@ const AddProfile = () => {
         );
       case ADD_PROFILE_STEPS_NAME.ADDITIONAL_INFORMATION:
         return <AdditionalInfo profile={profile} onSubmit={handleNextStep} />;
+
+      case ADD_PROFILE_STEPS_NAME.PROFILE_CREATED:
+        return <ProfileCreated />;
 
       default:
         return (

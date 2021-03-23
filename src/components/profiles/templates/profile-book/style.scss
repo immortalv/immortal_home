@@ -1,0 +1,51 @@
+@import "styles/variables.module";
+@import "styles/media-queries.module";
+
+.profile-book {
+  padding-top: var(--header-height);
+  background-color: #f3f3f3;
+
+  &__name {
+    display: inline-block;
+    color: $theme-c-white;
+  }
+
+  &__page-container {
+    display: flex;
+  }
+
+  &__page {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 25px;
+    max-height: 1024px;
+    background-color: $theme-c-white;
+    box-shadow: inset -4px 0px 25px rgba(0, 0, 0, 0.25);
+
+    &-main {
+      align-items: center;
+    }
+
+    &-text {
+    
+    }
+
+    &--dark {
+      background-color: $theme-c-black;
+    }
+  }
+
+  &__date {
+    color: $theme-c-white;
+    margin-top: 20px;
+  }
+
+  &__avatar-img {
+    max-width: 416px;
+  }
+
+  .quoute-block {
+    max-width: 416px;
+  }
+}
