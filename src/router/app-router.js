@@ -4,8 +4,8 @@ import MainLayout from "layouts";
 import HomePage from "pages/home";
 import routes, { subRoutes } from "./routes";
 
-const checkAccess = (route) => route.component
-  // !route.checkAccess || route.checkAccess() ? route.component : HomePage;
+const checkAccess = (route) =>
+  !route.checkAccess || route.checkAccess() ? route.component : HomePage;
 
 const AppRouter = () => {
   return (
