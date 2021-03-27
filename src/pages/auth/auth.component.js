@@ -5,6 +5,18 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { dispatch } from "store";
 import routesConstants from "constants/routes.constants";
 
+const passwordElement = (type) => {
+  return (
+    <Field
+      required
+      className="form-field__input"
+      type={type}
+      name="password"
+      id="password"
+    />
+  );
+};
+
 const AuthComponent = ({ isRegistration }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { error, isAuthenticated } = useSelector((state) => state.user);
@@ -18,18 +30,6 @@ const AuthComponent = ({ isRegistration }) => {
 
     dispatch.user.signIn({ email, password });
     actions.setSubmitting(false);
-  };
-
-  const passwordElement = (type) => {
-    return (
-      <Field
-        required
-        className="form-field__input"
-        type={type}
-        name="password"
-        id="password"
-      />
-    );
   };
 
   const changePasswordType = (e) => {
@@ -58,7 +58,7 @@ const AuthComponent = ({ isRegistration }) => {
         }}
         onSubmit={onSubmit}
       >
-        {({ isSubmitting, touched, errors }) => (
+        {({ isSubmitting, values, touched, errors }) => (
           <Form>
             {isRegistration && (
               <>
@@ -101,12 +101,14 @@ const AuthComponent = ({ isRegistration }) => {
             </label>
 
             <div className="form-field__input-container">
-              <button
-                onClick={changePasswordType}
-                className="form-field__password-switcher"
-              >
-                <span>{isPasswordVisible ? "Приховати" : "Показати"}</span>
-              </button>
+              {!!values.password.length && (
+                <button
+                  onClick={changePasswordType}
+                  className="form-field__password-switcher"
+                >
+                  <span>{isPasswordVisible ? "Приховати" : "Показати"}</span>
+                </button>
+              )}
               {passwordElement(isPasswordVisible ? "text" : "password")}
             </div>
 

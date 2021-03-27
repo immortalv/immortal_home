@@ -2,29 +2,24 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { dispatch } from "store";
-import { createProfile } from "services/api/profile.service";
 import {
   ADD_PROFILE_STEPS_NAME,
   ADD_PROFILE_STEPS,
 } from "constants/profile.constants";
 import routesConstants from "constants/routes.constants";
-import HeaderDark from "./header/header-dark";
-import {
-  SelectProfile,
-  MainInfo,
-  AdditionalInfo,
-  AddImages,
-  ProfileCreated,
-} from "./steps";
+import { HeaderDark } from "components/header";
+import Spinner from "components/spinner/spinner.component";
+import { SelectProfile, MainInfo, AdditionalInfo, AddImages } from "./steps";
 
 import "./style.scss";
 
 const AddProfile = () => {
   const history = useHistory();
+  const { profile, loading } = useSelector((state) => state);
   const [activeStep, setActiveStep] = useState(ADD_PROFILE_STEPS_NAME.TEMPLATE);
 
-  const { profile } = useSelector((state) => state);
-  const setProfileInfo = (data) => dispatch.profile.setProfile(data);
+  const setProfileInfo = async (data) =>
+    await dispatch.profile.setProfile(data);
 
   const nextStep = () => {
     const activeIndex = ADD_PROFILE_STEPS.indexOf(activeStep);
@@ -41,12 +36,11 @@ const AddProfile = () => {
     setActiveStep(previousStep);
   };
 
-  const handleNextStep = async (data, isFinal) => {
+  const handleNextStep = async (data, isFinal = false) => {
     await setProfileInfo(data);
 
-    // Check whether all needed profile data is present
-    if (isFinal) createProfile(profile);
-    nextStep();
+    if (!isFinal) return nextStep();
+    dispatch.profile.saveProfile(data);
   };
 
   const renderActiveStep = () => {
@@ -68,10 +62,6 @@ const AddProfile = () => {
         );
       case ADD_PROFILE_STEPS_NAME.ADDITIONAL_INFORMATION:
         return <AdditionalInfo profile={profile} onSubmit={handleNextStep} />;
-
-      case ADD_PROFILE_STEPS_NAME.PROFILE_CREATED:
-        return <ProfileCreated />;
-
       default:
         return (
           <SelectProfile
@@ -81,6 +71,10 @@ const AddProfile = () => {
         );
     }
   };
+
+  console.log("loading.global", loading.global);
+
+  if (loading.global) return <Spinner />;
 
   return (
     <div className="add-profile">

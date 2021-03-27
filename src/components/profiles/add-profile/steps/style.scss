@@ -31,18 +31,6 @@
   width: 100%;
 }
 
-.add-profile--final {
-  display: flex;
-  flex-direction: column;
-  // justify-content: center;
-  align-items: center;
-
-  .add-profile__btn {
-    margin: 15px 0;
-    min-width: 265px;
-  }
-}
-
 .add-profile__additional-info {
   display: grid;
   grid-template-areas:

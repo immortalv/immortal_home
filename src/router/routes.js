@@ -3,7 +3,7 @@ import routesConstants from "constants/routes.constants";
 import HomePage from "pages/home";
 import LoginPage from "pages/auth/auth.page";
 
-import { ProfilesPage, ProfilePage } from "pages/profiles";
+import { ProfilesPage, ProfilePage, ProfileCreated } from "pages/profiles";
 // import LoginPage from "pages/login";
 import CabinetPage from "pages/cabinet";
 import AddProfile from "components/profiles/add-profile";
@@ -66,6 +66,18 @@ export const subRoutes = [
     exact: true,
     path: routesConstants.LOGIN,
     component: LoginPage,
+  },
+  {
+    name: "Увійти",
+    exact: true,
+    path: routesConstants.REGISTER,
+    component: LoginPage,
+  },
+  {
+    exact: true,
+    path: routesConstants.PROFILE_CREATED,
+    checkAccess: () => store.getState().user.isAuthenticated,
+    component: ProfileCreated,
   },
 ];
 
