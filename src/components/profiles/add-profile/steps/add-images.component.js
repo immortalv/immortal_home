@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import clsx from "clsx";
+import { uploadFile } from "services/api/profile.service";
+import Spinner from "components/spinner/spinner.component";
 import { Button, AddFile } from "components/common";
 
 import "./style.scss";
@@ -8,6 +10,7 @@ const AddImages = ({ onSubmit, profile }) => {
   const [mainPhoto, setMainPhoto] = useState([]);
   const [coverPhoto, setCoverPhoto] = useState([]);
   const [othersPhoto, setOthersPhoto] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const { mainPhoto, coverPhoto, othersPhoto } = profile;
@@ -17,7 +20,19 @@ const AddImages = ({ onSubmit, profile }) => {
     if (othersPhoto) setOthersPhoto(othersPhoto);
   }, []);
 
-  const setPhotos = () => {
+  const setPhotos = async () => {
+    setIsLoading(true);
+    const formData = new FormData();
+
+    formData.append("mainPhoto", mainPhoto[0]);
+    formData.append("coverPhoto", coverPhoto[0]);
+    formData.append("others", othersPhoto);
+
+    const respone = await uploadFile(formData);
+
+    setIsLoading(false);
+    console.log("response", respone);
+
     onSubmit({
       mainPhoto: mainPhoto[0],
       coverPhoto: coverPhoto[0],
@@ -25,9 +40,11 @@ const AddImages = ({ onSubmit, profile }) => {
     });
   };
 
+  if (isLoading) return <Spinner />;
+
   return (
     <>
-      <h1 className="title add-profile__title">Додайте фотографії</h1>
+      <h1 className="header-s-1 add-profile__title">Додайте фотографії</h1>
 
       <div className="add-profile__images-container">
         <div className="add-file-block add-file-main">
@@ -53,6 +70,10 @@ const AddImages = ({ onSubmit, profile }) => {
           <span className="add-file__label">Інші</span>
         </div>
       </div>
+
+      {/* <div className="add-profile__other-files">
+        <h2 className="add-profile__subtitle header-s-2">Додайте інші файли</h2>
+      </div> */}
 
       <Button onClick={setPhotos} type="secondary" className="add-profile__btn">
         Далі

@@ -7,12 +7,7 @@ import "./style.scss";
 const getFullName = (firstName, lastName, surName) =>
   `${firstName || ""} ${lastName || ""} ${surName || ""}`;
 
-const AddProfileMainInfo = ({
-  profile = {},
-  onSubmit,
-  onSkip,
-  isSecondary,
-}) => {
+const AddProfileMainInfo = ({ profile = {}, onSubmit }) => {
   const [state, setState] = useState({
     firstName: "",
     lastName: "",
@@ -38,9 +33,7 @@ const AddProfileMainInfo = ({
       descriptionAdditional,
     } = state;
 
-    if (!isSecondary) {
-      if (!firstName || !lastName || !description) return;
-    }
+    if (!firstName || !lastName || !description) return;
 
     onSubmit({
       name: getFullName(firstName, lastName, surName),
@@ -68,51 +61,49 @@ const AddProfileMainInfo = ({
       <h1 className="title add-profile__title">Розкажіть про людину</h1>
       <div className="add-profile__content">
         <div className="add-profile__main-info">
-          {!isSecondary && (
-            <div className="form-field__group">
-              <FormField
-                label="Прізвище*"
-                value={state?.lastName || ""}
-                name="lastName"
-                onChange={handleChange}
-              />
-              <FormField
-                label="Ім’я*"
-                value={state?.firstName || ""}
-                name="firstName"
-                onChange={handleChange}
-              />
-              <FormField
-                label="По батькові"
-                value={state?.surName || ""}
-                name="surName"
-                onChange={handleChange}
-              />
-            </div>
-          )}
+          <div className="form-field__group">
+            <FormField
+              label="Прізвище*"
+              value={state?.lastName || ""}
+              name="lastName"
+              onChange={handleChange}
+            />
+            <FormField
+              label="Ім’я*"
+              value={state?.firstName || ""}
+              name="firstName"
+              onChange={handleChange}
+            />
+            <FormField
+              label="По батькові"
+              value={state?.surName || ""}
+              name="surName"
+              onChange={handleChange}
+            />
+          </div>
+
           <FormField
-            className={clsx(
-              "add-profile__description",
-              isSecondary && "add-profile__description--isSecondary"
-            )}
+            className={clsx("add-profile__description")}
             placeholder="Починайте тут..."
-            label={!isSecondary ? "Опис*" : `( блок 2 )`}
+            label="Опис*"
             type="textarea"
             tag="textarea"
-            name={isSecondary ? "descriptionAdditional" : "description"}
+            name="description"
             onChange={handleChange}
-            value={
-              (isSecondary ? state.descriptionAdditional : state.description) ||
-              ""
-            }
+            value={state.description || ""}
+          />
+          <FormField
+            className={clsx("add-profile__description")}
+            placeholder="Починайте тут..."
+            label="( блок 2 )"
+            type="textarea"
+            tag="textarea"
+            name="descriptionAdditional"
+            onChange={handleChange}
+            value={state.descriptionAdditional || ""}
           />
         </div>
       </div>
-      {isSecondary && (
-        <Button onClick={onSkip} className="add-profile__btn btn--skip">
-          Пропустити
-        </Button>
-      )}
       <Button
         onClick={handleSubmit}
         type="secondary"

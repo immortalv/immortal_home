@@ -16,7 +16,9 @@ import "./style.scss";
 const AddProfile = () => {
   const history = useHistory();
   const { profile, loading } = useSelector((state) => state);
-  const [activeStep, setActiveStep] = useState(ADD_PROFILE_STEPS_NAME.TEMPLATE);
+  const [activeStep, setActiveStep] = useState(
+    ADD_PROFILE_STEPS_NAME.PHOTOS
+  );
 
   const setProfileInfo = async (data) =>
     await dispatch.profile.setProfile(data);
@@ -51,15 +53,6 @@ const AddProfile = () => {
         return <MainInfo profile={profile} onSubmit={handleNextStep} />;
       case ADD_PROFILE_STEPS_NAME.PHOTOS:
         return <AddImages profile={profile} onSubmit={handleNextStep} />;
-      case ADD_PROFILE_STEPS_NAME.DESCRIPTION:
-        return (
-          <MainInfo
-            isSecondary
-            profile={profile}
-            onSubmit={handleNextStep}
-            onSkip={handleNextStep}
-          />
-        );
       case ADD_PROFILE_STEPS_NAME.ADDITIONAL_INFORMATION:
         return <AdditionalInfo profile={profile} onSubmit={handleNextStep} />;
       default:
