@@ -31,10 +31,25 @@ const profileDataMock = {
     {
       src: getProfileImg("avatar-image-1", "jpg"),
     },
+    {
+      src: getProfileImg("avatar-image-1", "jpg"),
+    },
+    {
+      src: getProfileImg("avatar-image-1", "jpg"),
+    },
+    {
+      src: getProfileImg("avatar-image-1", "jpg"),
+    },
+    {
+      src: getProfileImg("avatar-image-1", "jpg"),
+    },
   ],
   videoData: [
     {
       src: getProfileImg("profile-video", "jpg"),
+    },
+    {
+      src: getProfileImg("profile-video-1", "jpg"),
     },
     {
       src: getProfileImg("profile-video-1", "jpg"),
@@ -66,7 +81,7 @@ const ProfilePage = () => {
 
   if (!profileData) return <p>Loading...</p>;
 
-  if (Math.random() < 0.3) return <ProfileSimple profileData={profileData} />;
+  if (Math.random() > 0.7) return <ProfileSimple profileData={profileData} />;
   if (Math.random() > 0.7) return <ProfileBook profileData={profileData} />;
   return <ProfileArticle profileData={profileData} />;
 
