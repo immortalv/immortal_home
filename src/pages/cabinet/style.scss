@@ -14,17 +14,26 @@
 
   &__cover-img {
     max-width: 100%;
+    min-height: 300px;
     position: absolute;
   }
 
   &__account {
     display: flex;
-    width: 100%;
     width: fit-content;
     min-width: 75vw;
     margin: auto;
-    padding-top: 180px;
-    padding-bottom: 120px;
+    padding-top: 20vh;
+    padding-bottom: 20vh;
+
+    @include for-tablet-landscape-up {
+      padding-bottom: 10vw;
+    }
+
+    @include for-phablet {
+      width: 100vw;
+      padding: 120px 50px 80px;
+    }
   }
 
   &__account-name {
@@ -42,10 +51,19 @@
   &__btn {
     padding: 10px 50px;
     width: 344px;
+    max-width: 25vw;
     font-size: 18px;
   }
 
   &__profile-list {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
     z-index: 2;
+
+    
+    @include for-phablet {
+      width: 95vw;
+    }
   }
 }
