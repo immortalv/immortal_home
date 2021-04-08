@@ -44,7 +44,8 @@ const ProfileArticle = ({ profileData }) => {
               scelerisque at venenatis lorem in amet.»
             </h2>
           </div>
-          <div className="image-data__container image-date__container--article image-data__container--rounded"> 
+          {imageData &&
+            <div className="image-data__container image-date__container--article image-data__container--rounded"> 
               {imageData.map((img) => (
                 <img
                   key={img.src}
@@ -54,12 +55,14 @@ const ProfileArticle = ({ profileData }) => {
                 />
               ))}
             </div>
+          }
         </div>
       </div>
       {additionalDescription && (
         <p className="profile__description profile-article__additionalDescription">{additionalDescription}</p>
       ) }
-      <div className="video-data__container--article">
+      {videoData && 
+        <div className="video-data__container--article">
         {videoData.map((img) => (
           <img
             key={img.src}
@@ -68,6 +71,7 @@ const ProfileArticle = ({ profileData }) => {
             className="video-data__container--img"/>
         ))}
       </div>
+      }
     </main>
   );
 };
