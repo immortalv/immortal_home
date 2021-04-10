@@ -6,7 +6,7 @@ export const PROFILES_CONTENT = `${CONTENT_BUCKET}/profiles`;
 
 export const BASE_API_URL =
   process.env.NODE_ENV === "production"
-    ? process.env.REACT_APP_API_URL
+    ? process.env.REACT_APP_SERVER_URL
     : "http://localhost:8080";
 
 const BASE_AUTH_URL = `${BASE_API_URL}/v1/auth`;

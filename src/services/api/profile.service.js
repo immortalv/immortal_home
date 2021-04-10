@@ -11,9 +11,13 @@ export const createProfile = (data) => axios.post(BASE_PROFILE_URL, data);
 export const getProfiles = (data) =>
   axios.get(BASE_PROFILE_URL, data).then(({ data }) => data);
 
-export const uploadFile = async (data) =>
+export const uploadFile = async (data, token) =>
   await axios
-    .post(`${CORS}/${FILE_UPLOAD_GATEWAY_URL}`, data)
+    .post(`${CORS}/${FILE_UPLOAD_GATEWAY_URL}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
     .then(({ data }) => data);
 
 // export const signIn = async (values) =>
