@@ -1,0 +1,30 @@
+@import "styles/variables.module";
+@import "styles/media-queries.module";
+
+.profile-created {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80vh;
+  justify-content: center;
+
+  &__title {
+    font-size: 64px;
+    font-family: $theme-f-opensans;
+    margin-top: 0;
+    margin-bottom: 64px;
+
+    @include for-phablet {
+      font-size: 48px;
+    }
+  }
+
+  &__btn {
+    margin: 15px 0;
+    width: 426px;
+    max-width: 30vw;
+    min-width: 265px;
+    padding: 20px 0;
+    font-family: $theme-f-opensans;
+  }
+}

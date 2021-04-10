@@ -1,30 +1,44 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
 import { dispatch } from "store";
-import { createProfile } from "services/api/profile.service";
 import {
   ADD_PROFILE_STEPS_NAME,
   ADD_PROFILE_STEPS,
 } from "constants/profile.constants";
 import routesConstants from "constants/routes.constants";
-import HeaderDark from "./header/header-dark";
-import {
-  SelectProfile,
-  MainInfo,
-  AdditionalInfo,
-  AddImages,
-  ProfileCreated,
-} from "./steps";
+import { HeaderDark } from "components/header";
+import Spinner from "components/spinner/spinner.component";
+import { SelectProfile, MainInfo, AdditionalInfo, AddImages } from "./steps";
+import { createProfile } from "services/api/profile.service";
 
 import "./style.scss";
 
 const AddProfile = () => {
   const history = useHistory();
-  const [activeStep, setActiveStep] = useState(ADD_PROFILE_STEPS_NAME.TEMPLATE);
+  const { getAccessTokenSilently } = useAuth0();
+  const { profile, loading } = useSelector((state) => state);
+  const [activeStep, setActiveStep] = useState(ADD_PROFILE_STEPS_NAME.PHOTOS);
 
-  const { profile } = useSelector((state) => state);
-  const setProfileInfo = (data) => dispatch.profile.setProfile(data);
+  const setProfileInfo = async (data) =>
+    await dispatch.profile.setProfile(data);
+
+  const callSecureApi = async (data) => {
+    try {
+      const token = await getAccessTokenSilently();
+
+      const response = createProfile(data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const nextStep = () => {
     const activeIndex = ADD_PROFILE_STEPS.indexOf(activeStep);
@@ -41,12 +55,11 @@ const AddProfile = () => {
     setActiveStep(previousStep);
   };
 
-  const handleNextStep = async (data, isFinal) => {
+  const handleNextStep = async (data, isFinal = false) => {
     await setProfileInfo(data);
 
-    // Check whether all needed profile data is present
-    if (isFinal) createProfile(profile);
-    nextStep();
+    if (!isFinal) return nextStep();
+    dispatch.profile.saveProfile(data);
   };
 
   const renderActiveStep = () => {
@@ -57,21 +70,8 @@ const AddProfile = () => {
         return <MainInfo profile={profile} onSubmit={handleNextStep} />;
       case ADD_PROFILE_STEPS_NAME.PHOTOS:
         return <AddImages profile={profile} onSubmit={handleNextStep} />;
-      case ADD_PROFILE_STEPS_NAME.DESCRIPTION:
-        return (
-          <MainInfo
-            isSecondary
-            profile={profile}
-            onSubmit={handleNextStep}
-            onSkip={handleNextStep}
-          />
-        );
       case ADD_PROFILE_STEPS_NAME.ADDITIONAL_INFORMATION:
         return <AdditionalInfo profile={profile} onSubmit={handleNextStep} />;
-
-      case ADD_PROFILE_STEPS_NAME.PROFILE_CREATED:
-        return <ProfileCreated />;
-
       default:
         return (
           <SelectProfile
@@ -81,6 +81,8 @@ const AddProfile = () => {
         );
     }
   };
+
+  if (loading.global) return <Spinner />;
 
   return (
     <div className="add-profile">

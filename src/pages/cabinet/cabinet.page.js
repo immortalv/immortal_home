@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getProfiles } from "services/api/profile.service";
 // import { getProfileImg } from "utils/image.utils";
 import routesConstants from "constants/routes.constants";
+import Spinner from "components/spinner/spinner.component";
 import { Button } from "components/common";
 import ProfileItem from "components/cabinet";
 import { ProfileAccountIcon } from "icons";
@@ -48,16 +50,16 @@ const CabinetPage = () => {
     <main className="cabinet">
       <img src={coverImg} alt="profile cover" className="cabinet__cover-img" />
       <div className="cabinet__account">
-          {/* <div className="cabinet__img-container">
+        {/* <div className="cabinet__img-container">
             <ProfileAccountIcon className="cabinet__account-img" />
           </div> */}
-          <h1 className="cabinet__account-name title">{name}</h1>
-          <Link className="cabinet__link" to={routesConstants.ADD_PROFILE}>
-            <Button type="secondary" className="cabinet__btn">
-              Додати профіль
-            </Button>
-          </Link>
-        </div>
+        <h1 className="cabinet__account-name title">{name}</h1>
+        <Link className="cabinet__link" to={routesConstants.ADD_PROFILE}>
+          <Button type="secondary" className="cabinet__btn">
+            Додати профіль
+          </Button>
+        </Link>
+      </div>
       <div className="cabinet__container">
         <div className="cabinet__profile-list">
           {profiles.map((profile) => (
@@ -69,4 +71,6 @@ const CabinetPage = () => {
   );
 };
 
-export default CabinetPage;
+export default withAuthenticationRequired(CabinetPage, {
+  onRedirecting: () => <Spinner />,
+});

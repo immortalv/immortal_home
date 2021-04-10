@@ -1,3 +1,6 @@
+import routesConstants from "constants/routes.constants";
+import { createProfile } from "services/api/profile.service";
+
 export const profile = {
   state: {
     name: "",
@@ -23,13 +26,16 @@ export const profile = {
       };
     },
   },
-  effects: (dispatch) => ({
-    async saveProfile(data) {
+  effects: () => ({
+    async saveProfile(payload, state) {
       try {
-        // const user = await signUp(data);
-        // dispatch.user.setUser(user);
-      } catch {
-        // dispatch.user.setIsLoginError(true);
+        const { profile } = state;
+        // Check whether all data is present
+
+        await createProfile(profile);
+        window.location.pathname = routesConstants.PROFILE_CREATED;
+      } catch (error) {
+        window.location.pathname = routesConstants.CABINET;
       }
     },
   }),
