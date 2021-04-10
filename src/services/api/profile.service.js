@@ -7,17 +7,14 @@ import {
 const CORS = "https://cors-anywhere.herokuapp.com";
 
 // export const getProfile = (id) => axios.get(BASE_PROFILE_URL, id);
-export const createProfile = (data) => axios.post(BASE_PROFILE_URL, data);
-export const getProfiles = (data) =>
-  axios.get(BASE_PROFILE_URL, data).then(({ data }) => data);
+export const createProfile = (data, token) =>
+  axios.securePost(BASE_PROFILE_URL, data, token);
+export const getProfiles = (token) =>
+  axios.secureGet(BASE_PROFILE_URL, token).then(({ data }) => data);
 
-export const uploadFile = async (data, token) =>
+export const uploadFile = async (data) =>
   await axios
-    .post(`${CORS}/${FILE_UPLOAD_GATEWAY_URL}`, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    .post(`${CORS}/${FILE_UPLOAD_GATEWAY_URL}`, data)
     .then(({ data }) => data);
 
 // export const signIn = async (values) =>

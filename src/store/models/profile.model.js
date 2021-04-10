@@ -30,9 +30,10 @@ export const profile = {
     async saveProfile(payload, state) {
       try {
         const { profile } = state;
+        const { token } = payload;
         // Check whether all data is present
 
-        await createProfile(profile);
+        await createProfile(profile, token);
         window.location.pathname = routesConstants.PROFILE_CREATED;
       } catch (error) {
         window.location.pathname = routesConstants.CABINET;

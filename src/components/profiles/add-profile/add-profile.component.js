@@ -19,26 +19,10 @@ const AddProfile = () => {
   const history = useHistory();
   const { getAccessTokenSilently } = useAuth0();
   const { profile, loading } = useSelector((state) => state);
-  const [activeStep, setActiveStep] = useState(ADD_PROFILE_STEPS_NAME.PHOTOS);
+  const [activeStep, setActiveStep] = useState(ADD_PROFILE_STEPS_NAME.TEMPLATE);
 
   const setProfileInfo = async (data) =>
     await dispatch.profile.setProfile(data);
-
-  const callSecureApi = async (data) => {
-    try {
-      const token = await getAccessTokenSilently();
-
-      const response = createProfile(data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const nextStep = () => {
     const activeIndex = ADD_PROFILE_STEPS.indexOf(activeStep);
@@ -59,7 +43,8 @@ const AddProfile = () => {
     await setProfileInfo(data);
 
     if (!isFinal) return nextStep();
-    dispatch.profile.saveProfile(data);
+    const token = await getAccessTokenSilently();
+    dispatch.profile.saveProfile(data, token);
   };
 
   const renderActiveStep = () => {

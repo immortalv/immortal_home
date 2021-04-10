@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
-import Spinner from "components/spinner/spinner.component";
 import { Button, Checkbox } from "components/common";
 import { getProfileImg } from "utils/image.utils";
 
@@ -43,6 +41,4 @@ const ProfileItem = ({ profile }) => {
   );
 };
 
-export default withAuthenticationRequired(ProfileItem, {
-  onRedirecting: () => <Spinner />,
-});
+export default ProfileItem;

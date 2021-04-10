@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getProfiles } from "services/api/profile.service";
@@ -35,11 +35,12 @@ import "./style.scss";
 
 const CabinetPage = () => {
   const [profiles, setProfile] = useState([]);
-  const { name } = useSelector((state) => state.user);
+  const { user, getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     async function getUserProfiles() {
-      const profilesData = await getProfiles();
+      const token = await getAccessTokenSilently();
+      const profilesData = await getProfiles(token);
       setProfile(profilesData);
     }
 
@@ -53,7 +54,7 @@ const CabinetPage = () => {
         {/* <div className="cabinet__img-container">
             <ProfileAccountIcon className="cabinet__account-img" />
           </div> */}
-        <h1 className="cabinet__account-name title">{name}</h1>
+        <h1 className="cabinet__account-name title">{user.name}</h1>
         <Link className="cabinet__link" to={routesConstants.ADD_PROFILE}>
           <Button type="secondary" className="cabinet__btn">
             Додати профіль
@@ -70,6 +71,8 @@ const CabinetPage = () => {
     </main>
   );
 };
+
+// export default CabinetPage;
 
 export default withAuthenticationRequired(CabinetPage, {
   onRedirecting: () => <Spinner />,
