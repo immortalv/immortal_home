@@ -1,5 +1,6 @@
 @import "styles/variables.module";
 @import "styles/media-queries.module";
+@import "styles/mixins.module";
 
 .select-profile {
   display: flex;
@@ -8,10 +9,13 @@
 
   &__item {
     cursor: pointer;
-    width: 30vw;
+    width: 25vw;
+    min-width: 300px;
     max-width: 312px;
     transition: transform 0.2s ease;
-    margin: 10px 35px;
+    margin: 10px 20px 0;
+
+    @include no-edge-margins();
 
     &--active {
       transform: scale(1.1);
@@ -19,10 +23,6 @@
 
     &:hover {
       transform: scale(1.1);
-    }
-
-    @include for-phone-only {
-      width: 300px;
     }
   }
 }

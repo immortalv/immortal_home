@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { dispatch } from "store";
 import { getProfiles } from "services/api/profile.service";
 // import { getProfileImg } from "utils/image.utils";
 import routesConstants from "constants/routes.constants";
@@ -34,6 +35,7 @@ import "./style.scss";
 // ];
 
 const CabinetPage = () => {
+  // const { loading, profiles } = useSelector((state) => state);
   const [profiles, setProfile] = useState([]);
   const { user, getAccessTokenSilently } = useAuth0();
 
@@ -46,6 +48,20 @@ const CabinetPage = () => {
 
     getUserProfiles();
   }, []);
+
+  // console.log("profiles", profiles);
+  // console.log("loading", loading);
+
+  // if (loading.global) return <Spinner />;
+
+  const renderProfiles = (data) =>
+    data.length ? (
+      profiles.map((profile) => (
+        <ProfileItem key={profile.name} profile={profile} />
+      ))
+    ) : (
+      <h1>У вас ще не має профілів</h1>
+    );
 
   return (
     <main className="cabinet">
@@ -62,11 +78,7 @@ const CabinetPage = () => {
         </Link>
       </div>
       <div className="cabinet__container">
-        <div className="cabinet__profile-list">
-          {profiles.map((profile) => (
-            <ProfileItem key={profile.name} profile={profile} />
-          ))}
-        </div>
+        <div className="cabinet__profile-list">{renderProfiles(profiles)}</div>
       </div>
     </main>
   );

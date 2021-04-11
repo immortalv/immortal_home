@@ -1,5 +1,6 @@
 @import "styles/variables.module";
 @import "styles/media-queries.module";
+@import "styles/mixins.module";
 
 @import "../style.scss";
 
@@ -69,8 +70,6 @@
   }
 }
 
-
-
 .image-data {
   &__container {
     display: flex;
@@ -84,13 +83,7 @@
     margin: 15px;
     border-radius: 20px;
 
-    &:first-child {
-      margin-left: 0;
-    }
-
-    &:last-child {
-      margin-right: 0;
-    }
+    @include no-edge-margins();
   }
 }
 
@@ -100,7 +93,6 @@
     border-radius: 20px;
   }
 }
-
 
 .video-data {
   &__container {
@@ -116,5 +108,4 @@
       width: 70vw;
     }
   }
-
 }

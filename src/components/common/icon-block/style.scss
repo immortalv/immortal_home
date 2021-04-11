@@ -1,5 +1,6 @@
 @import "styles/variables.module";
 @import "styles/media-queries.module";
+@import "styles/mixins.module";
 
 .icon-block {
   display: inline-block;
@@ -14,12 +15,7 @@
   background-color: $theme-c-white;
   text-align: center;
 
-  &:first-child {
-      margin-left: 0;
-  }
-  &:last-child {
-      margin-right: 0;
-  }
+  @include no-edge-margins();
 
   @include for-phablet {
     margin: 10px 0;

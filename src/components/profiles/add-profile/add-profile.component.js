@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -11,7 +11,6 @@ import routesConstants from "constants/routes.constants";
 import { HeaderDark } from "components/header";
 import Spinner from "components/spinner/spinner.component";
 import { SelectProfile, MainInfo, AdditionalInfo, AddImages } from "./steps";
-import { createProfile } from "services/api/profile.service";
 
 import "./style.scss";
 
@@ -19,36 +18,27 @@ const AddProfile = () => {
   const history = useHistory();
   const { getAccessTokenSilently } = useAuth0();
   const { profile, loading } = useSelector((state) => state);
-  const [activeStep, setActiveStep] = useState(ADD_PROFILE_STEPS_NAME.TEMPLATE);
-
-  const setProfileInfo = async (data) =>
-    await dispatch.profile.setProfile(data);
-
-  const nextStep = () => {
-    const activeIndex = ADD_PROFILE_STEPS.indexOf(activeStep);
-    const nextStep = ADD_PROFILE_STEPS[activeIndex + 1];
-    if (activeIndex + 1 > ADD_PROFILE_STEPS.length - 1 || !nextStep) return;
-    setActiveStep(nextStep);
-  };
 
   const handleBackClick = () => {
-    const activeIndex = ADD_PROFILE_STEPS.indexOf(activeStep);
-    if (activeIndex === 1) history.push(routesConstants.CABINET);
-    const previousStep = ADD_PROFILE_STEPS[activeIndex - 1];
-    if (!previousStep) return;
-    setActiveStep(previousStep);
+    const { shouldRedirect } = dispatch.profile.handleBackClick();
+    if (shouldRedirect) history.push(routesConstants.CABINET);
   };
 
-  const handleNextStep = async (data, isFinal = false) => {
-    await setProfileInfo(data);
-
-    if (!isFinal) return nextStep();
-    const token = await getAccessTokenSilently();
-    dispatch.profile.saveProfile(data, token);
+  const handleNextStep = async (data) => {
+    await dispatch.profile.setProfileEffect(data);
   };
+
+  useEffect(() => {
+    async function generageToken() {
+      const token = await getAccessTokenSilently();
+      await dispatch.profile.setProfile({ token });
+    }
+
+    if (!profile.token) generageToken();
+  }, []);
 
   const renderActiveStep = () => {
-    switch (activeStep) {
+    switch (profile.currenStep) {
       case ADD_PROFILE_STEPS_NAME.TEMPLATE:
         return <SelectProfile profile={profile} onSubmit={handleNextStep} />;
       case ADD_PROFILE_STEPS_NAME.MAIN_INFORMATION:
@@ -61,7 +51,7 @@ const AddProfile = () => {
         return (
           <SelectProfile
             storeTemplate={profile?.template || ""}
-            onSubmit={setProfileInfo}
+            onSubmit={handleNextStep}
           />
         );
     }

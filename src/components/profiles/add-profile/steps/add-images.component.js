@@ -22,22 +22,34 @@ const AddImages = ({ onSubmit, profile }) => {
 
   const setPhotos = async () => {
     setIsLoading(true);
-    const formData = new FormData();
+    // try {
+    //   const formData = new FormData();
 
-    formData.append("mainPhoto", mainPhoto[0]);
-    formData.append("coverPhoto", coverPhoto[0]);
-    formData.append("others", othersPhoto);
+    //   if (!formData.length) {
+    //     formData.append("mainPhoto", mainPhoto[0]);
+    //     formData.append("coverPhoto", coverPhoto[0]);
+    //     formData.append("others", othersPhoto);
 
-    const respone = await uploadFile(formData);
+    //     const respone = await uploadFile(formData);
 
-    setIsLoading(false);
-    console.log("response", respone);
+    //     onSubmit({
+    //       mainPhoto: "mainPhoto[0]",
+    //       coverPhoto: "coverPhoto[0]",
+    //     });
+
+    //     console.log(respone);
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    //   onSubmit();
+    // }
 
     onSubmit({
-      mainPhoto: mainPhoto[0],
-      coverPhoto: coverPhoto[0],
-      othersPhoto,
+      mainPhoto: "mainPhoto[0]",
+      coverPhoto: "coverPhoto[0]",
     });
+
+    setIsLoading(false);
   };
 
   if (isLoading) return <Spinner />;

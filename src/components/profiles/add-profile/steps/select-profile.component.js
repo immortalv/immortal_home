@@ -2,24 +2,25 @@ import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import { Button } from "components/common";
 import { PROFILE_TEMPLATE_TYPES } from "constants/profile.constants";
-import { getProfileImg } from "utils/image.utils";
+
+import profileSimple from "../assets/profile-template-simple.png";
+import profileBook from "../assets/profile-template-book.png";
+import profileArticle from "../assets/profile-template-article.png";
 
 import "./style.scss";
-
-const imgNamePattern = "profile-template";
 
 const profileTemplates = [
   {
     type: PROFILE_TEMPLATE_TYPES.SIMPLE,
-    img: getProfileImg(`${imgNamePattern}-${PROFILE_TEMPLATE_TYPES.SIMPLE}`),
+    img: profileSimple,
   },
   {
     type: PROFILE_TEMPLATE_TYPES.BOOK,
-    img: getProfileImg(`${imgNamePattern}-${PROFILE_TEMPLATE_TYPES.BOOK}`),
+    img: profileBook,
   },
   {
     type: PROFILE_TEMPLATE_TYPES.ARTICLE,
-    img: getProfileImg(`${imgNamePattern}-${PROFILE_TEMPLATE_TYPES.ARTICLE}`),
+    img: profileArticle,
   },
 ];
 
