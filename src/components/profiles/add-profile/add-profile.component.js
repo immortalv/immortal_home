@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import { dispatch } from "store";
-import {
-  ADD_PROFILE_STEPS_NAME,
-  ADD_PROFILE_STEPS,
-} from "constants/profile.constants";
+import { ADD_PROFILE_STEPS_NAME } from "constants/profile.constants";
 import routesConstants from "constants/routes.constants";
 import { HeaderDark } from "components/header";
 import Spinner from "components/spinner/spinner.component";
@@ -20,8 +17,8 @@ const AddProfile = () => {
   const { profile, loading } = useSelector((state) => state);
 
   const handleBackClick = () => {
-    const { shouldRedirect } = dispatch.profile.handleBackClick();
-    if (shouldRedirect) history.push(routesConstants.CABINET);
+    const backClicked = dispatch.profile.handleBackClick();
+    if (backClicked?.shouldRedirect) history.push(routesConstants.CABINET);
   };
 
   const handleNextStep = async (data) => {
@@ -57,7 +54,7 @@ const AddProfile = () => {
     }
   };
 
-  if (loading.global) return <Spinner />;
+  if (loading.global) return <Spinner text="Профіль створюється..." />;
 
   return (
     <div className="add-profile">

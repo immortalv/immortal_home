@@ -1,5 +1,6 @@
 import routesConstants from "constants/routes.constants";
-import { createProfile } from "services/api/profile.service";
+import { createProfile, uploadFile } from "services/api/profile.service";
+import { getNextStep, getPreviousStep } from "utils/profile.utils";
 import {
   ADD_PROFILE_STEPS_NAME,
   ADD_PROFILE_STEPS,
@@ -22,31 +23,6 @@ const initialState = {
   media: [],
 
   template: "",
-};
-
-const getNextStep = (steps, activeStep) => {
-  const activeIndex = steps.indexOf(activeStep);
-  const nextStep = steps[activeIndex + 1];
-  const isFinal = activeIndex + 1 === steps.length;
-  if (isFinal) {
-    return { nextStep: steps[0], isFinal };
-  }
-  if (activeIndex + 1 > steps.length || !nextStep) {
-    return { nextStep: steps[0], isFinal: false };
-  }
-
-  return { nextStep, isFinal: false };
-};
-
-const getPreviousStep = (steps, activeStep) => {
-  const activeIndex = steps.indexOf(activeStep);
-  const previousStep = steps[activeIndex - 1];
-
-  if (activeIndex === 0 || !previousStep) {
-    return { previousStep, shouldRedirect: true };
-  }
-
-  return { previousStep, shouldRedirect: false };
 };
 
 export const profile = {
@@ -75,7 +51,7 @@ export const profile = {
       dispatch.profile.setProfile({ ...payload, currenStep: nextStep });
 
       if (isFinal) {
-        dispatch.profile.saveProfile(payload);
+        dispatch.profile.saveProfile();
       }
     },
 
@@ -95,17 +71,49 @@ export const profile = {
 
     async saveProfile(payload, state) {
       try {
-        const { profile } = state;
-        const { token } = payload;
+        const {
+          profile,
+          user: { userId },
+        } = state;
         // Check whether all data is present
 
-        debugger;
+        const { originalKey: mainPhoto } = await upload(
+          profile.mainPhoto,
+          userId
+        );
+        const { originalKey: coverPhoto } = await upload(
+          profile.coverPhoto,
+          userId
+        );
 
-        await createProfile(profile, token);
+        const mediaFiles = await Promise.all(
+          profile.media.map(async (file) => await upload(file, userId))
+        );
+
+        const media = mediaFiles.map((file) => file.originalKey);
+
+        await createProfile(
+          {
+            ...profile,
+            mainPhoto,
+            coverPhoto,
+            media,
+          },
+          profile.token
+        );
         window.location.pathname = routesConstants.PROFILE_CREATED;
       } catch (error) {
+        dispatch.profile.clearState();
         window.location.pathname = routesConstants.CABINET;
       }
     },
   }),
 };
+
+async function upload(file, id) {
+  const formData = new FormData();
+  formData.append("files", file);
+  const respone = await uploadFile(formData, id);
+
+  return await respone;
+}

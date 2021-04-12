@@ -4,6 +4,9 @@ import { getProfileImg } from "utils/image.utils";
 
 import "./style.scss";
 
+const getImagefromBucket = (name) =>
+  `https://immortal-profile-content.s3.eu-central-1.amazonaws.com/${name}`;
+
 const ProfileItem = ({ profile }) => {
   const { name, description, profileType } = profile;
   const [isPublic, setIsPublic] = useState(true);
@@ -13,7 +16,7 @@ const ProfileItem = ({ profile }) => {
   return (
     <div className="profile-item">
       <img
-        src={getProfileImg("avatar-image-1", "jpg")}
+        src={getImagefromBucket(profile.mainPhoto)}
         className="profile-item__img"
         alt=""
       />

@@ -28,7 +28,7 @@ const SelectProfile = ({ onSubmit, profile }) => {
   const [activeTemplate, setActiveTemplate] = useState();
 
   useEffect(() => {
-    setActiveTemplate(profile?.template || "");
+    if (profile?.template) setActiveTemplate(profile?.template);
   }, []);
 
   return (

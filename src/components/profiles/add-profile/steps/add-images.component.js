@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import clsx from "clsx";
-import { uploadFile } from "services/api/profile.service";
-import Spinner from "components/spinner/spinner.component";
 import { Button, AddFile } from "components/common";
 
 import "./style.scss";
@@ -10,7 +7,6 @@ const AddImages = ({ onSubmit, profile }) => {
   const [mainPhoto, setMainPhoto] = useState([]);
   const [coverPhoto, setCoverPhoto] = useState([]);
   const [othersPhoto, setOthersPhoto] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const { mainPhoto, coverPhoto, othersPhoto } = profile;
@@ -21,38 +17,14 @@ const AddImages = ({ onSubmit, profile }) => {
   }, []);
 
   const setPhotos = async () => {
-    setIsLoading(true);
-    // try {
-    //   const formData = new FormData();
-
-    //   if (!formData.length) {
-    //     formData.append("mainPhoto", mainPhoto[0]);
-    //     formData.append("coverPhoto", coverPhoto[0]);
-    //     formData.append("others", othersPhoto);
-
-    //     const respone = await uploadFile(formData);
-
-    //     onSubmit({
-    //       mainPhoto: "mainPhoto[0]",
-    //       coverPhoto: "coverPhoto[0]",
-    //     });
-
-    //     console.log(respone);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   onSubmit();
-    // }
+    if (!mainPhoto[0]) return;
 
     onSubmit({
-      mainPhoto: "mainPhoto[0]",
-      coverPhoto: "coverPhoto[0]",
+      mainPhoto: mainPhoto[0],
+      coverPhoto: coverPhoto[0],
+      media: othersPhoto,
     });
-
-    setIsLoading(false);
   };
-
-  if (isLoading) return <Spinner />;
 
   return (
     <>

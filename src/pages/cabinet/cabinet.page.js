@@ -43,6 +43,7 @@ const CabinetPage = () => {
     async function getUserProfiles() {
       const token = await getAccessTokenSilently();
       const profilesData = await getProfiles(token);
+      console.log("profilesData", profilesData);
       setProfile(profilesData);
     }
 

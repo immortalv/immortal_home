@@ -12,9 +12,9 @@ export const createProfile = (data, token) =>
 export const getProfiles = (token) =>
   axios.secureGet(BASE_PROFILE_URL, token).then(({ data }) => data);
 
-export const uploadFile = async (data) =>
+export const uploadFile = async (data, userId) =>
   await axios
-    .post(`${CORS}/${FILE_UPLOAD_GATEWAY_URL}`, data)
+    .post(`${CORS}/${FILE_UPLOAD_GATEWAY_URL}?userId=${userId}`, data)
     .then(({ data }) => data);
 
 // export const signIn = async (values) =>
