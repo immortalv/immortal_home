@@ -41,31 +41,36 @@ const ProfileBook = ({ profileData }) => {
           </div>
         </div>
         <div className="profile-book__page profile-book__page-text">
-          <p className="profile__description profile-book__description">
+          <p className="profile-book__description">
             {mockedDescription}
           </p>
         </div>
       </section>
       <section className="profile-book__page-container">
         <div className="profile-book__page profile-book__page-text">
-          <p className="profile__description profile-book__description">
+          <p className="profile-book__description">
             {mockedDescription}
           </p>
         </div>
         <div className="profile-book__page">
-          <div className="image-data__container image-data__containe--rounded">
+          <div className="image-data__container--book image-data__container--rounded">
             {imageData.map((img) => (
               <img
                 key={img.src}
                 src={img.src}
                 alt={`${fullName} image data`}
-                className="image-data__item"
+                className="image-data__item--book"
               />
             ))}
           </div>
-          <div className="video-data__container">
+          <div className="video-data__container--book">
             {videoData.map((img) => (
-              <img key={img.src} src={img.src} alt={`${fullName} image data`} />
+              <img
+                key={img.src}
+                src={img.src}
+                alt={`${fullName} image data`}
+                className="video-data__container--img"
+              />
             ))}
           </div>
         </div>

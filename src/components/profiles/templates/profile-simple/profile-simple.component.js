@@ -33,7 +33,7 @@ const ProfileSimple = ({ profileData }) => {
       </div>
       <h1 className="title profile__name profile-simple__name">{fullName}</h1>
       <p className="profile__description profile-simple__description">{description}</p>
-      <div className="image-data__container">
+      <div className="image-data__container--simple">
         {imageData.map((img) => (
           <img
             key={img.src}

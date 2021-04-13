@@ -71,13 +71,11 @@
 
 
 
-.image-data {
-  &__container {
+.image-data__container--simple {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin: 50px 0;
-  }
 
   &__item {
     max-width: 185px;
@@ -93,6 +91,7 @@
     }
   }
 }
+
 
 .image-data__container--rounded {
   .image-data__item {
