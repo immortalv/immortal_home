@@ -1,38 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { dispatch } from "store";
 import { getProfiles } from "services/api/profile.service";
 // import { getProfileImg } from "utils/image.utils";
 import routesConstants from "constants/routes.constants";
 import Spinner from "components/spinner/spinner.component";
 import { Button } from "components/common";
 import ProfileItem from "components/cabinet";
-import { ProfileAccountIcon } from "icons";
 
 import coverImg from "./cover.jpg";
 
 import "./style.scss";
-
-// const profiles = [
-//   {
-//     name: "Василевська Василина",
-//     description:
-//       "Тисячі любителів футболу та спорту мають причини бути вдячними моїй сестрі Василині, яка поме...",
-//     type: "Публічний",
-//     avatar: getProfileImg("avatar-image-1", "jpg"),
-//     qrCode: getProfileImg("avatar-image-1", "jpg"),
-//   },
-//   {
-//     name: "Василевська Василина",
-//     description:
-//       "Тисячі любителів футболу та спорту мають причини бути вдячними моїй сестрі Василині, яка поме...",
-//     type: "Публічний",
-//     avatar: getProfileImg("avatar-image-1", "jpg"),
-//     qrCode: getProfileImg("avatar-image-1", "jpg"),
-//   },
-// ];
 
 const CabinetPage = () => {
   // const { loading, profiles } = useSelector((state) => state);
@@ -43,17 +21,12 @@ const CabinetPage = () => {
     async function getUserProfiles() {
       const token = await getAccessTokenSilently();
       const profilesData = await getProfiles(token);
-      console.log("profilesData", profilesData);
+
       setProfile(profilesData);
     }
 
     getUserProfiles();
   }, []);
-
-  // console.log("profiles", profiles);
-  // console.log("loading", loading);
-
-  // if (loading.global) return <Spinner />;
 
   const renderProfiles = (data) =>
     data.length ? (

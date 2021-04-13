@@ -43,16 +43,15 @@ export const profile = {
   },
   effects: (dispatch) => ({
     async setProfileEffect(payload, state) {
-      const { nextStep, isFinal } = getNextStep(
-        ADD_PROFILE_STEPS,
-        state.profile.currenStep
-      );
+      const nextStep = getNextStep(ADD_PROFILE_STEPS, state.profile.currenStep);
+
+      if (nextStep === ADD_PROFILE_STEPS_NAME.PROFILE_CREATED) {
+        dispatch.profile.setProfile({ ...payload });
+        dispatch.profile.saveProfile();
+        return;
+      }
 
       dispatch.profile.setProfile({ ...payload, currenStep: nextStep });
-
-      if (isFinal) {
-        dispatch.profile.saveProfile();
-      }
     },
 
     handleBackClick(payload, state) {
@@ -75,7 +74,7 @@ export const profile = {
           profile,
           user: { userId },
         } = state;
-        // Check whether all data is present
+        //@TODO Check whether all data is present
 
         const { originalKey: mainPhoto } = await upload(
           profile.mainPhoto,
@@ -92,7 +91,7 @@ export const profile = {
 
         const media = mediaFiles.map((file) => file.originalKey);
 
-        await createProfile(
+        const { id } = await createProfile(
           {
             ...profile,
             mainPhoto,
@@ -101,7 +100,11 @@ export const profile = {
           },
           profile.token
         );
-        window.location.pathname = routesConstants.PROFILE_CREATED;
+
+        dispatch.profile.setProfile({
+          id,
+          currenStep: ADD_PROFILE_STEPS_NAME.PROFILE_CREATED,
+        });
       } catch (error) {
         dispatch.profile.clearState();
         window.location.pathname = routesConstants.CABINET;

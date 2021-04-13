@@ -7,7 +7,13 @@ import { ADD_PROFILE_STEPS_NAME } from "constants/profile.constants";
 import routesConstants from "constants/routes.constants";
 import { HeaderDark } from "components/header";
 import Spinner from "components/spinner/spinner.component";
-import { SelectProfile, MainInfo, AdditionalInfo, AddImages } from "./steps";
+import {
+  SelectProfile,
+  MainInfo,
+  AdditionalInfo,
+  AddImages,
+  ProfileCreated,
+} from "./steps";
 
 import "./style.scss";
 
@@ -21,9 +27,8 @@ const AddProfile = () => {
     if (backClicked?.shouldRedirect) history.push(routesConstants.CABINET);
   };
 
-  const handleNextStep = async (data) => {
-    await dispatch.profile.setProfileEffect(data);
-  };
+  const handleNextStep = (data) => dispatch.profile.setProfileEffect(data);
+  const clearProfileState = () =>dispatch.profile.clearState()
 
   useEffect(() => {
     async function generageToken() {
@@ -44,6 +49,8 @@ const AddProfile = () => {
         return <AddImages profile={profile} onSubmit={handleNextStep} />;
       case ADD_PROFILE_STEPS_NAME.ADDITIONAL_INFORMATION:
         return <AdditionalInfo profile={profile} onSubmit={handleNextStep} />;
+      case ADD_PROFILE_STEPS_NAME.PROFILE_CREATED:
+        return <ProfileCreated id={profile.id} onPageChange={clearProfileState} />;
       default:
         return (
           <SelectProfile

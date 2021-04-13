@@ -1,15 +1,15 @@
 export const getNextStep = (steps, activeStep) => {
   const activeIndex = steps.indexOf(activeStep);
   const nextStep = steps[activeIndex + 1];
-  const isFinal = activeIndex + 1 === steps.length;
-  if (isFinal) {
-    return { nextStep: steps[0], isFinal };
-  }
-  if (activeIndex + 1 > steps.length || !nextStep) {
-    return { nextStep: steps[0], isFinal: false };
+  if (
+    activeIndex + 1 > steps.length ||
+    !nextStep ||
+    activeIndex + 1 === steps.length
+  ) {
+    return steps[0];
   }
 
-  return { nextStep, isFinal: false };
+  return nextStep;
 };
 
 export const getPreviousStep = (steps, activeStep) => {
