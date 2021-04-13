@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
 import { dispatch } from "store";
-import { createProfile } from "services/api/profile.service";
-import {
-  ADD_PROFILE_STEPS_NAME,
-  ADD_PROFILE_STEPS,
-} from "constants/profile.constants";
+import { ADD_PROFILE_STEPS_NAME } from "constants/profile.constants";
 import routesConstants from "constants/routes.constants";
-import HeaderDark from "./header/header-dark";
+import { HeaderDark } from "components/header";
+import Spinner from "components/spinner/spinner.component";
 import {
   SelectProfile,
   MainInfo,
@@ -21,66 +19,49 @@ import "./style.scss";
 
 const AddProfile = () => {
   const history = useHistory();
-  const [activeStep, setActiveStep] = useState(ADD_PROFILE_STEPS_NAME.TEMPLATE);
-
-  const { profile } = useSelector((state) => state);
-  const setProfileInfo = (data) => dispatch.profile.setProfile(data);
-
-  const nextStep = () => {
-    const activeIndex = ADD_PROFILE_STEPS.indexOf(activeStep);
-    const nextStep = ADD_PROFILE_STEPS[activeIndex + 1];
-    if (activeIndex + 1 > ADD_PROFILE_STEPS.length - 1 || !nextStep) return;
-    setActiveStep(nextStep);
-  };
+  const { getAccessTokenSilently } = useAuth0();
+  const { profile, loading } = useSelector((state) => state);
 
   const handleBackClick = () => {
-    const activeIndex = ADD_PROFILE_STEPS.indexOf(activeStep);
-    if (activeIndex === 1) history.push(routesConstants.CABINET);
-    const previousStep = ADD_PROFILE_STEPS[activeIndex - 1];
-    if (!previousStep) return;
-    setActiveStep(previousStep);
+    const backClicked = dispatch.profile.handleBackClick();
+    if (backClicked?.shouldRedirect) history.push(routesConstants.CABINET);
   };
 
-  const handleNextStep = async (data, isFinal) => {
-    await setProfileInfo(data);
+  const handleNextStep = (data) => dispatch.profile.setProfileEffect(data);
+  const clearProfileState = () =>dispatch.profile.clearState()
 
-    // Check whether all needed profile data is present
-    if (isFinal) createProfile(profile);
-    nextStep();
-  };
+  useEffect(() => {
+    async function generageToken() {
+      const token = await getAccessTokenSilently();
+      await dispatch.profile.setProfile({ token });
+    }
+
+    if (!profile.token) generageToken();
+  }, []);
 
   const renderActiveStep = () => {
-    switch (activeStep) {
+    switch (profile.currenStep) {
       case ADD_PROFILE_STEPS_NAME.TEMPLATE:
         return <SelectProfile profile={profile} onSubmit={handleNextStep} />;
       case ADD_PROFILE_STEPS_NAME.MAIN_INFORMATION:
         return <MainInfo profile={profile} onSubmit={handleNextStep} />;
       case ADD_PROFILE_STEPS_NAME.PHOTOS:
         return <AddImages profile={profile} onSubmit={handleNextStep} />;
-      case ADD_PROFILE_STEPS_NAME.DESCRIPTION:
-        return (
-          <MainInfo
-            isSecondary
-            profile={profile}
-            onSubmit={handleNextStep}
-            onSkip={handleNextStep}
-          />
-        );
       case ADD_PROFILE_STEPS_NAME.ADDITIONAL_INFORMATION:
         return <AdditionalInfo profile={profile} onSubmit={handleNextStep} />;
-
       case ADD_PROFILE_STEPS_NAME.PROFILE_CREATED:
-        return <ProfileCreated />;
-
+        return <ProfileCreated id={profile.id} onPageChange={clearProfileState} />;
       default:
         return (
           <SelectProfile
             storeTemplate={profile?.template || ""}
-            onSubmit={setProfileInfo}
+            onSubmit={handleNextStep}
           />
         );
     }
   };
+
+  if (loading.global) return <Spinner text="Профіль створюється..." />;
 
   return (
     <div className="add-profile">

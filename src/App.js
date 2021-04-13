@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
 import { dispatch } from "store";
 import AppRouter from "router";
 import Spinner from "components/spinner/spinner.component";
@@ -7,15 +7,15 @@ import Spinner from "components/spinner/spinner.component";
 import "./style.scss";
 
 function App() {
-  const { user, loading } = useSelector((state) => state);
+  const { isLoading, user } = useAuth0();
 
   useEffect(() => {
-    if (user.isAuthenticated) return;
-    dispatch.user.signIn();
-  }, []);
+    if (user) {
+      dispatch.user.setUser(user);
+    }
+  }, [user]);
 
-  if (loading.global) return <Spinner />;
-
+  if (isLoading) return <Spinner />;
   return (
     <div className="App">
       <AppRouter />

@@ -1,31 +1,37 @@
 import React from "react";
 import { useHistory } from "react-router";
-import routesConstants from "constants/routes.constants";
+import routesConstants, { PROFILE } from "constants/routes.constants";
 import { Button } from "components/common";
 
 import "./style.scss";
 
-const ProfileCreated = () => {
+const ProfileCreated = ({ id, onPageChange }) => {
   const history = useHistory();
 
   const openProfile = () => {
-    history.push(routesConstants.PROFILE, "id");
+    onPageChange();
+    history.push(`${PROFILE}/${id}`);
+  };
+
+  const openCabinet = () => {
+    onPageChange();
+    history.push(routesConstants.CABINET);
   };
 
   return (
-    <div className="add-profile--final">
-      <h1 className="title add-profile__title">Усе зроблено!</h1>
+    <div className="profile-created">
+      <h1 className="title profile-created__title">Усе зроблено!</h1>
       <Button
         onClick={openProfile}
         type="secondary"
-        className="add-profile__btn"
+        className="profile-created__btn"
       >
         Переглянути Сторінку
       </Button>
       <Button
-        onClick={() => history.push(routesConstants.CABINET)}
+        onClick={openCabinet}
         type="secondary"
-        className="add-profile__btn"
+        className="profile-created__btn"
       >
         Перейти в кабінет
       </Button>

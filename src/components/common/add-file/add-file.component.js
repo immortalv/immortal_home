@@ -17,7 +17,7 @@ const AddFile = ({
     accept,
     maxFiles,
     onDrop: (acceptedFiles) => {
-      console.log('acceptedFiles', acceptedFiles);
+      console.log("acceptedFiles", acceptedFiles);
       const dataToSet = [
         ...(multipleFiles ? files : []),
         ...acceptedFiles.map((file) =>
@@ -28,7 +28,7 @@ const AddFile = ({
       ];
 
       setFiles(dataToSet);
-    }
+    },
   });
 
   const removeFiles = (file) => {
@@ -84,7 +84,7 @@ const AddFile = ({
                 src={file.preview}
                 className="add-file__file"
               />
-              
+
               <button
                 className="add-file__remove"
                 onClick={() => removeFiles(file)}

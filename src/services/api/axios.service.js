@@ -5,29 +5,57 @@ const getToken = () => localStorage.getItem("access-token");
 
 const client = axios.create({ BASE_API_URL });
 
-client.interceptors.request.use(
-  (config) => {
-    const authorization = getToken();
-    config.headers = { authorization };
+// client.interceptors.request.use(
+//   (config) => {
+//     console.log('config', config)
+//     const authorization = getToken();
+//     config.headers = { authorization };
 
-    return config;
-  },
-  (error) => {
-    console.log("error", error);
-    return Promise.reject(error);
-  }
-);
+//     return config;
+//   },
+//   (error) => {
+//     console.log("error", error);
+//     return Promise.reject(error);
+//   }
+// );
 
-const get = (url, params) => client.get(url, { params });
-const post = (url, params) => client.post(url, params);
-const put = (url, params) => client.put(url, params);
-const del = (url) => client.delete(url);
+const get = (url, params) => client.get(url, params);
+const post = (url, data, params) => client.post(url, data, params);
+const put = (url, data, params) => client.put(url, data, params);
+const del = (url, params) => client.delete(url, params);
+
+const secureGet = (url, token, params) =>
+  client.get(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    ...params,
+  });
+const securePost = (url, data, token, params) =>
+  client.post(url, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    ...params,
+  });
+const securePut = (url, data, token, params) =>
+  client.put(url, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    ...params,
+  });
+const secureDel = (url, params) => client.delete(url, params);
 
 export default {
   get,
   post,
   put,
   delete: del,
+  secureGet,
+  securePost,
+  securePut,
+  secureDel,
 };
 
 // import LocalStorageService from "./services/storage/localstorageservice";

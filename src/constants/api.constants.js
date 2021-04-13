@@ -1,10 +1,12 @@
+export const FILE_UPLOAD_GATEWAY_URL =
+  "https://81srnuryr6.execute-api.eu-central-1.amazonaws.com/Prod/data";
 export const CONTENT_BUCKET =
   "https://immortal-content.s3.us-east-2.amazonaws.com";
 export const PROFILES_CONTENT = `${CONTENT_BUCKET}/profiles`;
 
 export const BASE_API_URL =
   process.env.NODE_ENV === "production"
-    ? process.env.REACT_APP_API_URL
+    ? process.env.REACT_APP_SERVER_URL
     : "http://localhost:8080";
 
 const BASE_AUTH_URL = `${BASE_API_URL}/v1/auth`;

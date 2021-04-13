@@ -19,7 +19,6 @@ const AddProfileAdditionalInfo = ({ profile = {}, onSubmit }) => {
   };
 
   const handleSubmit = () => {
-    console.log("state", state);
     onSubmit(state, true);
     setState({});
   };

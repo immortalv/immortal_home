@@ -1,5 +1,6 @@
 @import "styles/variables.module";
 @import "styles/media-queries.module";
+@import "styles/mixins.module";
 
 .select-profile {
   display: flex;
@@ -8,10 +9,13 @@
 
   &__item {
     cursor: pointer;
-    width: 30vw;
+    width: 25vw;
+    min-width: 300px;
     max-width: 312px;
     transition: transform 0.2s ease;
-    margin: 10px 35px;
+    margin: 10px 20px 0;
+
+    @include no-edge-margins();
 
     &--active {
       transform: scale(1.1);
@@ -20,27 +24,11 @@
     &:hover {
       transform: scale(1.1);
     }
-
-    @include for-phone-only {
-      width: 300px;
-    }
   }
 }
 
 .add-profile__main-info {
   width: 100%;
-}
-
-.add-profile--final {
-  display: flex;
-  flex-direction: column;
-  // justify-content: center;
-  align-items: center;
-
-  .add-profile__btn {
-    margin: 15px 0;
-    min-width: 265px;
-  }
 }
 
 .add-profile__additional-info {
@@ -65,6 +53,7 @@
 .add-profile__description {
   width: 100%;
   height: 385px;
+  margin: 30px 0;
 
   .form-field__label {
     margin-bottom: 20px;
@@ -73,10 +62,6 @@
   @include for-phone-only {
     height: 250px;
   }
-}
-
-.add-profile__description--secondary {
-  height: 450px;
 }
 
 .add-profile__date {
@@ -137,7 +122,7 @@
   grid-template-columns: 1fr 2fr;
   grid-template-rows: 1fr 1fr;
 
-  grid-row-gap: 40px;
+  grid-row-gap: 20px;
   grid-column-gap: 30px;
 
   width: 100%;
@@ -293,4 +278,32 @@
 
 .label--necessary {
   color: #ff4c4c;
+}
+
+.profile-created {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80vh;
+  justify-content: center;
+
+  &__title {
+    font-size: 64px;
+    font-family: $theme-f-opensans;
+    margin-top: 0;
+    margin-bottom: 64px;
+
+    @include for-phablet {
+      font-size: 48px;
+    }
+  }
+
+  &__btn {
+    margin: 15px 0;
+    width: 426px;
+    max-width: 30vw;
+    min-width: 265px;
+    padding: 20px 0;
+    font-family: $theme-f-opensans;
+  }
 }

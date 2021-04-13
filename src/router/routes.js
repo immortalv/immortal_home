@@ -67,6 +67,12 @@ export const subRoutes = [
     path: routesConstants.LOGIN,
     component: LoginPage,
   },
+  {
+    name: "Увійти",
+    exact: true,
+    path: routesConstants.REGISTER,
+    component: LoginPage,
+  },
 ];
 
 export default routes;

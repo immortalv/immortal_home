@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import clsx from "clsx";
 import { Button, AddFile } from "components/common";
 
 import "./style.scss";
@@ -17,17 +16,19 @@ const AddImages = ({ onSubmit, profile }) => {
     if (othersPhoto) setOthersPhoto(othersPhoto);
   }, []);
 
-  const setPhotos = () => {
+  const setPhotos = async () => {
+    if (!mainPhoto[0]) return;
+
     onSubmit({
       mainPhoto: mainPhoto[0],
       coverPhoto: coverPhoto[0],
-      othersPhoto,
+      media: othersPhoto,
     });
   };
 
   return (
     <>
-      <h1 className="title add-profile__title">Додайте фотографії</h1>
+      <h1 className="header-s-1 add-profile__title">Додайте фотографії</h1>
 
       <div className="add-profile__images-container">
         <div className="add-file-block add-file-main">
@@ -53,6 +54,10 @@ const AddImages = ({ onSubmit, profile }) => {
           <span className="add-file__label">Інші</span>
         </div>
       </div>
+
+      {/* <div className="add-profile__other-files">
+        <h2 className="add-profile__subtitle header-s-2">Додайте інші файли</h2>
+      </div> */}
 
       <Button onClick={setPhotos} type="secondary" className="add-profile__btn">
         Далі

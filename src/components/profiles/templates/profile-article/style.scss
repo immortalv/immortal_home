@@ -110,6 +110,8 @@
       max-width: 155px;
     }
 
+    @include no-edge-margins();
+
     &:first-child {
       margin-left: 0;
     }

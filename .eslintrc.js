@@ -17,5 +17,6 @@ module.exports = {
     "react/prop-types": 0,
     "no-unused-vars": 1,
     "no-debugger": 1,
+    "react/display-name": 1,
   },
 };

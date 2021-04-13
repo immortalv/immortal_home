@@ -1,12 +1,14 @@
-const PROFILES = "/profiles";
+export const PROFILE = "/profile";
+export const PROFILES = "/profiles";
 
 const routesConstants = {
   HOME: "/",
   PROFILES,
-  PROFILE: `${PROFILES}/:profileId`,
+  PROFILE: `${PROFILE}/:id`,
   CABINET: "/cabinet",
   RULES: "/rules",
   LOGIN: "/login",
+  REGISTER: "/register",
 
   ADD_PROFILE: "/add-profile",
 };

@@ -6,10 +6,7 @@
   padding-bottom: 30px;
 
   &__title {
-    font-weight: bold;
-    font-size: 64px;
-    line-height: 150%;
-    margin: 25px 0;
+    margin: 20px 0 45px 0;
 
     @include for-tablet-landscape-up {
       font-size: 45px;
@@ -23,6 +20,9 @@
     @include for-phone-only {
       font-size: 36px;
     }
+  }
+
+  &__subtitle {
   }
 
   &__content {
@@ -44,6 +44,6 @@
 
   .btn--skip {
     background-color: transparent;
-    color: rgba(33, 33, 33, .5);
+    color: rgba(33, 33, 33, 0.5);
   }
 }

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import routesConstants from "constants/routes.constants";
 // import { Button } from "components/common";
 import {
@@ -17,6 +17,7 @@ import "./style.scss";
 const AuthPage = () => {
   const [isRegistration, setIsRegistration] = useState(false);
   const history = useHistory();
+  const location = useLocation();
 
   const goBack = () => {
     if (isRegistration) return setIsRegistration(false);
@@ -24,11 +25,17 @@ const AuthPage = () => {
     history.push(routesConstants.HOME);
   };
 
+  const goToRegistration = () => history.push(routesConstants.REGISTER);
+
+  useEffect(() => {
+    const isRegistrationPage = location.pathname === routesConstants.REGISTER;
+    setIsRegistration(isRegistrationPage);
+  }, [location]);
+
   return (
     <main className="auth">
       <div className="quote__block-container">
         <LogoIcon className="header-dark__logo auth__logo" />
-        {/* <div className="quote__block-wrapper"> */}
         <div>
           <blockquote className="quote__block-text">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquet
@@ -55,7 +62,7 @@ const AuthPage = () => {
               <span className="auth__register">
                 Ще немає облікового запису?
                 <button
-                  onClick={() => setIsRegistration(true)}
+                  onClick={goToRegistration}
                   className="auth__register-button"
                 >
                   Зареєструватись
