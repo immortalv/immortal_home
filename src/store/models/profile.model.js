@@ -119,7 +119,7 @@ export const profile = {
       const { id, token } = payload;
       const profile = await getProfile(id, token);
 
-      dispatch.profile.setProfile(profile);
+      dispatch.profiles.setProfile;
     },
   }),
 };
