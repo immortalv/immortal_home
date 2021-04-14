@@ -1,5 +1,9 @@
 import routesConstants from "constants/routes.constants";
-import { createProfile, uploadFile } from "services/api/profile.service";
+import {
+  createProfile,
+  uploadFile,
+  getProfile,
+} from "services/api/profile.service";
 import { getNextStep, getPreviousStep } from "utils/profile.utils";
 import {
   ADD_PROFILE_STEPS_NAME,
@@ -109,6 +113,13 @@ export const profile = {
         dispatch.profile.clearState();
         window.location.pathname = routesConstants.CABINET;
       }
+    },
+
+    async getProfile(payload, state) {
+      const { id, token } = payload;
+      const profile = await getProfile(id, token);
+
+      dispatch.profile.setProfile(profile);
     },
   }),
 };
