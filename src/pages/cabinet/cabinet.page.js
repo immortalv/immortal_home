@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
-import { getProfiles } from "services/api/profile.service";
-// import { getProfileImg } from "utils/image.utils";
 import routesConstants from "constants/routes.constants";
 import Spinner from "components/spinner/spinner.component";
 import { Button } from "components/common";
@@ -11,31 +10,28 @@ import ProfileItem from "components/cabinet";
 import coverImg from "./cover.jpg";
 
 import "./style.scss";
+import { dispatch } from "store";
 
 const CabinetPage = () => {
-  // const { loading, profiles } = useSelector((state) => state);
-  const [profiles, setProfile] = useState([]);
   const { user, getAccessTokenSilently } = useAuth0();
+  const {
+    loading: { global: loading },
+    profiles: { data: profiles },
+  } = useSelector((state) => state);
 
   useEffect(() => {
     async function getUserProfiles() {
       const token = await getAccessTokenSilently();
-      const profilesData = await getProfiles(token);
-
-      setProfile(profilesData);
+      await dispatch.profiles.getProfiles(token);
     }
 
     getUserProfiles();
   }, []);
 
-  const renderProfiles = (data) =>
-    data.length ? (
-      profiles.map((profile) => (
-        <ProfileItem key={profile.name} profile={profile} />
-      ))
-    ) : (
-      <h1>У вас ще не має профілів</h1>
-    );
+  if (loading && !profiles.length)
+    return <Spinner text="Завантажуємо профілі..." />;
+
+  if (!profiles.length) return <h1>У вас ще не має профілів</h1>;
 
   return (
     <main className="cabinet">
@@ -52,13 +48,15 @@ const CabinetPage = () => {
         </Link>
       </div>
       <div className="cabinet__container">
-        <div className="cabinet__profile-list">{renderProfiles(profiles)}</div>
+        <div className="cabinet__profile-list">
+          {profiles.map((profile) => (
+            <ProfileItem key={profile.name} profile={profile} />
+          ))}
+        </div>
       </div>
     </main>
   );
 };
-
-// export default CabinetPage;
 
 export default withAuthenticationRequired(CabinetPage, {
   onRedirecting: () => <Spinner />,

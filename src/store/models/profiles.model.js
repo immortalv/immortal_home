@@ -21,12 +21,9 @@ export const profiles = {
   effects: (dispatch) => ({
     async getProfiles(payload) {
       try {
-        const { token } = payload;
-        const profiles = await getProfiles(token);
-
-        await dispatch.profiles.setProfiles({ data: [] });
+        const profiles = await getProfiles(payload);
+        await dispatch.profiles.setProfiles({ data: profiles });
       } catch (error) {
-        console.log("Error-----------------", error);
         dispatch.profiles.setProfiles({ data: [] });
       }
     },

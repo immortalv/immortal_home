@@ -1,24 +1,11 @@
 import React from "react";
+import { transfromDate } from "utils/profile.utils";
 import forestImg from "assets/profile-simple-background.jpg";
 
 import "./style.scss";
 
 const getImagefromBucket = (name) =>
   `https://immortal-profile-content.s3.eu-central-1.amazonaws.com/${name}`;
-
-const transfromData = (date) => {
-  const dateObject = new Date(date);
-  let day = dateObject.getDate();
-  let month = dateObject.getMonth();
-  const year = dateObject.getFullYear();
-
-  if (String(month).length === 1) month = `0${month}`;
-  if (String(day).length === 1) day = `0${day}`;
-
-  console.log("month", month.length);
-
-  return `${day}.${month}.${year}`;
-};
 
 const ProfileSimple = ({ profileData }) => {
   const {
@@ -47,10 +34,10 @@ const ProfileSimple = ({ profileData }) => {
           className="profile-simple__avatar-img"
         />
         <span className="profile-simple__date profile-simple__date--birth">
-          {transfromData(birthDate)}
+          {transfromDate(birthDate)}
         </span>
         <span className="profile-simple__date profile-simple__date--death">
-          {transfromData(deathDate)}
+          {transfromDate(deathDate)}
         </span>
       </div>
       <h1 className="title profile__name profile-simple__name">{name}</h1>
