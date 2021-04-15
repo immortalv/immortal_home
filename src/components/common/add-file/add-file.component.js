@@ -17,7 +17,6 @@ const AddFile = ({
     accept,
     maxFiles,
     onDrop: (acceptedFiles) => {
-      console.log("acceptedFiles", acceptedFiles);
       const dataToSet = [
         ...(multipleFiles ? files : []),
         ...acceptedFiles.map((file) =>
@@ -40,7 +39,7 @@ const AddFile = ({
 
   useEffect(() => {
     if (!files || !files.length) return;
-    files.forEach((file) => URL.revokeObjectURL(file.preview));
+    files.forEach((file) => URL.revokeObjectURL(file));
   }, [files]);
 
   return (
@@ -65,9 +64,7 @@ const AddFile = ({
 
         {!multipleFiles && !!files.length && (
           <>
-            {files[0] && (
-              <img className="add-file__file" src={files[0]?.preview} />
-            )}
+            <img className="add-file__file" src={files[0]?.preview} />
             <button className="add-file__remove" onClick={removeFiles}>
               <CrossIcon className="add-file__remove-icon" />
             </button>

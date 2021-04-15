@@ -22,8 +22,8 @@ const initialState = {
   profileType: "", // public/privat
   epitaph: "",
 
-  mainPhoto: null,
-  coverPhoto: null,
+  mainPhoto: [],
+  coverPhoto: [],
   media: [],
 
   template: "",

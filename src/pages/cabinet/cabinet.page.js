@@ -31,7 +31,7 @@ const CabinetPage = () => {
   if (loading && !profiles.length)
     return <Spinner text="Завантажуємо профілі..." />;
 
-  if (!profiles.length) return <h1>У вас ще не має профілів</h1>;
+  if (!profiles?.length) return <h1>У вас ще не має профілів</h1>;
 
   return (
     <main className="cabinet">

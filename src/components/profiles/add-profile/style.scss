@@ -5,7 +5,8 @@
   text-align: center;
   padding-bottom: 30px;
 
-  &__title {
+  .add-profile__title.header-s-1 {
+    font-size: 55px;
     margin: 20px 0 45px 0;
 
     @include for-tablet-landscape-up {
@@ -22,13 +23,10 @@
     }
   }
 
-  &__subtitle {
-  }
-
   &__content {
     display: flex;
     justify-content: center;
-    padding: 0 60px 60px;
+    padding: 0 60px 40px;
 
     @include for-phablet {
       padding: 0 25px 30px;

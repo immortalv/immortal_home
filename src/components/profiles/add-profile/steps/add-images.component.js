@@ -1,30 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Button, AddFile } from "components/common";
 
 import "./style.scss";
+import { dispatch } from "store";
 
-const AddImages = ({ onSubmit, profile }) => {
-  const [mainPhoto, setMainPhoto] = useState([]);
-  const [coverPhoto, setCoverPhoto] = useState([]);
-  const [othersPhoto, setOthersPhoto] = useState([]);
+const AddImages = ({ onSubmit }) => {
+  const { mainPhoto, coverPhoto, media } = useSelector(
+    (state) => state.profile
+  );
 
-  useEffect(() => {
-    const { mainPhoto, coverPhoto, othersPhoto } = profile;
+  const setMainPhoto = (file) =>
+    dispatch.profile.setProfile({ mainPhoto: file });
 
-    if (mainPhoto) setMainPhoto(mainPhoto);
-    if (coverPhoto) setCoverPhoto(coverPhoto);
-    if (othersPhoto) setOthersPhoto(othersPhoto);
-  }, []);
+  const setCoverPhoto = (file) =>
+    dispatch.profile.setProfile({ coverPhoto: file });
 
-  const setPhotos = async () => {
-    if (!mainPhoto[0]) return;
+  const setMedia = (file) => dispatch.profile.setProfile({ media: file });
 
-    onSubmit({
-      mainPhoto: mainPhoto[0],
-      coverPhoto: coverPhoto[0],
-      media: othersPhoto,
-    });
-  };
+  console.log("mainPhoto", mainPhoto);
 
   return (
     <>
@@ -44,8 +38,8 @@ const AddImages = ({ onSubmit, profile }) => {
         <div className="add-file-block add-file-others-block">
           <div className="add-file-others-container">
             <AddFile
-              files={othersPhoto}
-              setFiles={setOthersPhoto}
+              files={media}
+              setFiles={setMedia}
               multipleFiles={true}
               maxFiles={15}
               className="add-file-others"
@@ -59,7 +53,7 @@ const AddImages = ({ onSubmit, profile }) => {
         <h2 className="add-profile__subtitle header-s-2">Додайте інші файли</h2>
       </div> */}
 
-      <Button onClick={setPhotos} type="secondary" className="add-profile__btn">
+      <Button onClick={onSubmit} type="secondary" className="add-profile__btn">
         Далі
       </Button>
     </>
