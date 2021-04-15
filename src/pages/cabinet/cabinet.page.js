@@ -28,7 +28,7 @@ const CabinetPage = () => {
     getUserProfiles();
   }, []);
 
-  if (loading && !profiles.length)
+  if (loading && !profiles?.length)
     return <Spinner text="Завантажуємо профілі..." />;
 
   if (!profiles?.length) return <h1>У вас ще не має профілів</h1>;
