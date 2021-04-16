@@ -19,39 +19,39 @@ const ProfileItem = ({ profile }) => {
   const [isPublic, setIsPublic] = useState(true);
   const [isModalOpen, setIsOpen] = useState(false);
 
+  const [qrCode, setQRCode] = useState(false);
+
   const handleChange = () => setIsPublic(!isPublic);
   const goToProfilePage = () => history.push(`${PROFILE}/${profile.id}`);
 
   useEffect(() => {
-    const qrCode = new QRCodeStyling({
+    const itemQrCode = new QRCodeStyling({
       ...QRCodeSettings,
       data: getQRProfileUrl(profile.id),
     });
 
-    if (qrCodeRef.current) qrCode.append(qrCodeRef.current);
+    itemQrCode.append(qrCodeRef.current);
+    setQRCode(itemQrCode);
   }, []);
 
   const afterOpenModal = () => {
-    const qrCode = new QRCodeStyling({
+    const modalQrCode = new QRCodeStyling({
       ...QRCodeSettings,
       width: 150,
       height: 150,
       data: getQRProfileUrl(profile.id),
     });
 
-    if (modalQRCodeRef.current) qrCode.append(modalQRCodeRef.current);
+    modalQrCode.append(modalQRCodeRef.current);
   };
 
   const downloadQrCode = () => {
-    const qrCode = new QRCodeStyling({
-      ...QRCodeSettings,
-      data: getQRProfileUrl(profile.id),
-      width: 300,
-      height: 300,
-    });
-
-    // qrCode.update({ width: 300, height: 300 });
+    qrCode.update({ width: 300, height: 300 });
     qrCode.download({ name: "immortal.qr" });
+    qrCode.update({
+      width: QRCodeSettings.width,
+      height: QRCodeSettings.height,
+    });
   };
 
   return (
