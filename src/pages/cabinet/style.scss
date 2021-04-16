@@ -2,7 +2,7 @@
 @import "styles/media-queries.module";
 
 .cabinet {
-  background-color: $theme-c-white;
+  background: $theme-c-white url("./cover.jpg") no-repeat;
 
   &__container {
     display: flex;
@@ -20,11 +20,16 @@
 
   &__account {
     display: flex;
-    width: fit-content;
-    min-width: 75vw;
+    align-items: center;
+    width: 80vw;
     margin: auto;
     padding-top: 20vh;
     padding-bottom: 20vh;
+
+    @include for-desktop-up {
+      width: 75vw;
+      max-width: 1080px;
+    }
 
     @include for-tablet-landscape-up {
       padding-bottom: 10vw;
@@ -34,18 +39,25 @@
       width: 100vw;
       padding: 120px 50px 80px;
     }
+
+    @include for-phone-only {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 
   &__account-name {
     margin: 0 15px;
-    z-index: 2;
   }
 
   &__link {
-    z-index: 2;
     height: fit-content;
     margin-left: auto;
-    // transform: translateY(-50%);
+    
+
+    @include for-phone-only {
+      margin: 25px 0 0;
+    }
   }
 
   &__btn {
@@ -61,7 +73,7 @@
     align-items: baseline;
 
     @include for-phablet {
-      width: 95vw;
+      width: 90vw;
     }
   }
 }

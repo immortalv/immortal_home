@@ -35,7 +35,7 @@ const CabinetPage = () => {
 
   return (
     <main className="cabinet">
-      <img src={coverImg} alt="profile cover" className="cabinet__cover-img" />
+      {/* <img src={coverImg} alt="profile cover" className="cabinet__cover-img" /> */}
       <div className="cabinet__account">
         {/* <div className="cabinet__img-container">
             <ProfileAccountIcon className="cabinet__account-img" />

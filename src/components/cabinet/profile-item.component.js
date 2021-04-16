@@ -34,10 +34,24 @@ const ProfileItem = ({ profile }) => {
   const afterOpenModal = () => {
     const qrCode = new QRCodeStyling({
       ...QRCodeSettings,
+      width: 150,
+      height: 150,
       data: getQRProfileUrl(profile.id),
     });
 
     if (modalQRCodeRef.current) qrCode.append(modalQRCodeRef.current);
+  };
+
+  const downloadQrCode = () => {
+    const qrCode = new QRCodeStyling({
+      ...QRCodeSettings,
+      data: getQRProfileUrl(profile.id),
+      width: 300,
+      height: 300,
+    });
+
+    // qrCode.update({ width: 300, height: 300 });
+    qrCode.download({ name: "immortal.qr" });
   };
 
   return (
@@ -73,6 +87,7 @@ const ProfileItem = ({ profile }) => {
       {isModalOpen && (
         <QRCodeModal
           ref={modalQRCodeRef}
+          download={downloadQrCode}
           isOpen={isModalOpen}
           setIsOpen={setIsOpen}
           afterOpenModal={afterOpenModal}

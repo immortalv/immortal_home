@@ -15,6 +15,10 @@
     max-height: 300px;
     object-fit: contain;
     cursor: pointer;
+
+    @include for-phablet {
+      display: none;
+    }
   }
 
   &__info {
