@@ -59,9 +59,7 @@
     display: flex;
     flex-direction: column;
     align-items: baseline;
-    z-index: 2;
 
-    
     @include for-phablet {
       width: 95vw;
     }

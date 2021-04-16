@@ -13,6 +13,8 @@ import ProfileAccountIcon from "./profile-account-icon.component";
 import PlusIcon from "./plus-icon.component";
 import CrossIcon from "./cross-icon.component";
 import ImmortalSmallIcon from "./immortal-small-icon.component";
+import EmailIcon from "./email-icon.component";
+import CopyIcon from "./copy-icon.component";
 
 export {
   PeopleGroupIcon,
@@ -30,4 +32,6 @@ export {
   PlusIcon,
   CrossIcon,
   ImmortalSmallIcon,
+  EmailIcon,
+  CopyIcon,
 };
