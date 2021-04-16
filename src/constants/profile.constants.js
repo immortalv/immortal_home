@@ -1,3 +1,5 @@
+import logo from "assets/logo.svg";
+
 export const PROFILE_TEMPLATE_TYPES = {
   SIMPLE: "simple",
   BOOK: "book",
@@ -21,3 +23,14 @@ export const ADD_PROFILE_STEPS = [
   ADD_PROFILE_STEPS_NAME.ADDITIONAL_INFORMATION,
   ADD_PROFILE_STEPS_NAME.PROFILE_CREATED,
 ];
+
+export const QRCodeSettings = {
+  width: 200,
+  height: 200,
+  image: logo,
+  imageOptions: {
+    crossOrigin: "anonymous",
+    margin: 2,
+    imageSize: 0.5,
+  },
+};

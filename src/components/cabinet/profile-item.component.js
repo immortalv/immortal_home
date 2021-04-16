@@ -2,49 +2,36 @@ import React, { useEffect, useState, useRef } from "react";
 import { useHistory } from "react-router";
 import QRCodeStyling from "qr-code-styling";
 import { Button, Checkbox } from "components/common";
-import { getProfileImg } from "utils/image.utils";
+import { getProfilefromBucket } from "utils/image.utils";
+import { getQRProfileUrl } from "utils/profile.utils";
 import { PROFILE } from "constants/routes.constants";
-import logoImg from "./logo.svg";
+import { QRCodeSettings } from "constants/profile.constants";
 
 import "./style.scss";
 
-const getImagefromBucket = (name) =>
-  `https://immortal-profile-content.s3.eu-central-1.amazonaws.com/${name}`;
-
-const getQRCodeData = (id) => `http://immortalv.com/profiles/${id}`;
-
 const ProfileItem = ({ profile }) => {
+  const qrCodeRef = useRef(null);
   const history = useHistory();
   const { name, description, profileType } = profile;
   const [isPublic, setIsPublic] = useState(true);
-  const qrCodeRef = useRef(null);
 
   const handleChange = () => setIsPublic(!isPublic);
   const goToProfilePage = () => history.push(`${PROFILE}/${profile.id}`);
 
   useEffect(() => {
     const qrCode = new QRCodeStyling({
-      width: 200,
-      height: 200,
-      data: getQRCodeData(profile.id),
-      image: logoImg,
-      imageOptions: {
-        crossOrigin: "anonymous",
-        margin: 2,
-        imageSize: 0.5,
-      },
+      ...QRCodeSettings,
+      data: getQRProfileUrl(profile.id),
     });
 
-    if (qrCodeRef.current) {
-      qrCode.append(qrCodeRef.current);
-    }
+    if (qrCodeRef.current) qrCode.append(qrCodeRef.current);
   }, []);
 
   return (
     <div className="profile-item">
       <img
         onClick={goToProfilePage}
-        src={getImagefromBucket(profile.mainPhoto)}
+        src={getProfilefromBucket(profile.mainPhoto)}
         className="profile-item__img"
         alt="profile picture"
       />

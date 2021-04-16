@@ -1,7 +1,13 @@
+export const IMMORTAL_URL = "https://immortalv.com";
+
 export const FILE_UPLOAD_GATEWAY_URL =
   "https://81srnuryr6.execute-api.eu-central-1.amazonaws.com/Prod/data";
+
 export const CONTENT_BUCKET =
   "https://immortal-content.s3.us-east-2.amazonaws.com";
+export const USER_PROFILE_CONTENT_BUCKET =
+  "https://immortal-profile-content.s3.eu-central-1.amazonaws.com";
+
 export const PROFILES_CONTENT = `${CONTENT_BUCKET}/profiles`;
 
 export const BASE_API_URL =

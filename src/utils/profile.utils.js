@@ -1,3 +1,6 @@
+import { IMMORTAL_URL } from "constants/api.constants";
+import { PROFILE } from "constants/routes.constants";
+
 export const getNextStep = (steps, activeStep) => {
   const activeIndex = steps.indexOf(activeStep);
   const nextStep = steps[activeIndex + 1];
@@ -34,3 +37,5 @@ export const transfromDate = (date) => {
 
   return `${day}.${month}.${year}`;
 };
+
+export const getQRProfileUrl = (id) => `${IMMORTAL_URL}/${PROFILE}}/${id}`;
