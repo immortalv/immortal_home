@@ -1,19 +1,24 @@
 import React from "react";
+import { transfromDate } from "utils/profile.utils";
 import forestImg from "assets/profile-simple-background.jpg";
 
 import "./style.scss";
 
+const getImagefromBucket = (name) =>
+  `https://immortal-profile-content.s3.eu-central-1.amazonaws.com/${name}`;
+
 const ProfileSimple = ({ profileData }) => {
   const {
-    fullName,
+    name,
     birthDate,
     deathDate,
-    profileImg,
-    imageData,
-    videoData,
+    mainPhoto,
+    otherPhotos,
     description,
-    additionalDescription,
+    descriptionAdditional,
   } = profileData;
+
+  console.log("profileData", profileData);
 
   return (
     <main className="profile profile-simple">
@@ -23,41 +28,49 @@ const ProfileSimple = ({ profileData }) => {
           alt="background"
           className="profile-simple__background-img"
         />
-        <img src={profileImg} alt="" className="profile-simple__avatar-img" />
+        <img
+          src={getImagefromBucket(mainPhoto)}
+          alt=""
+          className="profile-simple__avatar-img"
+        />
         <span className="profile-simple__date profile-simple__date--birth">
-          {birthDate}
+          {transfromDate(birthDate)}
         </span>
         <span className="profile-simple__date profile-simple__date--death">
-          {deathDate}
+          {transfromDate(deathDate)}
         </span>
       </div>
-      <h1 className="title profile__name profile-simple__name">{fullName}</h1>
-      <p className="profile__description profile-simple__description">{description}</p>
+      <h1 className="title profile__name profile-simple__name">{name}</h1>
+      <p className="profile__description profile-simple__description">
+        {description}
+      </p>
       <div className="image-data__container">
-        {imageData.map((img) => (
+        {otherPhotos.map((img) => (
           <img
-            key={img.src}
-            src={img.src}
-            alt={`${fullName} image data`}
+            key={img}
+            src={getImagefromBucket(img)}
+            alt="Profile Image"
             className="image-data__item"
           />
         ))}
       </div>
-      {videoData.length && (
+      {/* {media.length && (
         <div className="video-data__container">
-        {videoData.map((img) => (
-          <img
-            key={img.src}
-            src={img.src}
-            alt={`${fullName} image data`}
-            className="video-data__img"
-          />
-        ))}
-      </div>
+          {media.map((img) => (
+            <img
+              key={img}
+              src={getImagefromBucket(img)}
+              alt="Profile Media Data"
+              className="video-data__item"
+            />
+          ))}
+        </div>
+      )} */}
+      {descriptionAdditional && (
+        <p className="profile__description profile-simple__description">
+          {descriptionAdditional}
+        </p>
       )}
-      {additionalDescription && (
-        <p className="profile__description profile-simple__description">{additionalDescription}</p>
-      ) }
     </main>
   );
 };

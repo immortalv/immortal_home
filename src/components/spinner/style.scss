@@ -9,6 +9,7 @@
   height: 100vh;
   background-color: $theme-c-white;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 5;
@@ -26,6 +27,10 @@
       width: 90px;
       height: 90px;
     }
+  }
+
+  &__text {
+    margin-top: 50px;
   }
 }
 

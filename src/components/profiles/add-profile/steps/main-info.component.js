@@ -58,7 +58,7 @@ const AddProfileMainInfo = ({ profile = {}, onSubmit }) => {
 
   return (
     <>
-      <h1 className="title add-profile__title">Розкажіть про людину</h1>
+      <h1 className="header-s-1  add-profile__title">Розкажіть про людину</h1>
       <div className="add-profile__content">
         <div className="add-profile__main-info">
           <div className="form-field__group">

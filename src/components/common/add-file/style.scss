@@ -38,6 +38,7 @@
     width: auto;
     height: 100%;
     max-width: 100%;
+    min-width: 100px;
     object-fit: contain;
   }
 
@@ -75,21 +76,22 @@
 
   &__files-container {
     display: flex;
+    align-items: flex-start;
     width: 100%;
-    padding: 10px 5px;
+    padding: 0 5px 10px;
     overflow-x: auto;
 
     @include styled-scrollbar();
 
     .add-file__item {
-      margin: 5px 10px;
-      max-height: 200px;
-      max-width: 200px;
-      width: 100%;
+      margin: 0 10px;
+      height: 150px;
+      width: 150px;
       aspect-ratio: 1/1;
     }
 
     .add-file__file {
+      object-fit: cover;
       @include for-phone-only {
         max-width: 120px;
         margin: 5px 0;
@@ -97,12 +99,19 @@
     }
 
     .add-file__remove {
-      transform: translate(20%, -40%);
+      transform: translate(20%, -5%);
     }
 
     .add-file__remove-icon {
       width: 20px;
       height: 20px;
     }
+  }
+}
+
+.add-file-dropzone {
+  cursor: pointer;
+  &__text {
+
   }
 }

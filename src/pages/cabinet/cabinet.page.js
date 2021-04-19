@@ -1,70 +1,67 @@
-import React, { useEffect, useState } from "react";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import clsx from "clsx";
 import { useSelector } from "react-redux";
-import { getProfiles } from "services/api/profile.service";
-// import { getProfileImg } from "utils/image.utils";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import { Link } from "react-router-dom";
 import routesConstants from "constants/routes.constants";
 import Spinner from "components/spinner/spinner.component";
 import { Button } from "components/common";
 import ProfileItem from "components/cabinet";
-import { ProfileAccountIcon } from "icons";
 
 import coverImg from "./cover.jpg";
 
 import "./style.scss";
-
-// const profiles = [
-//   {
-//     name: "Василевська Василина",
-//     description:
-//       "Тисячі любителів футболу та спорту мають причини бути вдячними моїй сестрі Василині, яка поме...",
-//     type: "Публічний",
-//     avatar: getProfileImg("avatar-image-1", "jpg"),
-//     qrCode: getProfileImg("avatar-image-1", "jpg"),
-//   },
-//   {
-//     name: "Василевська Василина",
-//     description:
-//       "Тисячі любителів футболу та спорту мають причини бути вдячними моїй сестрі Василині, яка поме...",
-//     type: "Публічний",
-//     avatar: getProfileImg("avatar-image-1", "jpg"),
-//     qrCode: getProfileImg("avatar-image-1", "jpg"),
-//   },
-// ];
+import { dispatch } from "store";
 
 const CabinetPage = () => {
-  const [profiles, setProfile] = useState([]);
-  const { name } = useSelector((state) => state.user);
+  const { user, getAccessTokenSilently } = useAuth0();
+  const {
+    loading: { global: loading },
+    profiles: { data: profiles },
+  } = useSelector((state) => state);
 
   useEffect(() => {
     async function getUserProfiles() {
-      const profilesData = await getProfiles();
-      setProfile(profilesData);
+      const token = await getAccessTokenSilently();
+      await dispatch.profiles.getProfiles(token);
     }
 
     getUserProfiles();
   }, []);
 
+  if (loading && !profiles?.length)
+    return <Spinner text="Завантажуємо профілі..." />;
+
+  // if (!profiles?.length) return <h1>У вас ще не має профілів</h1>;
+
   return (
     <main className="cabinet">
-      <img src={coverImg} alt="profile cover" className="cabinet__cover-img" />
+      {/* <img src={coverImg} alt="profile cover" className="cabinet__cover-img" /> */}
       <div className="cabinet__account">
         {/* <div className="cabinet__img-container">
             <ProfileAccountIcon className="cabinet__account-img" />
           </div> */}
-        <h1 className="cabinet__account-name title">{name}</h1>
+        <h1 className="cabinet__account-name title">{user.name}</h1>
         <Link className="cabinet__link" to={routesConstants.ADD_PROFILE}>
           <Button type="secondary" className="cabinet__btn">
             Додати профіль
           </Button>
         </Link>
       </div>
-      <div className="cabinet__container">
+      <div
+        className={clsx(
+          "cabinet__container",
+          !profiles?.length && "cabinet__container--empty"
+        )}
+      >
         <div className="cabinet__profile-list">
-          {profiles.map((profile) => (
-            <ProfileItem key={profile.name} profile={profile} />
-          ))}
+          {!profiles?.length ? (
+            <h1 className="cabinet__no-profiles">У вас ще не має профілів</h1>
+          ) : (
+            profiles.map((profile) => (
+              <ProfileItem key={profile.name} profile={profile} />
+            ))
+          )}
         </div>
       </div>
     </main>

@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
+import { dispatch } from "store";
 import { PROFILE_TEMPLATE_TYPES } from "constants/profile.constants";
 import {
   ProfileSimple,
@@ -6,9 +10,9 @@ import {
   ProfileBook,
 } from "components/profiles/templates";
 import { getProfileImg } from "utils/image.utils";
+import Spinner from "components/spinner/spinner.component";
 
 import "./style.scss";
-import { useParams } from "react-router-dom";
 
 const profileDataMock = {
   fullName: "Василевська Василина",
@@ -53,10 +57,9 @@ const profileDataMock = {
     },
     {
       src: getProfileImg("profile-video-1", "jpg"),
-    }
+    },
   ],
-  description:
-    `Тисячі любителів футболу та спорту мають причини бути вдячними моїй сестрі Василині, яка померла у віці 55 років від множинних ракових захворювань через дев'ять років після першого діагнозу рак молочної залози.
+  description: `Тисячі любителів футболу та спорту мають причини бути вдячними моїй сестрі Василині, яка померла у віці 55 років від множинних ракових захворювань через дев'ять років після першого діагнозу рак молочної залози.
 
     Як керівник судових справ та конституційних справ у Supporter Direct, організації, яка сприяє залученню вболівальників до управління їх клубами та заохочує їх створювати акціонерні фонди, вона допомогла створити майже 200 таких трестів по всій країні.
 
@@ -70,32 +73,34 @@ const profileDataMock = {
 };
 
 const ProfilePage = () => {
-  const { profileId } = useParams();
-  //   console.log("Params", profileId);
-  const [profileData, setProfileData] = useState();
+  const { id } = useParams();
+  const { getAccessTokenSilently } = useAuth0();
+  const {
+    profiles: { chosenProfile },
+    loading,
+  } = useSelector((state) => state);
 
   useEffect(() => {
-    //   const profileData = getProfileData(profileId)
-    setProfileData(profileDataMock);
-  });
+    async function getProfileData() {
+      const token = await getAccessTokenSilently();
+      dispatch.profiles.getProfile({ id, token });
+    }
 
-  if (!profileData) return <p>Loading...</p>;
+    getProfileData();
+  }, []);
 
-  if (Math.random() > 0.7) return <ProfileSimple profileData={profileData} />;
-  if (Math.random() > 0.7) return <ProfileBook profileData={profileData} />;
-  return <ProfileArticle profileData={profileData} />;
+  if (!chosenProfile || loading.global) return <Spinner />;
 
-
-//   switch (profileData.templateType) {
-//     case PROFILE_TEMPLATE_TYPES.SIMPLE:
-//       return <ProfileSimple profileData={profileData} />;
-//     case PROFILE_TEMPLATE_TYPES.BOOK:
-//       return <ProfileBook profileData={profileData} />;
-//     case PROFILE_TEMPLATE_TYPES.ARTICLE:
-//       return <ProfileArticle profileData={profileData} />;
-//     default:
-//       return <ProfileSimple profileData={profileData} />;
-//   }
+  switch (chosenProfile.template) {
+    case PROFILE_TEMPLATE_TYPES.SIMPLE:
+      return <ProfileSimple profileData={chosenProfile} />;
+    case PROFILE_TEMPLATE_TYPES.BOOK:
+      return <ProfileBook profileData={chosenProfile} />;
+    case PROFILE_TEMPLATE_TYPES.ARTICLE:
+      return <ProfileArticle profileData={chosenProfile} />;
+    default:
+      return <ProfileSimple profileData={chosenProfile} />;
+  }
 };
 
 export default ProfilePage;

@@ -1,10 +1,11 @@
 @import "styles/variables.module";
 @import "styles/media-queries.module";
+@import "styles/mixins.module";
 
 @import "../style.scss";
 
 .profile-simple {
-  --avatar-img-height: 385px;
+  --avatar-img-size: 350px;
 
   &__top-container {
     position: relative;
@@ -27,9 +28,12 @@
     position: absolute;
     bottom: 0;
     transform: translateY(50%);
-    max-height: var(--avatar-img-height);
+    max-height: var(--avatar-img-size);
+    max-width: var(--avatar-img-size);
     border-radius: 100%;
     object-fit: cover;
+
+    aspect-ratio: 1/1;
 
     @include for-phablet {
       width: 40vw;
@@ -69,8 +73,6 @@
   }
 }
 
-
-
 .image-data {
   &__container {
     display: flex;
@@ -80,17 +82,13 @@
   }
 
   &__item {
-    max-width: 185px;
+    width: 176px;
+    height: 176px;
+    object-fit: contain;
     margin: 15px;
     border-radius: 20px;
 
-    &:first-child {
-      margin-left: 0;
-    }
-
-    &:last-child {
-      margin-right: 0;
-    }
+    @include no-edge-margins();
   }
 }
 
@@ -101,7 +99,6 @@
   }
 }
 
-
 .video-data {
   &__container {
     display: flex;
@@ -109,12 +106,13 @@
     justify-content: space-around;
   }
 
-  &__img {
+  &__item {
     margin-bottom: 15px;
+    max-width: 488px;
+    max-height: 305px;
 
     @include for-phablet {
       width: 70vw;
     }
   }
-
 }

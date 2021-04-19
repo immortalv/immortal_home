@@ -7,11 +7,11 @@ $theme-c-white: #f3f3f3;
 $theme-c-mercury: #e5e5e5;
 $theme-c-alabaster: #f9f9f9;
 
-$theme-f-playfair: 'Playfair Display';
-$theme-f-opensans: 'Open Sans';
+$theme-f-playfair: "Playfair Display";
+$theme-f-opensans: "Open Sans";
 $theme-f-inter: "Inter";
 $theme-f-exo: "Exo 2";
-$theme-f-gayathri: 'Gayathri';
+$theme-f-gayathri: "Gayathri";
 $theme-f-playfair: "Playfair Display";
 $theme-f-opensans: "Open Sans";
 
@@ -19,3 +19,8 @@ $shared-bp-tablet-portrait-up: 480px;
 $shared-iPad-portrait-up-min-width: 767px;
 $shared-bp-tablet-landscape-up: 979px;
 $shared-bp-desktop: 1200px;
+
+$column-width-xl: 320px;
+$column-width-lg: 238px;
+$column-width-md: 225px;
+$column-width-sm: 100%;

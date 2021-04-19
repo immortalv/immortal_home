@@ -1,61 +1,55 @@
 import React, { useEffect, useState } from "react";
-import clsx from "clsx";
-import { Button, AddFile } from "components/common";
+import { useSelector } from "react-redux";
+import { dispatch } from "store";
+import { AddFileDropzone } from "components/common";
+import { CrossIconSolid } from "icons";
 
 import "./style.scss";
 
-const AddMedia = ({ onSubmit, onSkip, profile }) => {
-  const [videos, setVideos] = useState([]);
-  const [audios, setAutdio] = useState([]);
+const AddMedia = () => {
+  const { otherFiles } = useSelector((state) => state.profile);
 
-  useEffect(() => {
-    const { video, audio } = profile;
+  const onOtherMediaDrop = (files) => {
+    const fileNames = otherFiles.map((file) => file.name);
+    const filteredFiles = files.filter(
+      (file) => !fileNames.includes(file.name)
+    );
 
-    if (video) setVideos(video);
-    if (audio) setAutdio(audio);
-  }, []);
+    const filesToSet = [...otherFiles, ...filteredFiles];
+    if (filesToSet.length > 15) return;
 
-  const setPhotos = () => {
-    onSubmit({
-      videos: videos,
-      audio: audios,
-    });
+    dispatch.profile.setProfile({ otherFiles: filesToSet });
+  };
+
+  const removeFile = (fileName) => {
+    const files = otherFiles.filter((file) => file.name !== fileName);
+    dispatch.profile.setProfile({ otherFiles: files });
   };
 
   return (
     <>
-      <h1 className="title add-profile__title">Додайте відео та аудіо</h1>
+      <h2 className="header-s-2 add-profile__subtitle">Додайте інші файли</h2>
 
-      <div className="add-profile__media-container">
-        <span className="add-file__label">Відео</span>
-        <div className="add-file-block add-file-video">
-          <AddFile
-            files={videos}
-            setFiles={setVideos}
-            multipleFiles={true}
-            maxFiles={15}
-            accept="video/*"
-          />
-        </div>
-        <span className="add-file__label">Аудіо</span>
-        <div className="add-file-block add-file-audio">
-          <AddFile
-            files={audios}
-            setFiles={setAutdio}
-            multipleFiles={true}
-            maxFiles={15}
-            accept="audio/*"
-          />
-        </div>
+      <div className="add-file-block add-file-media">
+        <AddFileDropzone
+          onDrop={onOtherMediaDrop}
+          className="add-file__other-files"
+        />
+
+        <ul className="file-list">
+          {otherFiles.map((file) => (
+            <li key={file.name} className="file-list__item">
+              {file.name}
+              <button
+                className="file-list__btn"
+                onClick={() => removeFile(file.name)}
+              >
+                <CrossIconSolid className="file-list__btn-icon" />
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
-
-      <Button onClick={onSkip} className="add-profile__btn btn--skip">
-        Пропустити
-      </Button>
-
-      <Button onClick={setPhotos} type="secondary" className="add-profile__btn">
-        Далі
-      </Button>
     </>
   );
 };

@@ -30,3 +30,30 @@
     @content;
   }
 }
+
+@mixin no-edge-margins {
+  &:first-of-type {
+    margin-left: 0;
+  }
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+}
+
+@mixin list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax($column-width-md, 1fr));
+  grid-gap: 30px;
+  padding: 50px 45px;
+  margin: 0;
+
+  @include for-phone-only {
+    grid-template-columns: repeat(auto-fill, minmax($column-width-sm, 1fr));
+    grid-gap: 20px;
+  }
+
+  @include for-desktop-up {
+    grid-template-columns: repeat(auto-fill, minmax($column-width-xl, 1fr));
+  }
+}
