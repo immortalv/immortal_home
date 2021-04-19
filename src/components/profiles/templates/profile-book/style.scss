@@ -26,6 +26,10 @@
 
   &__page-container {
     display: flex;
+
+    @include for-phablet {
+      flex-direction: column;
+    }
   }
 
   &__page {
@@ -36,6 +40,10 @@
     padding: 25px;
     background-color: $theme-c-white;
     box-shadow: inset -4px 0px 25px rgba(0, 0, 0, 0.25);
+
+    @include for-phablet {
+      width: 100%;
+    }
 
     &-main {
       align-items: center;
@@ -70,24 +78,26 @@
   flex-wrap: wrap;
   justify-content: center;
   margin: 50px 0;
-}
 
-.image-data__item--book {
-    filter: drop-shadow(4px 4px 25px rgba(0, 0, 0, 0.15));
-    border-radius: 20px;
-    max-width: 155px;
-    margin: 15px;
-    border-radius: 20px;
-}
+  @include for-phone-only {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    overflow-x: auto;
 
+    @include styled-scrollbar();
+  }
+}
 
 .video-data__container--book {
   display: flex;
   overflow: hidden;
   overflow-x: auto;
+  margin-left: 30px;
 
   @include for-phablet {
-    margin: 0 25px
+    margin: 0px;
   }
 
   @include styled-scrollbar();

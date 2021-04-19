@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "components/common/image/image";
 
 import "./style.scss";
 
@@ -47,11 +48,10 @@ const ProfileArticle = ({ profileData }) => {
           {imageData &&
             <div className="image-data__container image-date__container--article image-data__container--rounded"> 
               {imageData.map((img) => (
-                <img
+                <Image
                   key={img.src}
-                  src={img.src}
-                  alt={`${fullName} image data`}
-                  className="image-data__item"
+                  img={img}
+                  className={"image-data__item--article"}
                 />
               ))}
             </div>

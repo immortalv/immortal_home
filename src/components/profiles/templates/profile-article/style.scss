@@ -99,30 +99,6 @@
     }
 }
 
-
-.image-data {
-  &__item {
-    max-width: 185px;
-    margin: 0 0 15px 15px;
-    border-radius: 20px;
-
-    @include for-phone-only {
-      max-width: 155px;
-    }
-
-    @include no-edge-margins();
-
-    &:first-child {
-      margin-left: 0;
-    }
-
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-}
-
-
 .video-data__container--article {
   display: flex;
   overflow: hidden;

@@ -1,5 +1,6 @@
 import React from "react";
 import forestImg from "assets/profile-simple-background.jpg";
+import Image from "../../../common/image/image"
 
 import "./style.scss";
 
@@ -53,17 +54,19 @@ const ProfileBook = ({ profileData }) => {
           </p>
         </div>
         <div className="profile-book__page">
-          <div className="image-data__container--book image-data__container--rounded">
+          {imageData &&
+            <div className="image-data__container--book image-data__container--rounded">
             {imageData.map((img) => (
-              <img
+              <Image
                 key={img.src}
-                src={img.src}
-                alt={`${fullName} image data`}
-                className="image-data__item--book"
+                img={img}
+                className={"image-data__item--book"}
               />
             ))}
-          </div>
-          <div className="video-data__container--book">
+            </div>
+          }
+          {videoData &&
+            <div className="video-data__container--book">
             {videoData.map((img) => (
               <img
                 key={img.src}
@@ -72,7 +75,8 @@ const ProfileBook = ({ profileData }) => {
                 className="video-data__container--img"
               />
             ))}
-          </div>
+            </div>
+          }
         </div>
       </section>
     </main>

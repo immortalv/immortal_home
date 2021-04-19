@@ -2,6 +2,7 @@ import React from "react";
 import forestImg from "assets/profile-simple-background.jpg";
 
 import "./style.scss";
+import Image from "components/common/image/image";
 
 const ProfileSimple = ({ profileData }) => {
   const {
@@ -35,11 +36,10 @@ const ProfileSimple = ({ profileData }) => {
       <p className="profile__description profile-simple__description">{description}</p>
       <div className="image-data__container--simple">
         {imageData.map((img) => (
-          <img
+          <Image
             key={img.src}
-            src={img.src}
-            alt={`${fullName} image data`}
-            className="image-data__item"
+            img={img}
+            className={"image-data__item--simple"}
           />
         ))}
       </div>
