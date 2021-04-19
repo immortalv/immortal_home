@@ -4,8 +4,6 @@ import {
   FILE_UPLOAD_GATEWAY_URL,
 } from "constants/api.constants";
 
-const CORS = "https://cors-anywhere.herokuapp.com";
-
 export const createProfile = (data, token) =>
   axios.securePost(BASE_PROFILE_URL, data, token).then(({ data }) => data);
 export const getProfiles = (token) =>
@@ -16,5 +14,5 @@ export const getProfile = (id, token) =>
 
 export const uploadFile = async (data, userId) =>
   await axios
-    .post(`${CORS}/${FILE_UPLOAD_GATEWAY_URL}?userId=${userId}`, data)
+    .post(`${FILE_UPLOAD_GATEWAY_URL}?userId=${userId}`, data)
     .then(({ data }) => data);

@@ -11,7 +11,7 @@ import {
 } from "constants/profile.constants";
 
 const initialState = {
-  currenStep: ADD_PROFILE_STEPS_NAME.PHOTOS,
+  currenStep: ADD_PROFILE_STEPS_NAME.TEMPLATE,
 
   name: "",
   description: "",
@@ -52,7 +52,8 @@ export const profile = {
 
       if (nextStep === ADD_PROFILE_STEPS_NAME.PROFILE_CREATED) {
         dispatch.profile.setProfile({ ...payload });
-        dispatch.profile.saveProfile();
+        const id = await dispatch.profile.saveProfile();
+        dispatch.profile.setProfile({ ...payload, id, currenStep: nextStep });
         return;
       }
 
@@ -82,11 +83,11 @@ export const profile = {
         //@TODO Check whether all data is present
 
         const { originalKey: mainPhoto } = await upload(
-          profile.mainPhoto,
+          profile.mainPhoto[0],
           userId
         );
         const { originalKey: coverPhoto } = await upload(
-          profile.coverPhoto,
+          profile.coverPhoto[0],
           userId
         );
 
@@ -111,10 +112,7 @@ export const profile = {
           profile.token
         );
 
-        dispatch.profile.setProfile({
-          id,
-          currenStep: ADD_PROFILE_STEPS_NAME.PROFILE_CREATED,
-        });
+        return id;
       } catch (error) {
         dispatch.profile.clearState();
         window.location.pathname = routesConstants.CABINET;

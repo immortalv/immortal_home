@@ -1,10 +1,8 @@
 import axios from "./axios.service";
-import { EMAIL_GATEWAY_ULR } from "constants/api.constants";
-
-const CORS = "https://cors-anywhere.herokuapp.com";
+import { EMAIL_GATEWAY_URL } from "constants/api.constants";
 
 export const sendEmail = (toEmails, subject = "Immortal QR Code", message) =>
-  axios.post(`${CORS}/${EMAIL_GATEWAY_ULR}`, {
+  axios.post(`${EMAIL_GATEWAY_URL}`, {
     toEmails,
     subject: subject || "Immortal QR Code",
     message,

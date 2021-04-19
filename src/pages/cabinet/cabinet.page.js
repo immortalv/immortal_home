@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import clsx from "clsx";
 import { useSelector } from "react-redux";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
@@ -31,7 +32,7 @@ const CabinetPage = () => {
   if (loading && !profiles?.length)
     return <Spinner text="Завантажуємо профілі..." />;
 
-  if (!profiles?.length) return <h1>У вас ще не має профілів</h1>;
+  // if (!profiles?.length) return <h1>У вас ще не має профілів</h1>;
 
   return (
     <main className="cabinet">
@@ -47,11 +48,20 @@ const CabinetPage = () => {
           </Button>
         </Link>
       </div>
-      <div className="cabinet__container">
+      <div
+        className={clsx(
+          "cabinet__container",
+          !profiles?.length && "cabinet__container--empty"
+        )}
+      >
         <div className="cabinet__profile-list">
-          {profiles.map((profile) => (
-            <ProfileItem key={profile.name} profile={profile} />
-          ))}
+          {!profiles?.length ? (
+            <h1 className="cabinet__no-profiles">У вас ще не має профілів</h1>
+          ) : (
+            profiles.map((profile) => (
+              <ProfileItem key={profile.name} profile={profile} />
+            ))
+          )}
         </div>
       </div>
     </main>

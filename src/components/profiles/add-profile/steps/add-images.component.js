@@ -26,6 +26,11 @@ const AddImages = ({ onSubmit }) => {
     dispatch.profile.setProfile({ otherPhotos: files });
   };
 
+  const submit = () => {
+    if (!mainPhoto?.length) return;
+    onSubmit();
+  };
+
   return (
     <>
       <h1 className="header-s-1 add-profile__title">Додайте фотографії</h1>
@@ -75,7 +80,7 @@ const AddImages = ({ onSubmit }) => {
 
       <AddMedia />
 
-      <Button onClick={onSubmit} type="secondary" className="add-profile__btn">
+      <Button onClick={submit} type="secondary" className="add-profile__btn">
         Далі
       </Button>
     </>

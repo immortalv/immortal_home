@@ -13,7 +13,7 @@ const ProfileSimple = ({ profileData }) => {
     birthDate,
     deathDate,
     mainPhoto,
-    media,
+    otherPhotos,
     description,
     descriptionAdditional,
   } = profileData;
@@ -45,7 +45,7 @@ const ProfileSimple = ({ profileData }) => {
         {description}
       </p>
       <div className="image-data__container">
-        {media.map((img) => (
+        {otherPhotos.map((img) => (
           <img
             key={img}
             src={getImagefromBucket(img)}
@@ -54,7 +54,7 @@ const ProfileSimple = ({ profileData }) => {
           />
         ))}
       </div>
-      {media.length && (
+      {/* {media.length && (
         <div className="video-data__container">
           {media.map((img) => (
             <img
@@ -65,7 +65,7 @@ const ProfileSimple = ({ profileData }) => {
             />
           ))}
         </div>
-      )}
+      )} */}
       {descriptionAdditional && (
         <p className="profile__description profile-simple__description">
           {descriptionAdditional}

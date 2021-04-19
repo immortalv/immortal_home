@@ -3,6 +3,7 @@
 
 .cabinet {
   background: $theme-c-white url("./cover.jpg") no-repeat;
+  min-height: 65vh;
 
   &__container {
     display: flex;
@@ -10,6 +11,10 @@
     width: fit-content;
     min-width: 60vw;
     margin: auto;
+
+    &--empty {
+      padding: 65px 0 55px;
+    }
   }
 
   &__cover-img {
@@ -53,7 +58,6 @@
   &__link {
     height: fit-content;
     margin-left: auto;
-    
 
     @include for-phone-only {
       margin: 25px 0 0;
