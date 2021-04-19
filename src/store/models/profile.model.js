@@ -11,7 +11,7 @@ import {
 } from "constants/profile.constants";
 
 const initialState = {
-  currenStep: ADD_PROFILE_STEPS_NAME.TEMPLATE,
+  currenStep: ADD_PROFILE_STEPS_NAME.PHOTOS,
 
   name: "",
   description: "",
@@ -24,7 +24,8 @@ const initialState = {
 
   mainPhoto: [],
   coverPhoto: [],
-  media: [],
+  otherPhotos: [],
+  otherFiles: [],
 
   template: "",
 };
@@ -89,18 +90,23 @@ export const profile = {
           userId
         );
 
-        const mediaFiles = await Promise.all(
-          profile.media.map(async (file) => await upload(file, userId))
+        const otherPhotosData = await Promise.all(
+          profile.otherPhotos.map(async (file) => await upload(file, userId))
         );
+        const otherPhotos = otherPhotosData.map((file) => file.originalKey);
 
-        const media = mediaFiles.map((file) => file.originalKey);
+        const otherFilesData = await Promise.all(
+          profile.otherFiles.map(async (file) => await upload(file, userId))
+        );
+        const otherFiles = otherFilesData.map((file) => file.originalKey);
 
         const { id } = await createProfile(
           {
             ...profile,
             mainPhoto,
             coverPhoto,
-            media,
+            otherPhotos,
+            otherFiles,
           },
           profile.token
         );
@@ -119,7 +125,7 @@ export const profile = {
       const { id, token } = payload;
       const profile = await getProfile(id, token);
 
-      dispatch.profiles.setProfile;
+      dispatch.profiles.setProfile(profile);
     },
   }),
 };

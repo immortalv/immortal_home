@@ -1,3 +1,5 @@
+import QRCodeStyling from "qr-code-styling";
+import { QRCodeSettings } from "constants/profile.constants";
 import { IMMORTAL_URL } from "constants/api.constants";
 import { PROFILE } from "constants/routes.constants";
 
@@ -39,3 +41,17 @@ export const transfromDate = (date) => {
 };
 
 export const getQRProfileUrl = (id) => `${IMMORTAL_URL}/${PROFILE}}/${id}`;
+
+export const getProfileQrCodeImage = (data) => {
+  const {
+    _canvas: { _canvas },
+  } = new QRCodeStyling({
+    ...QRCodeSettings,
+    width: 300,
+    height: 300,
+    data,
+  });
+
+  const dataUrl = _canvas.toDataURL();
+  return dataUrl;
+};

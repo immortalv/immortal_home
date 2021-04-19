@@ -1,12 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { dispatch } from "store";
 import { Button, AddFile } from "components/common";
+import { CrossIcon } from "icons";
+import AddMedia from "./add-media.component";
 
 import "./style.scss";
-import { dispatch } from "store";
 
 const AddImages = ({ onSubmit }) => {
-  const { mainPhoto, coverPhoto, media } = useSelector(
+  const { mainPhoto, coverPhoto, otherPhotos } = useSelector(
     (state) => state.profile
   );
 
@@ -16,9 +18,13 @@ const AddImages = ({ onSubmit }) => {
   const setCoverPhoto = (file) =>
     dispatch.profile.setProfile({ coverPhoto: file });
 
-  const setMedia = (file) => dispatch.profile.setProfile({ media: file });
+  const setOtherPhotos = (files) =>
+    dispatch.profile.setProfile({ otherPhotos: files });
 
-  console.log("mainPhoto", mainPhoto);
+  const removeOtherPhoto = (fileName) => {
+    const files = otherPhotos.filter((file) => file.name !== fileName);
+    dispatch.profile.setProfile({ otherPhotos: files });
+  };
 
   return (
     <>
@@ -38,20 +44,36 @@ const AddImages = ({ onSubmit }) => {
         <div className="add-file-block add-file-others-block">
           <div className="add-file-others-container">
             <AddFile
-              files={media}
-              setFiles={setMedia}
-              multipleFiles={true}
+              files={otherPhotos}
+              setFiles={setOtherPhotos}
+              withPreview={false}
               maxFiles={15}
               className="add-file-others"
             />
+            <div className="image-row-list">
+              {otherPhotos.map((file) => (
+                <div className="image-row-list__item" key={file.preview}>
+                  <img
+                    key={file.preview}
+                    src={file.preview}
+                    className="image-row-list__img"
+                  />
+
+                  <button
+                    className="image-row-list__remove"
+                    onClick={() => removeOtherPhoto(file.name)}
+                  >
+                    <CrossIcon className="image-row-list__remove-icon" />
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
           <span className="add-file__label">Інші</span>
         </div>
       </div>
 
-      {/* <div className="add-profile__other-files">
-        <h2 className="add-profile__subtitle header-s-2">Додайте інші файли</h2>
-      </div> */}
+      <AddMedia />
 
       <Button onClick={onSubmit} type="secondary" className="add-profile__btn">
         Далі

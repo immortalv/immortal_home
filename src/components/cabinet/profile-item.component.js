@@ -1,15 +1,24 @@
 import React, { useEffect, useState, useRef } from "react";
+import { renderEmail, Email, Item, Image } from "react-html-email";
 import { useHistory } from "react-router";
 import QRCodeStyling from "qr-code-styling";
 import { Button, Checkbox } from "components/common";
 import { getProfilefromBucket } from "utils/image.utils";
 import { getQRProfileUrl } from "utils/profile.utils";
+import { sendEmail } from "services/api/email.service";
 import { PROFILE } from "constants/routes.constants";
 import { QRCodeSettings } from "constants/profile.constants";
 
 import QRCodeModal from "./qrcode-modal.component";
 
 import "./style.scss";
+
+const MyEmail = ({ name, imageSrc }) => (
+  <Email title="link">
+    <Item>Hello {name}</Item>
+    <Image alt="Qr Code Image" width="300" height="300" src={imageSrc} />
+  </Email>
+);
 
 const ProfileItem = ({ profile }) => {
   const qrCodeRef = useRef(null);
@@ -19,39 +28,57 @@ const ProfileItem = ({ profile }) => {
   const [isPublic, setIsPublic] = useState(true);
   const [isModalOpen, setIsOpen] = useState(false);
 
-  const [qrCode, setQRCode] = useState(false);
-
   const handleChange = () => setIsPublic(!isPublic);
   const goToProfilePage = () => history.push(`${PROFILE}/${profile.id}`);
 
   useEffect(() => {
-    const itemQrCode = new QRCodeStyling({
+    const qrCode = new QRCodeStyling({
       ...QRCodeSettings,
       data: getQRProfileUrl(profile.id),
     });
 
-    itemQrCode.append(qrCodeRef.current);
-    setQRCode(itemQrCode);
+    qrCode.append(qrCodeRef.current);
   }, []);
 
   const afterOpenModal = () => {
-    const modalQrCode = new QRCodeStyling({
+    const qrCode = new QRCodeStyling({
       ...QRCodeSettings,
       width: 150,
       height: 150,
       data: getQRProfileUrl(profile.id),
     });
 
-    modalQrCode.append(modalQRCodeRef.current);
+    qrCode.append(modalQRCodeRef.current);
   };
 
   const downloadQrCode = () => {
-    qrCode.update({ width: 300, height: 300 });
-    qrCode.download({ name: "immortal.qr" });
-    qrCode.update({
-      width: QRCodeSettings.width,
-      height: QRCodeSettings.height,
+    const qrCode = new QRCodeStyling({
+      ...QRCodeSettings,
+      width: 300,
+      height: 300,
+      data: getQRProfileUrl(profile.id),
     });
+
+    qrCode.download({ name: "immortal" });
+  };
+
+  const sendEm = () => {
+    const {
+      _canvas: { _canvas },
+    } = new QRCodeStyling({
+      ...QRCodeSettings,
+      width: 300,
+      height: 300,
+      data: getQRProfileUrl(profile.id),
+    });
+
+    const dataUrl = _canvas.toDataURL();
+    const messageHtml = renderEmail(
+      <MyEmail name={"Name!!!!!!!!"} imageSrc={dataUrl} />
+    );
+
+    console.log("htmlBody", messageHtml);
+    sendEmail(["immortall.lv.mail@gmail.com"], null, messageHtml);
   };
 
   return (
@@ -88,6 +115,8 @@ const ProfileItem = ({ profile }) => {
         <QRCodeModal
           ref={modalQRCodeRef}
           download={downloadQrCode}
+          sendEmail={sendEm}
+          qrCodeData={getQRProfileUrl(profile.id)}
           isOpen={isModalOpen}
           setIsOpen={setIsOpen}
           afterOpenModal={afterOpenModal}

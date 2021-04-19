@@ -195,7 +195,7 @@
   &-others {
     max-height: 200px;
     max-width: 200px;
-    margin: 0 25px;
+    margin-right: 15px;
 
     aspect-ratio: 1/1;
     width: 100%;
@@ -212,11 +212,6 @@
       max-width: 120px;
       margin: 5px 0;
     }
-
-    .add-file__file {
-      max-height: 200px;
-      max-width: 200px;
-    }
   }
 
   &-others-container {
@@ -230,6 +225,14 @@
 
   &-others-block {
     grid-area: others;
+  }
+
+  &-media {
+    margin: 50px;
+
+    @include for-phone-only {
+      margin: 25px 20px 15px;
+    }
   }
 }
 
@@ -305,5 +308,85 @@
     min-width: 265px;
     padding: 20px 0;
     font-family: $theme-f-opensans;
+  }
+}
+
+.image-row-list {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0 5px 10px;
+  overflow-x: auto;
+
+  @include styled-scrollbar();
+
+  &__item {
+    position: relative;
+    margin: 0 10px;
+  }
+
+  &__img {
+    width: auto;
+    height: 100%;
+    height: 170px;
+    width: 170px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+
+    @include for-phone-only {
+      max-width: 120px;
+      margin: 5px 0;
+    }
+  }
+
+  &__remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    // transform: translate(50%, -50%);
+
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  &__remove-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.file-list {
+  @include list-grid();
+  padding: 25px 0;
+
+  &__item {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    background: #f9f9f9;
+    border: 1px solid #212121;
+    box-sizing: border-box;
+    border-radius: 6px;
+    height: 64px;
+
+    @include for-phone-only {
+      height: 45px;
+    }
+  }
+
+  &__btn {
+    position: absolute;
+    right: 5px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    &-icon {
+      width: 30px;
+      height: 30px;
+    }
   }
 }

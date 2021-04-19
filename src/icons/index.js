@@ -12,6 +12,7 @@ import AppleIcon from "./apple-icon.component";
 import ProfileAccountIcon from "./profile-account-icon.component";
 import PlusIcon from "./plus-icon.component";
 import CrossIcon from "./cross-icon.component";
+import CrossIconSolid from "./cross-icon-solid.component";
 import ImmortalSmallIcon from "./immortal-small-icon.component";
 import EmailIcon from "./email-icon.component";
 import CopyIcon from "./copy-icon.component";
@@ -31,6 +32,7 @@ export {
   ProfileAccountIcon,
   PlusIcon,
   CrossIcon,
+  CrossIconSolid,
   ImmortalSmallIcon,
   EmailIcon,
   CopyIcon,

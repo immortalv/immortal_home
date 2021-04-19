@@ -3,6 +3,9 @@ export const IMMORTAL_URL = "https://immortalv.com";
 export const FILE_UPLOAD_GATEWAY_URL =
   "https://81srnuryr6.execute-api.eu-central-1.amazonaws.com/Prod/data";
 
+export const EMAIL_GATEWAY_ULR =
+  "https://p3un5ifk6k.execute-api.eu-central-1.amazonaws.com/Prod/send";
+
 export const CONTENT_BUCKET =
   "https://immortal-content.s3.us-east-2.amazonaws.com";
 export const USER_PROFILE_CONTENT_BUCKET =

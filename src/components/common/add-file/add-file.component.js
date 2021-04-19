@@ -11,14 +11,13 @@ const AddFile = ({
   className,
   accept = "image/*",
   maxFiles = 1,
-  multipleFiles = false,
+  withPreview = true,
 }) => {
   const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
     accept,
     maxFiles,
     onDrop: (acceptedFiles) => {
       const dataToSet = [
-        ...(multipleFiles ? files : []),
         ...acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
@@ -30,12 +29,7 @@ const AddFile = ({
     },
   });
 
-  const removeFiles = (file) => {
-    if (!multipleFiles) return setFiles([]);
-
-    const filteredFiles = files.filter(({ path }) => path !== file.path);
-    setFiles(filteredFiles);
-  };
+  const removeFiles = () => setFiles([]);
 
   useEffect(() => {
     if (!files || !files.length) return;
@@ -52,7 +46,7 @@ const AddFile = ({
           isDragActive && "add-file__container--active"
         )}
       >
-        {(multipleFiles || !files.length) && (
+        {(!withPreview || !files.length) && (
           <>
             <div className="add-file__add-field" {...getRootProps()} />
             <input {...getInputProps()} />
@@ -62,7 +56,7 @@ const AddFile = ({
           </>
         )}
 
-        {!multipleFiles && !!files.length && (
+        {withPreview && !!files.length && (
           <>
             <img className="add-file__file" src={files[0]?.preview} />
             <button className="add-file__remove" onClick={removeFiles}>
@@ -71,27 +65,6 @@ const AddFile = ({
           </>
         )}
       </section>
-
-      {multipleFiles && (
-        <div className="add-file__files-container">
-          {files.map((file) => (
-            <div className="add-file__item" key={file.preview}>
-              <img
-                key={file.preview}
-                src={file.preview}
-                className="add-file__file"
-              />
-
-              <button
-                className="add-file__remove"
-                onClick={() => removeFiles(file)}
-              >
-                <CrossIcon className="add-file__remove-icon" />
-              </button>
-            </div>
-          ))}
-        </div>
-      )}
     </>
   );
 };

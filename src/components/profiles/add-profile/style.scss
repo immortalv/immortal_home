@@ -23,6 +23,16 @@
     }
   }
 
+  &__subtitle {
+    width: fit-content;
+    margin: 50px 0 20px 50px;
+
+    @include for-phone-only {
+      margin: 30px 0 10px 20px;
+      font-size: 26px;
+    }
+  }
+
   &__content {
     display: flex;
     justify-content: center;
