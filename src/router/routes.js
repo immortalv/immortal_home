@@ -1,6 +1,7 @@
 import { store } from "store";
 import routesConstants from "constants/routes.constants";
 import HomePage from "pages/home";
+// import HomePage from "pages/home/v2";
 import LoginPage from "pages/auth/auth.page";
 
 import { ProfilesPage, ProfilePage } from "pages/profiles";

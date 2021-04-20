@@ -80,3 +80,30 @@
     }
   }
 }
+
+.feature-icon-block {
+  position: relative;
+  width: 180px;
+  height: 230px;
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 150px;
+    height: 200px;
+    background-color: #f3f3f3;
+    z-index: 2;
+  }
+
+  &__back {
+    position: absolute;
+    top: 30px;
+    left: -30px;
+    width: 150px;
+    height: 200px;
+    border: 15px solid #212121;
+  }
+}

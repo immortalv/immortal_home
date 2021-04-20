@@ -13,9 +13,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 90px;
+  padding: 10px 60px;
   height: var(--header-height);
   z-index: 2;
+  
+  // background-color: #fff; // v2
 
   @include for-tablet-landscape-up {
     padding: 25px;

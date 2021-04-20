@@ -16,6 +16,10 @@ import CrossIconSolid from "./cross-icon-solid.component";
 import ImmortalSmallIcon from "./immortal-small-icon.component";
 import EmailIcon from "./email-icon.component";
 import CopyIcon from "./copy-icon.component";
+import VideoIcon from "./video-icon.component";
+import PhotoIcon from "./photo-icon.component";
+import AudioIcon from "./audio-icon.component";
+import TextAlignIcon from "./text-align-justified-icon.component";
 
 export {
   PeopleGroupIcon,
@@ -36,4 +40,8 @@ export {
   ImmortalSmallIcon,
   EmailIcon,
   CopyIcon,
+  VideoIcon,
+  PhotoIcon,
+  AudioIcon,
+  TextAlignIcon,
 };
