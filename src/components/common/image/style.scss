@@ -3,7 +3,7 @@
 @import "styles/mixins.module";
 
 .image-data__item {
-  max-width: 185px !important;
+  min-width: 185px;
   padding-right: 15px;
   border-radius: 20px;
   filter: drop-shadow(4px 4px 25px rgba(0, 0, 0, 0.15));
@@ -12,12 +12,12 @@
 .image-data__item--book {
   filter: drop-shadow(4px 4px 25px rgba(0, 0, 0, 0.15));
   border-radius: 20px;
-  width: 155px;
+  min-width: 155px;
   margin: 15px;
   border-radius: 20px;
 
   @include for-tablet-landscape-up {
-    max-width: 130px !important;
+    min-width: 130px;
   }
 
 }
@@ -26,7 +26,7 @@
 .image-data__item--article {
 
   @include for-phone-only {
-    max-width: 155px !important;
+    min-width: 155px;
   }
 
   @include no-edge-margins();
