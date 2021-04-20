@@ -6,7 +6,7 @@ import profilesData from "./profile.data";
 
 import "./style.scss";
 import { Link } from "react-router-dom";
-import routesConstants from "constants/routes.constants";
+import { PROFILE } from "constants/routes.constants";
 
 const ProfilesPage = () => {
   return (
@@ -26,7 +26,7 @@ const ProfilesPage = () => {
           {profilesData.map((profile, index) => (
             <Link
               key={profile.fullName}
-              to={`${routesConstants.PROFILES}/${profile.id}`}
+              to={`${PROFILE}/${profile.id}`}
             >
               <ProfilesCard
                 fullName={profile.fullName}

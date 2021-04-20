@@ -5,6 +5,14 @@
 @import "../style.scss";
 
 .profile-simple {
+  --avatar-img-height: 385px;
+  &__description {
+    padding: 0 90px;
+
+    @include for-phone-only {
+      padding: 0 15px;
+    }
+  }
   --avatar-img-size: 350px;
 
   &__top-container {
@@ -13,7 +21,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: calc(var(--avatar-img-height) / 2 + 60px);
+    margin-bottom: calc(var(--avatar-img-height) / 2);
 
     @include for-phone-only {
       margin-bottom: calc(var(--avatar-img-height) / 2 - 60px);
@@ -73,14 +81,15 @@
   }
 }
 
-.image-data {
-  &__container {
+.image-data__container--simple {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 50px 0;
-  }
+    overflow: hidden;
+    overflow-x: auto;
+    margin: 20px 90px;
 
+    @include for-phone-only {
+      margin: 15px;
+    }
   &__item {
     width: 176px;
     height: 176px;
@@ -90,23 +99,26 @@
 
     @include no-edge-margins();
   }
-}
 
-.image-data__container--rounded {
-  .image-data__item {
-    filter: drop-shadow(4px 4px 25px rgba(0, 0, 0, 0.15));
-    border-radius: 20px;
-  }
+
+    @include styled-scrollbar();
 }
 
 .video-data {
   &__container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
+    overflow: hidden;
+    overflow-x: auto;
+    margin: 0 90px;
 
+    @include for-phone-only {
+      margin: 0 15px;
+    }
+
+    @include styled-scrollbar();
+  }
   &__item {
+    margin-right: 15px;
     margin-bottom: 15px;
     max-width: 488px;
     max-height: 305px;

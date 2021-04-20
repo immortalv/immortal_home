@@ -1,9 +1,23 @@
 @import "styles/variables.module";
 @import "styles/media-queries.module";
+@import "styles/mixins.module";
 
 .profile-book {
   padding-top: var(--header-height);
   background-color: #f3f3f3;
+
+  &__description {
+    font-family: $theme-f-opensans;
+    line-height: 24px;
+    white-space: pre-line;
+    padding: 0;
+    color: $theme-c-black;
+    line-height: 150%;
+
+    @include for-phone-only {
+      padding: 0 15px;
+    }
+  }
 
   &__name {
     display: inline-block;
@@ -12,16 +26,24 @@
 
   &__page-container {
     display: flex;
+
+    @include for-phablet {
+      flex-direction: column;
+    }
   }
 
   &__page {
     display: flex;
     flex-direction: column;
+    width: 50%;
     flex: 1;
     padding: 25px;
-    max-height: 1024px;
     background-color: $theme-c-white;
     box-shadow: inset -4px 0px 25px rgba(0, 0, 0, 0.25);
+
+    @include for-phablet {
+      width: 100%;
+    }
 
     &-main {
       align-items: center;
@@ -47,5 +69,49 @@
 
   .quoute-block {
     max-width: 416px;
+  }
+}
+
+
+.image-data__container--book {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 50px 0;
+
+  @include for-phone-only {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    overflow-x: auto;
+
+    @include styled-scrollbar();
+  }
+}
+
+.video-data__container--book {
+  display: flex;
+  overflow: hidden;
+  overflow-x: auto;
+  margin-left: 30px;
+
+  @include for-phablet {
+    margin: 0px;
+  }
+
+  @include styled-scrollbar();
+}
+
+.video-data__container--img {
+  margin-bottom: 15px;
+  margin-right: 15px;
+
+  @include for-tablet-landscape-up {
+    padding-left: 10px;
+  }
+
+  @include for-phablet {
+    width: 50vw;
   }
 }
