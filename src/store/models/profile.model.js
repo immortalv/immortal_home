@@ -1,5 +1,9 @@
 import routesConstants from "constants/routes.constants";
-import { createProfile, uploadFile } from "services/api/profile.service";
+import {
+  createProfile,
+  uploadFile,
+  getProfile,
+} from "services/api/profile.service";
 import { getNextStep, getPreviousStep } from "utils/profile.utils";
 import {
   ADD_PROFILE_STEPS_NAME,
@@ -18,9 +22,10 @@ const initialState = {
   profileType: "", // public/privat
   epitaph: "",
 
-  mainPhoto: null,
-  coverPhoto: null,
-  media: [],
+  mainPhoto: [],
+  coverPhoto: [],
+  otherPhotos: [],
+  otherFiles: [],
 
   template: "",
 };
@@ -47,7 +52,8 @@ export const profile = {
 
       if (nextStep === ADD_PROFILE_STEPS_NAME.PROFILE_CREATED) {
         dispatch.profile.setProfile({ ...payload });
-        dispatch.profile.saveProfile();
+        const id = await dispatch.profile.saveProfile();
+        dispatch.profile.setProfile({ ...payload, id, currenStep: nextStep });
         return;
       }
 
@@ -77,38 +83,47 @@ export const profile = {
         //@TODO Check whether all data is present
 
         const { originalKey: mainPhoto } = await upload(
-          profile.mainPhoto,
+          profile.mainPhoto[0],
           userId
         );
         const { originalKey: coverPhoto } = await upload(
-          profile.coverPhoto,
+          profile.coverPhoto[0],
           userId
         );
 
-        const mediaFiles = await Promise.all(
-          profile.media.map(async (file) => await upload(file, userId))
+        const otherPhotosData = await Promise.all(
+          profile.otherPhotos.map(async (file) => await upload(file, userId))
         );
+        const otherPhotos = otherPhotosData.map((file) => file.originalKey);
 
-        const media = mediaFiles.map((file) => file.originalKey);
+        const otherFilesData = await Promise.all(
+          profile.otherFiles.map(async (file) => await upload(file, userId))
+        );
+        const otherFiles = otherFilesData.map((file) => file.originalKey);
 
         const { id } = await createProfile(
           {
             ...profile,
             mainPhoto,
             coverPhoto,
-            media,
+            otherPhotos,
+            otherFiles,
           },
           profile.token
         );
 
-        dispatch.profile.setProfile({
-          id,
-          currenStep: ADD_PROFILE_STEPS_NAME.PROFILE_CREATED,
-        });
+        return id;
       } catch (error) {
         dispatch.profile.clearState();
         window.location.pathname = routesConstants.CABINET;
       }
+    },
+
+    async getProfile(payload, state) {
+      const { id, token } = payload;
+      const profile = await getProfile(id, token);
+
+      dispatch.profiles.setProfile(profile);
     },
   }),
 };

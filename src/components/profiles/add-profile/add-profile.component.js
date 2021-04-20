@@ -28,7 +28,7 @@ const AddProfile = () => {
   };
 
   const handleNextStep = (data) => dispatch.profile.setProfileEffect(data);
-  const clearProfileState = () =>dispatch.profile.clearState()
+  const clearProfileState = () => dispatch.profile.clearState();
 
   useEffect(() => {
     async function generageToken() {
@@ -36,6 +36,7 @@ const AddProfile = () => {
       await dispatch.profile.setProfile({ token });
     }
 
+    clearProfileState();
     if (!profile.token) generageToken();
   }, []);
 
@@ -50,7 +51,9 @@ const AddProfile = () => {
       case ADD_PROFILE_STEPS_NAME.ADDITIONAL_INFORMATION:
         return <AdditionalInfo profile={profile} onSubmit={handleNextStep} />;
       case ADD_PROFILE_STEPS_NAME.PROFILE_CREATED:
-        return <ProfileCreated id={profile.id} onPageChange={clearProfileState} />;
+        return (
+          <ProfileCreated id={profile.id} onPageChange={clearProfileState} />
+        );
       default:
         return (
           <SelectProfile

@@ -25,3 +25,9 @@
     @include header-s();
   }
 }
+
+.text-subtitle {
+  font-family: $theme-f-opensans;
+  color: $theme-c-black;
+  font-size: 24px;
+}

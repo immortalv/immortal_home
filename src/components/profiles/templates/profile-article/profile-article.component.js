@@ -1,18 +1,18 @@
 import React from "react";
 import Image from "components/common/image/image";
+import { transfromDate } from "utils/profile.utils";
 
 import "./style.scss";
 
 const ProfileArticle = ({ profileData }) => {
   const {
-    fullName,
+    name,
     birthDate,
     deathDate,
-    profileImg,
-    imageData,
-    videoData,
+    mainPhoto,
+    otherPhotos,
     description,
-    additionalDescription
+    descriptionAdditional,
   } = profileData;
 
   return (
@@ -21,23 +21,23 @@ const ProfileArticle = ({ profileData }) => {
         <div className="profile-article__data-container">
           <div className="profile-article__img-block">
             <img
-              src={profileImg}
+              src={mainPhoto}
               alt=""
               className="profile-article__avatar-img"
             />
             <span className="profile-article__date">
-              {birthDate} &#8212; {deathDate}
+              {transfromDate(birthDate)} &#8212; {transfromDate(deathDate)}
             </span>
           </div>
           <div className="profile-article__description-block">
             <h1 className="title profile__name profile-article__name">
-              {fullName}
+              {name}
             </h1>
-              <p className="profile__description profile-article__description">
+            <p className="profile__description profile-article__description">
               {description}
             </p>
           </div>
-          </div>
+        </div>
         <div className="profile-article__data-container">
           <div className="quoute-block  quoute-block--inverted">
             <h2 className="quoute__title">
@@ -45,9 +45,9 @@ const ProfileArticle = ({ profileData }) => {
               scelerisque at venenatis lorem in amet.»
             </h2>
           </div>
-          {imageData &&
+          {otherPhotos &&
             <div className="image-data__container image-date__container--article image-data__container--rounded"> 
-              {imageData.map((img) => (
+              {otherPhotos.map((img) => (
                 <Image
                   key={img.src}
                   img={img}
@@ -55,23 +55,26 @@ const ProfileArticle = ({ profileData }) => {
                 />
               ))}
             </div>
-          }
+            }
         </div>
       </div>
-      {additionalDescription && (
-        <p className="profile__description profile-article__additionalDescription">{additionalDescription}</p>
-      ) }
-      {videoData && 
+      {descriptionAdditional && (
+        <p className="profile__description profile-article__additionalDescription">
+          {descriptionAdditional}
+        </p>
+      )}
+      {/* {videoData && (
         <div className="video-data__container--article">
-        {videoData.map((img) => (
-          <img
-            key={img.src}
-            src={img.src}
-            alt={`${fullName} image data`}
-            className="video-data__container--img"/>
-        ))}
-      </div>
-      }
+          {videoData.map((img) => (
+            <img
+              key={img.src}
+              src={img.src}
+              alt={`${fullName} image data`}
+              className="video-data__container--img"
+            />
+          ))}
+        </div>
+      )} */}
     </main>
   );
 };

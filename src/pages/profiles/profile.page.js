@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
+import { dispatch } from "store";
 import { PROFILE_TEMPLATE_TYPES } from "constants/profile.constants";
 import {
   ProfileSimple,
@@ -7,9 +10,9 @@ import {
   ProfileBook,
 } from "components/profiles/templates";
 import { getProfileImg } from "utils/image.utils";
-import { getProfile } from "services/api/profile.service";
+import Spinner from "components/spinner/spinner.component";
+
 import "./style.scss";
-import { useParams } from "react-router-dom";
 
 const profileDataMock = {
   fullName: "Василевська Василина",
@@ -72,36 +75,32 @@ const profileDataMock = {
 const ProfilePage = () => {
   const { id } = useParams();
   const { getAccessTokenSilently } = useAuth0();
-  const [profileData, setProfileData] = useState();
+  const {
+    profiles: { chosenProfile },
+    loading,
+  } = useSelector((state) => state);
 
   useEffect(() => {
     async function getProfileData() {
       const token = await getAccessTokenSilently();
-      const profile = await getProfile(id, token);
-
-      console.log("profile,", profile);
+      dispatch.profiles.getProfile({ id, token });
     }
-    //   const profileData = getProfileData(profileId)
-    setProfileData(profileDataMock);
+
     getProfileData();
-  });
+  }, []);
 
-  if (!profileData) return <p>Loading...</p>;
+  if (!chosenProfile || loading.global) return <Spinner />;
 
-  if(Math.random() > 0.7) return <ProfileSimple profileData={profileData} />;
-  if(Math.random() > 0.7) return <ProfileBook profileData={profileData} />
-    return <ProfileArticle profileData={profileData} />;
-
-  //   switch (profileData.templateType) {
-  //     case PROFILE_TEMPLATE_TYPES.SIMPLE:
-  //       return <ProfileSimple profileData={profileData} />;
-  //     case PROFILE_TEMPLATE_TYPES.BOOK:
-  //       return <ProfileBook profileData={profileData} />;
-  //     case PROFILE_TEMPLATE_TYPES.ARTICLE:
-  //       return <ProfileArticle profileData={profileData} />;
-  //     default:
-  //       return <ProfileSimple profileData={profileData} />;
-  //   }
+  switch (chosenProfile.template) {
+    case PROFILE_TEMPLATE_TYPES.SIMPLE:
+      return <ProfileSimple profileData={chosenProfile} />;
+    case PROFILE_TEMPLATE_TYPES.BOOK:
+      return <ProfileBook profileData={chosenProfile} />;
+    case PROFILE_TEMPLATE_TYPES.ARTICLE:
+      return <ProfileArticle profileData={chosenProfile} />;
+    default:
+      return <ProfileSimple profileData={chosenProfile} />;
+  }
 };
 
 export default ProfilePage;

@@ -33,7 +33,7 @@ const SelectProfile = ({ onSubmit, profile }) => {
 
   return (
     <>
-      <h1 className="title add-profile__title">Додати профіль</h1>
+      <h1 className="header-s-1  add-profile__title">Додати профіль</h1>
       <div className="add-profile__content">
         <div className="select-profile">
           {profileTemplates.map((template) => (

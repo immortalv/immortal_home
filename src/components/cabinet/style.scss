@@ -7,8 +7,6 @@
   margin: 0 20px 50px;
   width: -webkit-fill-available;
 
-
-
   &__img {
     width: 280px;
     height: auto;
@@ -17,6 +15,10 @@
     max-height: 300px;
     object-fit: contain;
     cursor: pointer;
+
+    @include for-phablet {
+      display: none;
+    }
   }
 
   &__info {
@@ -71,11 +73,7 @@
 }
 
 .qr-code {
-  width: 205px;
-  height: auto;
-  max-width: 20vw;
-  min-width: 160px;
-  object-fit: contain;
+  cursor: pointer;
   margin: auto;
 
   &__container {
@@ -89,5 +87,68 @@
     font-weight: bold;
     font-size: 18px;
     margin-top: auto;
+  }
+}
+
+.qr-code-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  inset: 50% auto auto 50%;
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 40px 20px 20px;
+
+  &__qr-code {
+
+  }
+
+  &__title {
+    margin: 20px 0 50px;
+  }
+
+  &__close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    &-icon {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  &__actions {
+    display: flex;
+  }
+
+  &__action {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    margin: 0 15px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    &-text {
+      font-family: $theme-f-opensans;
+      font-size: 20px;
+      line-height: 150%;
+    }
   }
 }
