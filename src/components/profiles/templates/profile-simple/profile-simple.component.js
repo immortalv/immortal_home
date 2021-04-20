@@ -39,7 +39,7 @@ const ProfileSimple = ({ profileData }) => {
           <Image
             key={img.src}
             img={img}
-            className={"image-data__item--simple"}
+            className={"image-data__item image-data__item--simple"}
           />
         ))}
       </div>

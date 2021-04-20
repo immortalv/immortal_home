@@ -2,6 +2,13 @@
 @import "styles/media-queries.module";
 @import "styles/mixins.module";
 
+.image-data__item {
+  max-width: 185px !important;
+  padding-right: 15px;
+  border-radius: 20px;
+  filter: drop-shadow(4px 4px 25px rgba(0, 0, 0, 0.15));
+}
+
 .image-data__item--book {
   filter: drop-shadow(4px 4px 25px rgba(0, 0, 0, 0.15));
   border-radius: 20px;
@@ -17,10 +24,6 @@
 
 
 .image-data__item--article {
-  max-width: 185px !important;
-  padding-right: 15px;
-  border-radius: 20px;
-  filter: drop-shadow(4px 4px 25px rgba(0, 0, 0, 0.15));
 
   @include for-phone-only {
     max-width: 155px !important;
@@ -29,9 +32,3 @@
   @include no-edge-margins();
 }
 
-.image-data__item--simple {
-  max-width: 185px !important;
-  padding-right: 15px;
-  border-radius: 20px;
-  filter: drop-shadow(4px 4px 25px rgba(0, 0, 0, 0.15));
-}
