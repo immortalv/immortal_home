@@ -2,75 +2,58 @@
 @import "styles/media-queries.module";
 
 .footer {
-  padding: 50px 150px;
-  border-bottom: 1px solid $theme-c-black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background-color: $theme-c-white;
 
-  @include for-tablet-landscape-up {
-    padding: 25px 65px;
-  }
+  padding: 45px 80px;
 
-  @include for-phablet {
-    padding: 15px;
+  @include for-tablet-landscape-up {
+    padding: 25px 55px;
   }
 
   @include for-phone-only {
-    padding: 15px 5px;
+    flex-direction: column-reverse;
+    padding: 25px 10px;
   }
 
-  &__block-container {
+  &__advert {
     display: flex;
-    padding-bottom: 50px;
-    border-bottom: 1px solid $theme-c-black;
-
-    @include for-phablet {
-      padding-bottom: 15px;
-    }
+    flex-direction: column;
 
     @include for-phone-only {
+      margin-top: 25px;
+      width: 100%;
+      align-items: center;
+    }
+
+    &-icon {
+      width: 120px;
+      margin-bottom: 30px;
+
+      @include for-phablet {
+        margin-bottom: 15px;
+      }
+
+      @include for-phone-only {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__contact {
+    @include for-phone-only {
+      display: flex;
+      width: 100%;
       justify-content: space-around;
     }
   }
 
-  &__block {
-    display: inline-block;
-    text-align: center;
-    color: $theme-c-black;
-    padding: 10px 40px;
-    border-right: 1px solid $theme-c-black;
-
-    &:last-child {
-      border-right: none;
-    }
-
-    @include for-phablet {
-      padding: 0 0 10px;
-    }
-
-    @include for-phone-only {
-      border-right: none;
-      padding: 0;
-    }
-  }
-
-  &__title,
   &__text {
-    @include for-phablet {
-      font-size: 14px;
-    }
-  }
+    font-family: $theme-f-opensans;
+    line-height: 150%;
 
-  &__title {
-    font-size: 16px;
-    font-weight: bold;
-    margin: 10px 0;
-
-    @include for-phone-only {
-      margin: 0;
-    }
-  }
-
-  &__text {
     @include for-phablet {
       margin: 10px;
     }
@@ -80,47 +63,20 @@
     }
   }
 
-  &__link-container {
-    display: flex;
-    margin: 30px 0 0;
-
-    @include for-phablet {
-      margin-top: 15px;
-      font-size: 14px;
-    }
-
-    @include for-phone-only {
-      flex-direction: column;
-    }
-  }
-
-  &__link {
-    color: $theme-c-black;
-    margin-right: 15px;
-
-    &:first-of-type {
-      margin-left: 20px;
-    }
-
-    &:last-of-type {
-      margin-right: auto;
-    }
-
-    &:hover {
-      color: $theme-c-black;
-      border-bottom: 1px solid $theme-c-black;
-    }
-
-    &:last-child {
-      margin-right: auto;
-    }
-  }
   &__copyright {
-    margin: auto;
+    font-family: $theme-f-opensans;
+    font-size: 14px;
+    line-height: 150%;
 
     @include for-phone-only {
       flex-direction: column;
-      margin-top: 15px;
+      margin-top: 0;
+    }
+
+    &-line-break {
+      @include for-phone-only {
+        display: none;
+      }
     }
   }
 }

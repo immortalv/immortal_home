@@ -79,7 +79,6 @@
         margin-right: 0px;
         margin-bottom: 10px;
         text-align: center;
-        
       }
     }
 
@@ -88,46 +87,25 @@
       width: 100%;
       max-width: 300px;
     }
-
   }
 
   &__price {
     background: url("../../assets/home-background-price.jpg") no-repeat;
     background-size: cover;
-    justify-content: center;
+    justify-content: flex-end;
     padding: 0;
     --ratio: 2.54;
     height: calc(100vw / var(--ratio));
     max-height: 500px;
 
-    .quoute-block {
-      position: relative;
-      background-color: $theme-c-white;
-      height: 216px;
-
-      .quoute__title {
-        font-size: 48px;
-
-        @include for-phablet {
-          font-size: 36px;
-        }
-
-        @include for-phone-only {
-          font-size: 20px;
-        }
-      }
-    }
-
     .home__btn {
-      position: absolute;
-      transform: translateY(50%);
-      margin-bottom: 0;
-      bottom: 0;
-      height: 45px;
+      margin-bottom: 20px;
       padding: 10px 25px;
+      width: 25vw;
+      max-width: 380px;
 
       @include for-phone-only {
-        margin: 0;
+        margin-bottom: 5px;
         padding: 0 10px;
         font-size: 10px;
         height: 30px;

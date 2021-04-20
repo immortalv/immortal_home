@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import routesConstants from "constants/routes.constants";
 import { IconBlock, Button } from "components/common";
 import { PeopleGroupIcon, PhoneIcon, ScriptIcon, TouchIcon } from "icons";
 
@@ -6,7 +8,6 @@ import firstTemplate from "./assets/first-template.jpg";
 import secondTemplate from "./assets/second-template.jpg";
 import thirdTemplate from "./assets/third-template.jpg";
 import "./style.scss";
-
 
 const HomePage = () => {
   return (
@@ -20,7 +21,9 @@ const HomePage = () => {
             Оживіть спогади вашої родини, досліджуючи життя тих, хто був до вас.
           </p>
         </div>
-        <Button className="home__btn">Залишити пам’ятку</Button>
+        <Link  to={routesConstants.ADD_PROFILE}>
+          <Button className="home__btn">Залишити пам’ятку</Button>
+        </Link>
         <div className="block-group">
           <IconBlock
             icon={<ScriptIcon />}
@@ -47,7 +50,9 @@ const HomePage = () => {
             батьків
           </h2>
         </div>
-        <Button className="home__btn">Залишити пам’ятку</Button>
+        <Link  to={routesConstants.ADD_PROFILE}>
+          <Button className="home__btn">Залишити пам’ятку</Button>
+        </Link>
       </section>
       <section className="home__options">
         <h4 className="title">Варіанти оформлення пам’ятної сторінки:</h4>
@@ -61,18 +66,14 @@ const HomePage = () => {
           <div className="home__template-block">
             <img src={thirdTemplate} className="home__template-img" />
           </div>
-
         </div>
       </section>
       <section className="home__top-block home__price">
-        <div className="quoute-block quoute-block--price">
-          <h2 className="quoute__title">
-            Ціна: <br /> 300 гривень
-          </h2>
+        <Link  to={routesConstants.ADD_PROFILE}>
           <Button type="secondary" className="home__btn">
             Залишити пам’ятку
           </Button>
-        </div>
+        </Link>
       </section>
     </main>
   );

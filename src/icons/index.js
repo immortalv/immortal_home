@@ -1,47 +1,23 @@
-import PeopleGroupIcon from "./people-group-icon.component";
-import PhoneIcon from "./phone-icon.component";
-import ScriptIcon from "./script-icon.component";
-import TouchIcon from "./touch-icon.component";
-import AccountIcon from "./account-icon.component";
-import LoginIcon from "./login-icon.component";
-import LogoIcon from "./logo-icon.component";
-import ChevronLeftIcon from "./chevron-left-icon.component";
-import GoogleIcon from "./google-icon.component";
-import FacebookIcon from "./facebook-icon.component";
-import AppleIcon from "./apple-icon.component";
-import ProfileAccountIcon from "./profile-account-icon.component";
-import PlusIcon from "./plus-icon.component";
-import CrossIcon from "./cross-icon.component";
-import CrossIconSolid from "./cross-icon-solid.component";
-import ImmortalSmallIcon from "./immortal-small-icon.component";
-import EmailIcon from "./email-icon.component";
-import CopyIcon from "./copy-icon.component";
-import VideoIcon from "./video-icon.component";
-import PhotoIcon from "./photo-icon.component";
-import AudioIcon from "./audio-icon.component";
-import TextAlignIcon from "./text-align-justified-icon.component";
-
-export {
-  PeopleGroupIcon,
-  PhoneIcon,
-  ScriptIcon,
-  TouchIcon,
-  AccountIcon,
-  LoginIcon,
-  LogoIcon,
-  ChevronLeftIcon,
-  GoogleIcon,
-  FacebookIcon,
-  AppleIcon,
-  ProfileAccountIcon,
-  PlusIcon,
-  CrossIcon,
-  CrossIconSolid,
-  ImmortalSmallIcon,
-  EmailIcon,
-  CopyIcon,
-  VideoIcon,
-  PhotoIcon,
-  AudioIcon,
-  TextAlignIcon,
-};
+export { default as PeopleGroupIcon } from "./people-group-icon.component";
+export { default as PhoneIcon } from "./phone-icon.component";
+export { default as ScriptIcon } from "./script-icon.component";
+export { default as TouchIcon } from "./touch-icon.component";
+export { default as AccountIcon } from "./account-icon.component";
+export { default as LoginIcon } from "./login-icon.component";
+export { default as LogoIcon } from "./logo-icon.component";
+export { default as ChevronLeftIcon } from "./chevron-left-icon.component";
+export { default as GoogleIcon } from "./google-icon.component";
+export { default as FacebookIcon } from "./facebook-icon.component";
+export { default as AppleIcon } from "./apple-icon.component";
+export { default as ProfileAccountIcon } from "./profile-account-icon.component";
+export { default as PlusIcon } from "./plus-icon.component";
+export { default as CrossIcon } from "./cross-icon.component";
+export { default as CrossIconSolid } from "./cross-icon-solid.component";
+export { default as ImmortalSmallIcon } from "./immortal-small-icon.component";
+export { default as EmailIcon } from "./email-icon.component";
+export { default as CopyIcon } from "./copy-icon.component";
+export { default as VideoIcon } from "./video-icon.component";
+export { default as PhotoIcon } from "./photo-icon.component";
+export { default as AudioIcon } from "./audio-icon.component";
+export { default as TextAlignIcon } from "./text-align-justified-icon.component";
+export { default as SendIcon } from "./send-icon.component";
