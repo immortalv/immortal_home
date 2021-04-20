@@ -34,6 +34,8 @@ export const transfromDate = (date) => {
   let month = dateObject.getMonth();
   const year = dateObject.getFullYear();
 
+  if (!day || !month || !year) return date;
+
   if (String(month).length === 1) month = `0${month}`;
   if (String(day).length === 1) day = `0${day}`;
 
