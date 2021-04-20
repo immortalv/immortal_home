@@ -1,42 +1,23 @@
 import React from "react";
-import FooterBlock from "./footer-block";
+import ContactForm from "components/contact-form";
+import { LogoIcon, SendIcon } from "icons";
 
 import "./style.scss";
 
 const Footer = () => {
   return (
     <footer className="footer">
-      <div className="footer__block-container">
-        <FooterBlock
-          title="Сервіс"
-          text="lorem ipsum dolor sit amet consectetur adipiscing elit"
-        />
-        <FooterBlock
-          title="Блог"
-          text="lorem ipsum dolor sit amet consectetur adipiscing elit"
-        />
-        <FooterBlock
-          title="Про нас"
-          text="lorem ipsum dolor sit amet consectetur adipiscing elit"
-        />
-        <FooterBlock
-          title="Контакти"
-          text="lorem ipsum dolor sit amet consectetur adipiscing elit"
-        />
+      <div className="footer__advert">
+        <LogoIcon className="footer__advert-icon" />
+        <span className="footer__copyright">
+          All rights reserved.
+          <br className="footer__copyright-line-break" /> &copy; 2021 Immortal
+          Corp.
+        </span>
       </div>
-      <div className="footer__link-container">
-        <div className="footer__links">
-          <a href="#" className="footer__link">
-            Privacy policy
-          </a>
-          <a href="#" className="footer__link">
-            Term of service
-          </a>
-          <a href="#" className="footer__link">
-            Language
-          </a>
-        </div>
-        <span className="footer__copyright">&copy; 2021 Immortal</span>
+      <div className="footer__contact">
+        <p className="footer__text">Зворотній зв’язок</p>
+        <ContactForm />
       </div>
     </footer>
   );

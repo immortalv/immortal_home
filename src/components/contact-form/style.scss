@@ -1,0 +1,33 @@
+@import "styles/variables.module";
+@import "styles/media-queries.module";
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  &__input {
+    padding: 5px 15px;
+    width: 360px;
+    max-width: 40vw;
+    height: 45px;
+    background-color: #dedede;
+    border: none;
+    border-radius: 3px;
+
+    @include for-phone-only {
+      padding: 5px;
+      max-width: 70vw;
+    }
+  }
+
+  &__btn {
+    cursor: pointer;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    position: absolute;
+    border: none;
+    background: none;
+  }
+}
