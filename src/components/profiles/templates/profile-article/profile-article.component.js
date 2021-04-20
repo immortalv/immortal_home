@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "components/common/image/image";
 import { transfromDate } from "utils/profile.utils";
 
 import "./style.scss";
@@ -44,18 +45,17 @@ const ProfileArticle = ({ profileData }) => {
               scelerisque at venenatis lorem in amet.»
             </h2>
           </div>
-          {otherPhotos && (
-            <div className="image-data__container image-date__container--article image-data__container--rounded">
+          {otherPhotos &&
+            <div className="image-data__container image-date__container--article image-data__container--rounded"> 
               {otherPhotos.map((img) => (
-                <img
+                <Image
                   key={img.src}
-                  src={img.src}
-                  alt={`image data`}
-                  className="image-data__item"
+                  img={img}
+                  className={"image-data__item image-data__item--article"}
                 />
               ))}
             </div>
-          )}
+            }
         </div>
       </div>
       {descriptionAdditional && (

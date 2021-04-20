@@ -1,6 +1,7 @@
 import React from "react";
 import { transfromDate } from "utils/profile.utils";
 import forestImg from "assets/profile-simple-background.jpg";
+import Image from "../../../common/image/image"
 
 import "./style.scss";
 
@@ -48,12 +49,11 @@ const ProfileBook = ({ profileData }) => {
         <div className="profile-book__page">
           <div className="image-data__container image-data__containe--rounded">
             {otherPhotos.map((img) => (
-              <img
-                key={img.src}
-                src={img.src}
-                alt={`image`}
-                className="image-data__item"
-              />
+              <Image
+                            key={img.src}
+                            img={img}
+                            className={"image-data__item--book"}
+                          />
             ))}
           </div>
           {/*          

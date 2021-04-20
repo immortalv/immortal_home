@@ -3,6 +3,7 @@ import { transfromDate } from "utils/profile.utils";
 import forestImg from "assets/profile-simple-background.jpg";
 
 import "./style.scss";
+import Image from "components/common/image/image";
 
 const getImagefromBucket = (name) =>
   `https://immortal-profile-content.s3.eu-central-1.amazonaws.com/${name}`;
@@ -46,11 +47,10 @@ const ProfileSimple = ({ profileData }) => {
       </p>
       <div className="image-data__container">
         {otherPhotos.map((img) => (
-          <img
-            key={img}
-            src={getImagefromBucket(img)}
-            alt="Profile Image"
-            className="image-data__item"
+          <Image
+            key={img.src}
+            img={img}
+            className={"image-data__item image-data__item--simple"}
           />
         ))}
       </div>
