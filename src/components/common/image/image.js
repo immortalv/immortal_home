@@ -4,7 +4,6 @@ import ModalImage from "react-modal-image";
 import "./style.scss";
 
 const Image = ({ img, className }) => {
-  console.log(img)
   return (
     <ModalImage
       small={img.src}

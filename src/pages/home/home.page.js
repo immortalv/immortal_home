@@ -1,6 +1,7 @@
 import React from "react";
 import { IconBlock, Button } from "components/common";
 import { PeopleGroupIcon, PhoneIcon, ScriptIcon, TouchIcon } from "icons";
+import ModalImage from "react-modal-image";
 
 import firstTemplate from "./assets/first-template.jpg";
 import secondTemplate from "./assets/second-template.jpg";
@@ -53,13 +54,31 @@ const HomePage = () => {
         <h4 className="title">Варіанти оформлення пам’ятної сторінки:</h4>
         <div className="home__template">
           <div className="home__template-block">
-            <img src={firstTemplate} className="home__template-img" />
+            <ModalImage
+              small={firstTemplate}
+              large={firstTemplate}
+              className={"home__template-img"}
+              hideDownload={true}
+              hideZoom={true}
+            />
           </div>
           <div className="home__template-block">
-            <img src={secondTemplate} className="home__template-img" />
+            <ModalImage
+              small={secondTemplate}
+              large={secondTemplate}
+              className={"home__template-img"}
+              hideDownload={true}
+              hideZoom={true}
+            />
           </div>
           <div className="home__template-block">
-            <img src={thirdTemplate} className="home__template-img" />
+            <ModalImage
+              small={thirdTemplate}
+              large={thirdTemplate}
+              className={"home__template-img"}
+              hideDownload={true}
+              hideZoom={true}
+            />
           </div>
 
         </div>
