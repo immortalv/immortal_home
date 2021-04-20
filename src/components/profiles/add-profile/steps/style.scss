@@ -13,9 +13,13 @@
     min-width: 300px;
     max-width: 312px;
     transition: transform 0.2s ease;
-    margin: 10px 20px 0;
+    margin: 10px 10px 0;
 
     @include no-edge-margins();
+
+    @include for-phablet {
+      margin: 10px 15px 0;
+    }
 
     &--active {
       transform: scale(1.1);
@@ -25,6 +29,10 @@
       transform: scale(1.1);
     }
   }
+}
+
+.select-profile.add-profile__content {
+  padding: 0 40px 20px;
 }
 
 .add-profile__main-info {
