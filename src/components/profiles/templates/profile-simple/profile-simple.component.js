@@ -15,6 +15,7 @@ const ProfileSimple = ({ profileData }) => {
     deathDate,
     mainPhoto,
     otherPhotos,
+    otherFiles,
     description,
     descriptionAdditional,
   } = profileData;
@@ -29,11 +30,7 @@ const ProfileSimple = ({ profileData }) => {
           alt="background"
           className="profile-simple__background-img"
         />
-        <img
-          src={getImagefromBucket(mainPhoto)}
-          alt=""
-          className="profile-simple__avatar-img"
-        />
+        <img src={mainPhoto} alt="" className="profile-simple__avatar-img" />
         <span className="profile-simple__date profile-simple__date--birth">
           {transfromDate(birthDate)}
         </span>
@@ -45,7 +42,7 @@ const ProfileSimple = ({ profileData }) => {
       <p className="profile__description profile-simple__description">
         {description}
       </p>
-      <div className="image-data__container">
+      <div className="image-data__container--simple">
         {otherPhotos.map((img) => (
           <Image
             key={img.src}
@@ -54,18 +51,18 @@ const ProfileSimple = ({ profileData }) => {
           />
         ))}
       </div>
-      {/* {media.length && (
+      {otherFiles.length && (
         <div className="video-data__container">
-          {media.map((img) => (
+          {otherFiles.map((img) => (
             <img
               key={img}
-              src={getImagefromBucket(img)}
+              src={img.src}
               alt="Profile Media Data"
               className="video-data__item"
             />
           ))}
         </div>
-      )} */}
+      )}
       {descriptionAdditional && (
         <p className="profile__description profile-simple__description">
           {descriptionAdditional}
