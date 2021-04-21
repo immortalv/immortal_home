@@ -6,8 +6,11 @@ import { PeopleGroupIcon, PhoneIcon, ScriptIcon, TouchIcon } from "icons";
 import ModalImage from "react-modal-image";
 
 import firstTemplate from "./assets/first-template.jpg";
+import firstTemplateBig from "./assets/first-template-big.jpg";
 import secondTemplate from "./assets/second-template.jpg";
+import secondTemplateBig from "./assets/second-template-big.jpg";
 import thirdTemplate from "./assets/third-template.jpg";
+import thirdTemplateBig from "./assets/third-template-big.jpg";
 import "./style.scss";
 
 const HomePage = () => {
@@ -22,7 +25,7 @@ const HomePage = () => {
             Оживіть спогади вашої родини, досліджуючи життя тих, хто був до вас.
           </p>
         </div>
-        <Link  to={routesConstants.ADD_PROFILE}>
+        <Link to={routesConstants.ADD_PROFILE}>
           <Button className="home__btn">Залишити пам’ятку</Button>
         </Link>
         <div className="block-group">
@@ -51,7 +54,7 @@ const HomePage = () => {
             батьків
           </h2>
         </div>
-        <Link  to={routesConstants.ADD_PROFILE}>
+        <Link to={routesConstants.ADD_PROFILE}>
           <Button className="home__btn">Залишити пам’ятку</Button>
         </Link>
       </section>
@@ -61,7 +64,7 @@ const HomePage = () => {
           <div className="home__template-block">
             <ModalImage
               small={firstTemplate}
-              large={firstTemplate}
+              large={firstTemplateBig}
               className={"home__template-img"}
               hideDownload={true}
               hideZoom={true}
@@ -70,7 +73,7 @@ const HomePage = () => {
           <div className="home__template-block">
             <ModalImage
               small={secondTemplate}
-              large={secondTemplate}
+              large={secondTemplateBig}
               className={"home__template-img"}
               hideDownload={true}
               hideZoom={true}
@@ -79,7 +82,7 @@ const HomePage = () => {
           <div className="home__template-block">
             <ModalImage
               small={thirdTemplate}
-              large={thirdTemplate}
+              large={thirdTemplateBig}
               className={"home__template-img"}
               hideDownload={true}
               hideZoom={true}
@@ -88,7 +91,7 @@ const HomePage = () => {
         </div>
       </section>
       <section className="home__top-block home__price">
-        <Link  to={routesConstants.ADD_PROFILE}>
+        <Link to={routesConstants.ADD_PROFILE}>
           <Button type="secondary" className="home__btn">
             Залишити пам’ятку
           </Button>

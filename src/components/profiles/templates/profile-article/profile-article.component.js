@@ -11,6 +11,7 @@ const ProfileArticle = ({ profileData }) => {
     deathDate,
     mainPhoto,
     otherPhotos,
+    otherFiles,
     description,
     descriptionAdditional,
   } = profileData;
@@ -45,8 +46,8 @@ const ProfileArticle = ({ profileData }) => {
               scelerisque at venenatis lorem in amet.»
             </h2>
           </div>
-          {otherPhotos &&
-            <div className="image-data__container image-date__container--article image-data__container--rounded"> 
+          {otherPhotos && (
+            <div className="image-data__container image-date__container--article image-data__container--rounded">
               {otherPhotos.map((img) => (
                 <Image
                   key={img.src}
@@ -55,7 +56,7 @@ const ProfileArticle = ({ profileData }) => {
                 />
               ))}
             </div>
-            }
+          )}
         </div>
       </div>
       {descriptionAdditional && (
@@ -63,18 +64,18 @@ const ProfileArticle = ({ profileData }) => {
           {descriptionAdditional}
         </p>
       )}
-      {/* {videoData && (
+      {otherFiles && (
         <div className="video-data__container--article">
-          {videoData.map((img) => (
+          {otherFiles.map((img) => (
             <img
               key={img.src}
               src={img.src}
-              alt={`${fullName} image data`}
+              alt={`image data`}
               className="video-data__container--img"
             />
           ))}
         </div>
-      )} */}
+      )}
     </main>
   );
 };
