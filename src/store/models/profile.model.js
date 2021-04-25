@@ -128,10 +128,12 @@ export const profile = {
   }),
 };
 
+const clearUserId = (id) => id.split("|")?.[1] || "";
+
 async function upload(file, id) {
   const formData = new FormData();
   formData.append("files", file);
-  const respone = await uploadFile(formData, id);
+  const respone = await uploadFile(formData, clearUserId(id));
 
   return await respone;
 }
