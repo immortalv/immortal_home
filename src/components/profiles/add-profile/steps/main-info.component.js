@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FormField, Button } from "components/common";
 import clsx from "clsx";
+import { ErrorHandling } from "components/toasters";
 
 import "./style.scss";
 
@@ -24,7 +25,9 @@ const AddProfileMainInfo = ({ profile = {}, onSubmit }) => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
     const {
       firstName,
       lastName,
@@ -33,7 +36,9 @@ const AddProfileMainInfo = ({ profile = {}, onSubmit }) => {
       descriptionAdditional,
     } = state;
 
-    if (!firstName || !lastName || !description) return;
+    if (!firstName) return ErrorHandling("Додайте ім'я!");
+    if (!lastName) return ErrorHandling("Додайте прізвище!");
+    if (!description) return ErrorHandling("Додайте опис!");
 
     onSubmit({
       name: getFullName(firstName, lastName, surName),
@@ -57,18 +62,20 @@ const AddProfileMainInfo = ({ profile = {}, onSubmit }) => {
   }, []);
 
   return (
-    <>
+    <form>
       <h1 className="header-s-1  add-profile__title">Розкажіть про людину</h1>
       <div className="add-profile__content">
         <div className="add-profile__main-info">
           <div className="form-field__group">
             <FormField
+              required
               label="Прізвище*"
               value={state?.lastName || ""}
               name="lastName"
               onChange={handleChange}
             />
             <FormField
+              required
               label="Ім’я*"
               value={state?.firstName || ""}
               name="firstName"
@@ -83,6 +90,7 @@ const AddProfileMainInfo = ({ profile = {}, onSubmit }) => {
           </div>
 
           <FormField
+            required
             className={clsx("add-profile__description")}
             placeholder="Починайте тут..."
             label="Опис*"
@@ -111,7 +119,7 @@ const AddProfileMainInfo = ({ profile = {}, onSubmit }) => {
       >
         Далі
       </Button>
-    </>
+    </form>
   );
 };
 

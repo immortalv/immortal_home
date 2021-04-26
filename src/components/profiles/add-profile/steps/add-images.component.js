@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { dispatch } from "store";
 import { Button, AddFile } from "components/common";
+import { ErrorHandling } from "components/toasters";
 import { CrossIcon } from "icons";
 import AddMedia from "./add-media.component";
 
@@ -27,7 +28,7 @@ const AddImages = ({ onSubmit }) => {
   };
 
   const submit = () => {
-    if (!mainPhoto?.length) return;
+    if (!mainPhoto?.length) return ErrorHandling("Додайте головне фото");
     onSubmit();
   };
 
