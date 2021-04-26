@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { dispatch } from "store";
 import AppRouter from "router";
 import Spinner from "components/spinner/spinner.component";
-import { MessageContainer } from "components/toasters";
+import { ToastContainer } from "components/toasters";
 
 import "./style.scss";
 
@@ -20,7 +20,7 @@ function App() {
   return (
     <div className="App">
       <AppRouter />
-      <MessageContainer />
+      <ToastContainer />
     </div>
   );
 }

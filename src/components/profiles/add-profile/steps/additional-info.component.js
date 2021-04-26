@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FormField, Button } from "components/common";
-import { ErrorHandling } from "components/toasters";
+import { showErrorToast } from "components/toasters";
 
 import "./style.scss";
 
@@ -20,9 +20,9 @@ const AddProfileAdditionalInfo = ({ profile = {}, onSubmit }) => {
   };
 
   const handleSubmit = () => {
-    if (!state.birthDate) return ErrorHandling("Додайте дату народження");
-    if (!state.deathDate) return ErrorHandling("Додайте дату смерті");
-    if (!state.profileType) return ErrorHandling("Виберіть тип профілю");
+    if (!state.birthDate) return showErrorToast("Додайте дату народження");
+    if (!state.deathDate) return showErrorToast("Додайте дату смерті");
+    if (!state.profileType) return showErrorToast("Виберіть тип профілю");
 
     onSubmit(state, true);
     setState({});

@@ -1,5 +1,5 @@
 import React from "react";
-import { ToastContainer, toast, Flip } from "react-toastify";
+import { ToastContainer as Container, toast, Flip } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 let toastId;
@@ -13,7 +13,7 @@ const toastConfig = {
   draggable: true,
 };
 
-export const ErrorHandling = (msg) => {
+export const showErrorToast = (msg) => {
   if (!toast.isActive(toastId)) {
     toastId = toast.error(msg, {
       toastId,
@@ -23,11 +23,11 @@ export const ErrorHandling = (msg) => {
   }
 };
 
-export const SuccessHandling = (msg) => toast.success(msg, toastConfig);
-export const InfoToaster = (msg) => toast.info(msg, toastConfig);
+export const showSuccessToast = (msg) => toast.success(msg, toastConfig);
+export const showInfoToast = (msg) => toast.info(msg, toastConfig);
 
-export const MessageContainer = () => (
-  <ToastContainer
+export const ToastContainer = () => (
+  <Container
     position="top-right"
     autoClose={2000}
     hideProgressBar={false}

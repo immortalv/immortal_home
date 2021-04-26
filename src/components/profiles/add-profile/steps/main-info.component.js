@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FormField, Button } from "components/common";
 import clsx from "clsx";
-import { ErrorHandling } from "components/toasters";
+import { showErrorToast } from "components/toasters";
 
 import "./style.scss";
 
@@ -36,9 +36,9 @@ const AddProfileMainInfo = ({ profile = {}, onSubmit }) => {
       descriptionAdditional,
     } = state;
 
-    if (!firstName) return ErrorHandling("Додайте ім'я!");
-    if (!lastName) return ErrorHandling("Додайте прізвище!");
-    if (!description) return ErrorHandling("Додайте опис!");
+    if (!firstName) return showErrorToast("Додайте ім'я!");
+    if (!lastName) return showErrorToast("Додайте прізвище!");
+    if (!description) return showErrorToast("Додайте опис!");
 
     onSubmit({
       name: getFullName(firstName, lastName, surName),
