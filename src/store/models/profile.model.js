@@ -53,7 +53,9 @@ export const profile = {
       if (nextStep === ADD_PROFILE_STEPS_NAME.PROFILE_CREATED) {
         dispatch.profile.setProfile({ ...payload });
         const id = await dispatch.profile.saveProfile();
-        dispatch.profile.setProfile({ ...payload, id, currenStep: nextStep });
+        if (id) {
+          dispatch.profile.setProfile({ ...payload, id, currenStep: nextStep });
+        }
         return;
       }
 
@@ -82,14 +84,13 @@ export const profile = {
         } = state;
         //@TODO Check whether all data is present
 
-        const { originalKey: mainPhoto } = await upload(
-          profile.mainPhoto[0],
-          userId
-        );
-        const { originalKey: coverPhoto } = await upload(
-          profile.coverPhoto[0],
-          userId
-        );
+        const [
+          { originalKey: mainPhoto },
+          { originalKey: coverPhoto },
+        ] = await Promise.all([
+          await upload(profile.mainPhoto[0], userId),
+          await upload(profile.coverPhoto[0], userId),
+        ]);
 
         const otherPhotosData = await Promise.all(
           profile.otherPhotos.map(async (file) => await upload(file, userId))
@@ -114,6 +115,7 @@ export const profile = {
 
         return id;
       } catch (error) {
+        console.error(error);
         dispatch.profile.clearState();
         window.location.pathname = routesConstants.CABINET;
       }
