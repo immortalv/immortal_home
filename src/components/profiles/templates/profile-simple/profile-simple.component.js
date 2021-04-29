@@ -2,8 +2,10 @@ import React from "react";
 import { transfromDate } from "utils/profile.utils";
 import forestImg from "assets/profile-simple-background.jpg";
 
-import "./style.scss";
+import Video from '../../../common/video/video';
 import Image from "components/common/image/image";
+
+import "./style.scss";
 
 const getImagefromBucket = (name) =>
   `https://immortal-profile-content.s3.eu-central-1.amazonaws.com/${name}`;
@@ -47,19 +49,14 @@ const ProfileSimple = ({ profileData }) => {
           <Image
             key={img.src}
             img={img}
-            className={"image-data__item image-data__item--simple"}
+            className={"image-data__item"}
           />
         ))}
       </div>
       {otherFiles.length && (
         <div className="video-data__container">
           {otherFiles.map((img) => (
-            <img
-              key={img}
-              src={img.src}
-              alt="Profile Media Data"
-              className="video-data__item"
-            />
+            <Video video={img} key={img.src} />
           ))}
         </div>
       )}

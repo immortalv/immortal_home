@@ -99,8 +99,22 @@
     }
 }
 
+.image-data__item--article {
+
+  @include for-phone-only {
+    min-width: 155px;
+  }
+
+  @include no-edge-margins();
+}
+
+
 .video-data__container--article {
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 10px;
+  padding-bottom: 15px;
+  margin-left: 25px;
   overflow: hidden;
   overflow-x: auto;
 

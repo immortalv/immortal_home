@@ -1,7 +1,8 @@
 import React from "react";
 import { transfromDate } from "utils/profile.utils";
 import forestImg from "assets/profile-simple-background.jpg";
-import Image from "../../../common/image/image"
+import Image from "../../../common/image/image";
+import Video from '../../../common/video/video';
 
 import "./style.scss";
 
@@ -12,6 +13,7 @@ const ProfileBook = ({ profileData }) => {
     deathDate,
     mainPhoto,
     otherPhotos,
+    otherFiles,
     description,
     descriptionAdditional,
   } = profileData;
@@ -47,21 +49,19 @@ const ProfileBook = ({ profileData }) => {
           </div>
         )}
         <div className="profile-book__page">
-          <div className="image-data__container image-data__containe--rounded">
+          <div className="image-data__container--book image-data__containe--rounded">
             {otherPhotos.map((img) => (
               <Image
-                            key={img.src}
-                            img={img}
-                            className={"image-data__item--book"}
-                          />
+                key={img.src}
+                img={img}
+                className={"image-data__item image-data__item--book"}
+              />
             ))}
           </div>
-          {/*          
-          <div className="video-data__container">
-            {videoData.map((img) => (
-              <img key={img.src} src={img.src} alt={`${fullName} image data`} />
-            ))}
-          </div> */}
+          <div className="video-data__container"></div>
+          {otherFiles.map((img) => (
+            <Video video={img} key={img.src} />
+          ))}
         </div>
       </section>
     </main>

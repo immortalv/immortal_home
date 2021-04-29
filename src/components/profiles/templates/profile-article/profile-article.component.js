@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "components/common/image/image";
 import { transfromDate } from "utils/profile.utils";
+import Video from '../../../common/video/video';
 
 import "./style.scss";
 
@@ -67,16 +68,12 @@ const ProfileArticle = ({ profileData }) => {
       {otherFiles && (
         <div className="video-data__container--article">
           {otherFiles.map((img) => (
-            <img
-              key={img.src}
-              src={img.src}
-              alt={`image data`}
-              className="video-data__container--img"
-            />
+            <Video url={img} key={img.src} />
           ))}
         </div>
-      )}
-    </main>
+      )
+      }
+    </main >
   );
 };
 

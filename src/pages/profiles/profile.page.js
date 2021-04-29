@@ -34,16 +34,18 @@ const ProfilePage = () => {
 
   if (!chosenProfile || loading.global) return <Spinner />;
 
-  switch (chosenProfile.template) {
-    case PROFILE_TEMPLATE_TYPES.SIMPLE:
-      return <ProfileSimple profileData={chosenProfile} />;
-    case PROFILE_TEMPLATE_TYPES.BOOK:
-      return <ProfileBook profileData={chosenProfile} />;
-    case PROFILE_TEMPLATE_TYPES.ARTICLE:
-      return <ProfileArticle profileData={chosenProfile} />;
-    default:
-      return <ProfileSimple profileData={chosenProfile} />;
-  }
+  return <ProfileArticle profileData={chosenProfile} />
+
+  // switch (chosenProfile.template) {
+  //   case PROFILE_TEMPLATE_TYPES.SIMPLE:
+  //     return <ProfileSimple profileData={chosenProfile} />;
+  //   case PROFILE_TEMPLATE_TYPES.BOOK:
+  //     return <ProfileBook profileData={chosenProfile} />;
+  //   case PROFILE_TEMPLATE_TYPES.ARTICLE:
+  //     return <ProfileArticle profileData={chosenProfile} />;
+  //   default:
+  //     return <ProfileSimple profileData={chosenProfile} />;
+  // }
 };
 
 export default ProfilePage;
