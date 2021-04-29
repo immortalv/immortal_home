@@ -6,13 +6,13 @@ import "./style.scss";
 const Image = ({ img, className }) => {
   return (
     <ModalImage
-      small={img.src}
-      large={img.src}
+      small={img.src || img}
+      large={img.src || img}
       className={className}
       hideDownload={true}
       hideZoom={true}
     />
-  )
-}
+  );
+};
 
 export default Image;

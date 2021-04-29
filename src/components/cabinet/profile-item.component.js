@@ -3,10 +3,10 @@ import { renderEmail, Email, Item, Image } from "react-html-email";
 import { useHistory } from "react-router";
 import QRCodeStyling from "qr-code-styling";
 import { Button, Checkbox } from "components/common";
-import { getProfilefromBucket } from "utils/image.utils";
+import { getProfileDataFromBucket } from "utils/image.utils";
 import { getQRProfileUrl } from "utils/profile.utils";
 import { sendEmail } from "services/api/email.service";
-import { PROFILE } from "constants/routes.constants";
+import routesConstants, { PROFILE } from "constants/routes.constants";
 import { QRCodeSettings } from "constants/profile.constants";
 
 import QRCodeModal from "./qrcode-modal.component";
@@ -30,6 +30,7 @@ const ProfileItem = ({ profile }) => {
 
   const handleChange = () => setIsPublic(!isPublic);
   const goToProfilePage = () => history.push(`${PROFILE}/${profile.id}`);
+  const goToEditPage = () => history.push(routesConstants.PROFILE_EDIT);
 
   useEffect(() => {
     const qrCode = new QRCodeStyling({
@@ -86,7 +87,7 @@ const ProfileItem = ({ profile }) => {
       <div className="profile-item">
         <img
           onClick={goToProfilePage}
-          src={getProfilefromBucket(profile.mainPhoto)}
+          src={getProfileDataFromBucket(profile.mainPhoto)}
           className="profile-item__img"
           alt="profile picture"
         />
@@ -98,7 +99,11 @@ const ProfileItem = ({ profile }) => {
             <Checkbox checked={isPublic} onChange={handleChange} />
           </div>
 
-          <Button type="secondary" className="profile-item__btn">
+          <Button
+            type="secondary"
+            className="profile-item__btn"
+            onClick={goToEditPage}
+          >
             Редагувати
           </Button>
         </div>

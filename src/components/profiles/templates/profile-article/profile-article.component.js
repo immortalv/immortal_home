@@ -2,6 +2,7 @@ import React from "react";
 import Image from "components/common/image/image";
 import { transfromDate } from "utils/profile.utils";
 import Video from '../../../common/video/video';
+import { getProfileDataFromBucket } from "utils/image.utils";
 
 import "./style.scss";
 
@@ -23,8 +24,8 @@ const ProfileArticle = ({ profileData }) => {
         <div className="profile-article__data-container">
           <div className="profile-article__img-block">
             <img
-              src={mainPhoto}
-              alt=""
+              src={getProfileDataFromBucket(mainPhoto)}
+              alt="Main profile photo"
               className="profile-article__avatar-img"
             />
             <span className="profile-article__date">
@@ -51,8 +52,9 @@ const ProfileArticle = ({ profileData }) => {
             <div className="image-data__container image-date__container--article image-data__container--rounded">
               {otherPhotos.map((img) => (
                 <Image
-                  key={img.src}
-                  img={img}
+                  key={img}
+                  img={getProfileDataFromBucket(img)}
+                  alt="profile image"
                   className={"image-data__item image-data__item--article"}
                 />
               ))}

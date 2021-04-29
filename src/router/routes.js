@@ -4,7 +4,7 @@ import HomePage from "pages/home";
 // import HomePage from "pages/home/v2";
 import LoginPage from "pages/auth/auth.page";
 
-import { ProfilesPage, ProfilePage } from "pages/profiles";
+import { ProfilesPage, ProfilePage, ProfileEdit } from "pages/profiles";
 // import LoginPage from "pages/login";
 import CabinetPage from "pages/cabinet";
 import AddProfile from "components/profiles/add-profile";
@@ -25,6 +25,12 @@ const routes = [
     exact: true,
     path: routesConstants.PROFILES,
     component: ProfilesPage,
+  },
+  {
+    name: "Редагування",
+    exact: true,
+    path: routesConstants.PROFILE_EDIT,
+    component: ProfileEdit,
   },
   {
     name: "Профілі",

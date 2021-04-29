@@ -3,6 +3,7 @@ import { transfromDate } from "utils/profile.utils";
 import forestImg from "assets/profile-simple-background.jpg";
 import Image from "../../../common/image/image";
 import Video from '../../../common/video/video';
+import { getProfileDataFromBucket } from "utils/image.utils";
 
 import "./style.scss";
 
@@ -23,7 +24,11 @@ const ProfileBook = ({ profileData }) => {
       <section className="profile-book__page-container">
         <div className="profile-book__page profile-book__page--dark profile-book__page-main">
           <h1 className="title profile__name profile-book__name">{name}</h1>
-          <img src={mainPhoto} alt="" className="profile-book__avatar-img" />
+          <img
+            src={getProfileDataFromBucket(mainPhoto)}
+            alt="Main profile photo"
+            className="profile-book__avatar-img"
+          />
           <span className="profile-book__date">
             {transfromDate(birthDate)} &#8212; {transfromDate(deathDate)}
           </span>
@@ -52,16 +57,19 @@ const ProfileBook = ({ profileData }) => {
           <div className="image-data__container--book image-data__containe--rounded">
             {otherPhotos.map((img) => (
               <Image
-                key={img.src}
-                img={img}
-                className={"image-data__item image-data__item--book"}
+                key={img}
+                img={getProfileDataFromBucket(img)}
+                alt="profile image"
+                className={"image-data__item--book"}
               />
             ))}
           </div>
-          <div className="video-data__container"></div>
-          {otherFiles.map((img) => (
-            <Video video={img} key={img.src} />
-          ))}
+
+          <div className="video-data__container">
+            {otherFiles.map((img) => (
+              <Video video={img} key={img.src} />
+            ))}
+          </div>
         </div>
       </section>
     </main>

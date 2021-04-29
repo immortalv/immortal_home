@@ -24,16 +24,16 @@
     }
 
     @include for-phone-only {
-      font-size: 36px;
+      font-size: 30px;
     }
   }
 
-  &__subtitle {
+  .add-profile__subtitle.header-s-2 {
     width: fit-content;
-    margin: 50px 0 20px 50px;
+    margin: 50px 0 20px 0;
 
     @include for-phone-only {
-      margin: 30px 0 10px 20px;
+      margin: 15px 0 10px 0;
       font-size: 26px;
     }
   }
