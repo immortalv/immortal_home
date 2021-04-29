@@ -6,5 +6,5 @@ import {
 export const getProfileImg = (name, format = "png") =>
   `${PROFILES_CONTENT}/${name}.${format}`;
 
-export const getProfilefromBucket = (key) =>
+export const getProfileDataFromBucket = (key) =>
   `${USER_PROFILE_CONTENT_BUCKET}/${key}`;

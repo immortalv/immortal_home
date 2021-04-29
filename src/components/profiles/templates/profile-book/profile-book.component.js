@@ -1,7 +1,7 @@
 import React from "react";
 import { transfromDate } from "utils/profile.utils";
-import forestImg from "assets/profile-simple-background.jpg";
-import Image from "../../../common/image/image"
+import { getProfileDataFromBucket } from "utils/image.utils";
+import Image from "../../../common/image/image";
 
 import "./style.scss";
 
@@ -12,6 +12,7 @@ const ProfileBook = ({ profileData }) => {
     deathDate,
     mainPhoto,
     otherPhotos,
+    otherFiles,
     description,
     descriptionAdditional,
   } = profileData;
@@ -21,7 +22,11 @@ const ProfileBook = ({ profileData }) => {
       <section className="profile-book__page-container">
         <div className="profile-book__page profile-book__page--dark profile-book__page-main">
           <h1 className="title profile__name profile-book__name">{name}</h1>
-          <img src={mainPhoto} alt="" className="profile-book__avatar-img" />
+          <img
+            src={getProfileDataFromBucket(mainPhoto)}
+            alt="Main profile photo"
+            className="profile-book__avatar-img"
+          />
           <span className="profile-book__date">
             {transfromDate(birthDate)} &#8212; {transfromDate(deathDate)}
           </span>
@@ -50,18 +55,23 @@ const ProfileBook = ({ profileData }) => {
           <div className="image-data__container image-data__containe--rounded">
             {otherPhotos.map((img) => (
               <Image
-                            key={img.src}
-                            img={img}
-                            className={"image-data__item--book"}
-                          />
+                key={img}
+                img={getProfileDataFromBucket(img)}
+                alt="profile image"
+                className={"image-data__item--book"}
+              />
             ))}
           </div>
-          {/*          
+
           <div className="video-data__container">
-            {videoData.map((img) => (
-              <img key={img.src} src={img.src} alt={`${fullName} image data`} />
+            {otherFiles.map((img) => (
+              <img
+                key={img}
+                src={getProfileDataFromBucket(img)}
+                alt={`Video data`}
+              />
             ))}
-          </div> */}
+          </div>
         </div>
       </section>
     </main>

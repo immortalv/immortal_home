@@ -5,6 +5,7 @@ const routesConstants = {
   HOME: "/",
   PROFILES,
   PROFILE: `${PROFILE}/:id`,
+  PROFILE_EDIT: `${PROFILE}/edit`,
   CABINET: "/cabinet",
   RULES: "/rules",
   LOGIN: "/login",

@@ -1,0 +1,23 @@
+@mixin header-s {
+  font-family: $theme-f-opensans;
+  font-weight: bold;
+  color: $theme-c-black;
+}
+
+.header-s {
+  &-1 {
+    font-size: 64px;
+    @include header-s();
+  }
+
+  &-2 {
+    font-size: 40px;
+    @include header-s();
+  }
+}
+
+.text-subtitle {
+  font-family: $theme-f-opensans;
+  color: $theme-c-black;
+  font-size: 24px;
+}

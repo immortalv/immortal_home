@@ -1,12 +1,10 @@
 import React from "react";
 import { transfromDate } from "utils/profile.utils";
+import { getProfileDataFromBucket } from "utils/image.utils";
+import Image from "components/common/image/image";
 import forestImg from "assets/profile-simple-background.jpg";
 
 import "./style.scss";
-import Image from "components/common/image/image";
-
-const getImagefromBucket = (name) =>
-  `https://immortal-profile-content.s3.eu-central-1.amazonaws.com/${name}`;
 
 const ProfileSimple = ({ profileData }) => {
   const {
@@ -30,7 +28,11 @@ const ProfileSimple = ({ profileData }) => {
           alt="background"
           className="profile-simple__background-img"
         />
-        <img src={mainPhoto} alt="" className="profile-simple__avatar-img" />
+        <img
+          src={getProfileDataFromBucket(mainPhoto)}
+          alt=""
+          className="profile-simple__avatar-img"
+        />
         <span className="profile-simple__date profile-simple__date--birth">
           {transfromDate(birthDate)}
         </span>
@@ -45,8 +47,9 @@ const ProfileSimple = ({ profileData }) => {
       <div className="image-data__container--simple">
         {otherPhotos.map((img) => (
           <Image
-            key={img.src}
-            img={img}
+            key={img}
+            img={getProfileDataFromBucket(img)}
+            alt="profile image"
             className={"image-data__item image-data__item--simple"}
           />
         ))}
@@ -56,7 +59,7 @@ const ProfileSimple = ({ profileData }) => {
           {otherFiles.map((img) => (
             <img
               key={img}
-              src={img.src}
+              src={getProfileDataFromBucket(img)}
               alt="Profile Media Data"
               className="video-data__item"
             />
