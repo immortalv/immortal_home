@@ -2,5 +2,8 @@ export { default as SelectProfile } from "./select-profile.component";
 export { default as MainInfo } from "./main-info.component";
 export { default as AdditionalInfo } from "./additional-info.component";
 export { default as AddImages } from "./add-images.component";
+export { default as AddMainImage } from "./add-main-image.component";
+export { default as AddOtherImages } from "./add-other-images.component";
 export { default as AddMedia } from "./add-media.component";
 export { default as ProfileCreated } from "./profile-created.component";
+export { default as ProfileTypes } from "./profile-types.component";

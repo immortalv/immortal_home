@@ -2,11 +2,11 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { dispatch } from "store";
 import { AddFile } from "components/common";
-import { CrossIcon } from "icons";
+import { CrossIconSolid } from "icons";
 
 import "./style.scss";
 
-const AddOtherImages = () => {
+const AddOtherImages = ({ label = "Інші фото" }) => {
   const { otherPhotos } = useSelector((state) => state.profile);
 
   const setPhotos = (files) => {
@@ -27,9 +27,8 @@ const AddOtherImages = () => {
   };
 
   return (
-    <>
-      <span className="add-file__label">Інші фото</span>
-
+    <div className="add-other-images__container">
+      <span className="add-file__label">{label}</span>
       <div className="add-file-others-container">
         <AddFile
           files={otherPhotos}
@@ -51,13 +50,13 @@ const AddOtherImages = () => {
                 className="image-row-list__remove"
                 onClick={() => removePhoto(file.name)}
               >
-                <CrossIcon className="image-row-list__remove-icon" />
+                <CrossIconSolid className="image-row-list__remove-icon" />
               </button>
             </div>
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

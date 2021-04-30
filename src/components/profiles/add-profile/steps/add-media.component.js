@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import clsx from "clsx";
 import { useSelector } from "react-redux";
 import { dispatch } from "store";
 import { AddFileDropzone } from "components/common";
@@ -6,7 +7,7 @@ import { CrossIconSolid } from "icons";
 
 import "./style.scss";
 
-const AddMedia = () => {
+const AddMedia = ({ className, title, label }) => {
   const { otherFiles } = useSelector((state) => state.profile);
 
   const onOtherMediaDrop = (files) => {
@@ -27,8 +28,9 @@ const AddMedia = () => {
   };
 
   return (
-    <>
-      <h2 className="header-s-2 add-profile__subtitle">Додайте інші файли</h2>
+    <div className={clsx("add-media__container", className)}>
+      {title && <h2 className="header-s-2 add-profile__subtitle">{title}</h2>}
+      {label && <span className="add-file__label">{label}</span>}
 
       <div className="add-file-block add-file-media">
         <AddFileDropzone
@@ -50,7 +52,7 @@ const AddMedia = () => {
           ))}
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 
