@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import {
   NameFormGroup,
   ProfileDoubleDescription,
@@ -11,14 +13,16 @@ import {
   ProfileTypes,
 } from "components/profiles/add-profile/steps";
 
+import { useGetProfile } from "./hooks";
+import { transfromDate } from "utils/profile.utils";
+
 const ProfileEdit = () => {
-  const [state, setState] = useState({
-    firstName: "",
-    lastName: "",
-    surName: "",
-    description: "",
-    descriptionAdditional: "",
-  });
+  const { id } = useParams();
+  const { profile } = useSelector((state) => state);
+
+  useGetProfile(id);
+
+  const [state, setState] = useState({});
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -27,6 +31,19 @@ const ProfileEdit = () => {
       [e.target.name]: value,
     });
   };
+
+  useEffect(() => {
+    if (!profile) return;
+    const { name } = profile;
+    const [firstName, lastName, surName] = name.split(" ");
+
+    setState({
+      ...profile,
+      firstName,
+      lastName,
+      surName,
+    });
+  }, [profile]);
 
   return (
     <main className="profile-edit">
@@ -55,6 +72,7 @@ const ProfileEdit = () => {
             name="birthDate"
             label="Дата народження"
             onChange={handleChange}
+            value={transfromDate(state.birthDate, true)}
           />
           <FormField
             className="profile-edit__date"
@@ -62,15 +80,16 @@ const ProfileEdit = () => {
             name="deathDate"
             label="Дата смерті"
             onChange={handleChange}
+            value={transfromDate(state.deathDate, true)}
           />
         </div>
       </div>
 
-      <AddOtherImages label="Фотографії" />
+      {/* <AddOtherImages label="Фотографії" /> */}
 
       <ProfileDoubleDescription state={state} onChange={handleChange} />
-      <AddMedia className="profile-edit__media" label="Інші файли" />
-      <ProfileTypes label="Тип профілю" />
+      {/* <AddMedia className="profile-edit__media" label="Інші файли" /> */}
+      {/* <ProfileTypes label="Тип профілю" /> */}
     </main>
   );
 };

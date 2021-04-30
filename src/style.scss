@@ -2,9 +2,12 @@
 @import "styles/base.module";
 
 .App {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   max-width: 1440px;
   min-height: 100vh;
   margin: auto;
   position: relative;
-  background-color: #fff;
+  background-color: #f3f3f3;
 }

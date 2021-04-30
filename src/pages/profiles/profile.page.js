@@ -1,48 +1,32 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useAuth0 } from "@auth0/auth0-react";
-import { dispatch } from "store";
 import { PROFILE_TEMPLATE_TYPES } from "constants/profile.constants";
-
 import {
   ProfileSimple,
   ProfileArticle,
   ProfileBook,
 } from "components/profiles/templates";
-
 import Spinner from "components/spinner/spinner.component";
+import { useGetProfile } from "./hooks";
 
 import "./style.scss";
 
 const ProfilePage = () => {
   const { id } = useParams();
-  const { getAccessTokenSilently } = useAuth0();
-  const {
-    profiles: { chosenProfile },
-    loading,
-  } = useSelector((state) => state);
+  const { profile } = useSelector((state) => state);
 
-  useEffect(() => {
-    async function getProfileData() {
-      const token = await getAccessTokenSilently();
-      dispatch.profiles.getProfile({ id, token });
-    }
+  useGetProfile(id);
 
-    getProfileData();
-  }, []);
-
-  if (!chosenProfile || loading.global) return <Spinner />;
-
-  switch (chosenProfile.template) {
+  switch (profile?.template) {
     case PROFILE_TEMPLATE_TYPES.SIMPLE:
-      return <ProfileSimple profileData={chosenProfile} />;
+      return <ProfileSimple profileData={profile} />;
     case PROFILE_TEMPLATE_TYPES.BOOK:
-      return <ProfileBook profileData={chosenProfile} />;
+      return <ProfileBook profileData={profile} />;
     case PROFILE_TEMPLATE_TYPES.ARTICLE:
-      return <ProfileArticle profileData={chosenProfile} />;
+      return <ProfileArticle profileData={profile} />;
     default:
-      return <ProfileSimple profileData={chosenProfile} />;
+      return <Spinner />;
   }
 };
 

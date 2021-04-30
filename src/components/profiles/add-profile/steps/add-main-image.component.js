@@ -9,7 +9,7 @@ const AddMainImage = ({ label = "Головне фото" }) => {
   const { mainPhoto } = useSelector((state) => state.profile);
 
   const setMainImage = (file) =>
-    dispatch.profile.setProfile({ mainPhoto: file });
+    dispatch.profile.setProfile({ mainPhoto: file[0] });
 
   return (
     <div className="add-main-image__container">
@@ -19,7 +19,7 @@ const AddMainImage = ({ label = "Головне фото" }) => {
       </span>
       <AddFile
         className="add-image__main"
-        files={mainPhoto}
+        files={[mainPhoto]}
         setFiles={setMainImage}
       />
     </div>

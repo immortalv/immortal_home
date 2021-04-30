@@ -29,12 +29,14 @@ const AddFile = ({
     },
   });
 
-  const removeFiles = () => setFiles([]);
+  const removeFiles = () => setFiles([null]);
 
   useEffect(() => {
     if (!files || !files.length) return;
     files.forEach((file) => URL.revokeObjectURL(file));
   }, [files]);
+
+  const showFile = withPreview && !!files[0];
 
   return (
     <>
@@ -46,7 +48,7 @@ const AddFile = ({
           isDragActive && "add-file__container--active"
         )}
       >
-        {(!withPreview || !files.length) && (
+        {!showFile && (
           <>
             <div className="add-file__add-field" {...getRootProps()} />
             <input {...getInputProps()} />
@@ -56,9 +58,12 @@ const AddFile = ({
           </>
         )}
 
-        {withPreview && !!files.length && (
+        {showFile && (
           <>
-            <img className="add-file__file" src={files[0]?.preview} />
+            <img
+              className="add-file__file"
+              src={files[0]?.preview || files[0]}
+            />
             <button className="add-file__remove" onClick={removeFiles}>
               <CrossIcon className="add-file__remove-icon" />
             </button>

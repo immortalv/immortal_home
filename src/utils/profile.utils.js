@@ -28,7 +28,7 @@ export const getPreviousStep = (steps, activeStep) => {
   return { previousStep, shouldRedirect: false };
 };
 
-export const transfromDate = (date) => {
+export const transfromDate = (date, dateInput = false) => {
   const dateObject = new Date(date);
   let day = dateObject.getDate();
   let month = dateObject.getMonth();
@@ -38,6 +38,8 @@ export const transfromDate = (date) => {
 
   if (String(month).length === 1) month = `0${month}`;
   if (String(day).length === 1) day = `0${day}`;
+
+  if (dateInput) return `${year}-${month}-${day}`;
 
   return `${day}.${month}.${year}`;
 };

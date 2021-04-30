@@ -4,6 +4,7 @@ import {
   uploadFile,
   getProfile,
 } from "services/api/profile.service";
+import { profileDataMock } from "constants/profile-data.mock";
 import { getNextStep, getPreviousStep } from "utils/profile.utils";
 import {
   ADD_PROFILE_STEPS_NAME,
@@ -88,7 +89,7 @@ export const profile = {
           { originalKey: mainPhoto },
           { originalKey: coverPhoto },
         ] = await Promise.all([
-          await upload(profile.mainPhoto[0], userId),
+          await upload(profile.mainPhoto, userId),
           await upload(profile.coverPhoto[0], userId),
         ]);
 
@@ -121,11 +122,14 @@ export const profile = {
       }
     },
 
-    async getProfile(payload, state) {
-      const { id, token } = payload;
-      const profile = await getProfile(id, token);
-
-      dispatch.profiles.setProfile(profile);
+    async getProfile(payload) {
+      try {
+        const { id, token } = payload;
+        const profile = await getProfile(id, token);
+        dispatch.profile.setProfile(profile);
+      } catch (error) {
+        dispatch.profile.setProfile(profileDataMock);
+      }
     },
   }),
 };

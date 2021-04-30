@@ -54,7 +54,7 @@ const QRCodeModal = forwardRef(
                 Відправити на електронну пошту
               </span>
             </button>
-            <button className="qr-code-modal__action" onClick={uploadImage}>
+            <button className="qr-code-modal__action" onClick={download}>
               <CopyIcon className="qr-code-modal__action-icon" />
               <span className="qr-code-modal__action-text">Завантажити</span>
             </button>
