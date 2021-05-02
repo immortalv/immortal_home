@@ -48,12 +48,12 @@ const QRCodeModal = forwardRef(
           </button>
 
           <div className="qr-code-modal__actions">
-            <button className="qr-code-modal__action" onClick={sendEmail}>
+            {/* <button className="qr-code-modal__action" onClick={sendEmail}>
               <EmailIcon className="qr-code-modal__action-icon" />
               <span className="qr-code-modal__action-text">
                 Відправити на електронну пошту
               </span>
-            </button>
+            </button> */}
             <button className="qr-code-modal__action" onClick={download}>
               <CopyIcon className="qr-code-modal__action-icon" />
               <span className="qr-code-modal__action-text">Завантажити</span>

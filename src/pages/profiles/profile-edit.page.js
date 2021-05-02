@@ -89,7 +89,7 @@ const ProfileEdit = () => {
 
       <ProfileDoubleDescription state={state} onChange={handleChange} />
       {/* <AddMedia className="profile-edit__media" label="Інші файли" /> */}
-      {/* <ProfileTypes label="Тип профілю" /> */}
+      <ProfileTypes label="Тип профілю" />
     </main>
   );
 };

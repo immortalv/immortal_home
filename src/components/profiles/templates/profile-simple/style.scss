@@ -82,14 +82,14 @@
 }
 
 .image-data__container--simple {
-    display: flex;
-    overflow: hidden;
-    overflow-x: auto;
-    margin: 20px 90px;
+  display: flex;
+  overflow: hidden;
+  overflow-x: auto;
+  margin: 50px 90px;
 
-    @include for-phone-only {
-      margin: 15px;
-    }
+  @include for-phone-only {
+    margin: 15px;
+  }
   &__item {
     width: 176px;
     height: 176px;
@@ -100,8 +100,7 @@
     @include no-edge-margins();
   }
 
-
-    @include styled-scrollbar();
+  @include styled-scrollbar();
 }
 
 .video-data {

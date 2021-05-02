@@ -54,7 +54,7 @@ const ProfileSimple = ({ profileData }) => {
           />
         ))}
       </div>
-      {otherFiles.length && (
+      {/* {otherFiles.length && (
         <div className="video-data__container">
           {otherFiles.map((img) => (
             <img
@@ -65,7 +65,7 @@ const ProfileSimple = ({ profileData }) => {
             />
           ))}
         </div>
-      )}
+      )} */}
       {descriptionAdditional && (
         <p className="profile__description profile-simple__description">
           {descriptionAdditional}

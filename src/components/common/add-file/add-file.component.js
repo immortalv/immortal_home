@@ -29,14 +29,16 @@ const AddFile = ({
     },
   });
 
-  const removeFiles = () => setFiles([null]);
+  const removeFiles = () => setFiles([]);
 
   useEffect(() => {
     if (!files || !files.length) return;
-    files.forEach((file) => URL.revokeObjectURL(file));
+    if (Array.isArray(files)) {
+      files.forEach((file) => URL.revokeObjectURL(file));
+    }
   }, [files]);
 
-  const showFile = withPreview && !!files[0];
+  const showFile = withPreview && !!files.length
 
   return (
     <>

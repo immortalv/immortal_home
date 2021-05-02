@@ -85,13 +85,18 @@ export const profile = {
         } = state;
         //@TODO Check whether all data is present
 
-        const [
-          { originalKey: mainPhoto },
-          { originalKey: coverPhoto },
-        ] = await Promise.all([
-          await upload(profile.mainPhoto, userId),
-          await upload(profile.coverPhoto[0], userId),
-        ]);
+        const { originalKey: mainPhoto } = await upload(
+          profile.mainPhoto[0],
+          userId
+        );
+
+        // const [
+        //   { originalKey: mainPhoto },
+        //   { originalKey: coverPhoto },
+        // ] = await Promise.all([
+        //   await upload(profile.mainPhoto[0], userId),
+        //   await upload(profile.coverPhoto[0], userId),
+        // ]);
 
         const otherPhotosData = await Promise.all(
           profile.otherPhotos.map(async (file) => await upload(file, userId))
@@ -105,9 +110,14 @@ export const profile = {
 
         const { id } = await createProfile(
           {
-            ...profile,
+            name: profile.name,
+            description: profile.description,
+            descriptionAdditional: profile.descriptionAdditional,
+            birthDate: profile.birthDate,
+            deathDate: profile.deathDate,
+            profileType: profile.profileType,
+            epitaph: profile.epitaph,
             mainPhoto,
-            coverPhoto,
             otherPhotos,
             otherFiles,
           },

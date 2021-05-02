@@ -94,10 +94,11 @@ const ProfileItem = ({ profile }) => {
         <div className="profile-item__info">
           <h4 className="profile-item__name">{name}</h4>
           <p className="profile-item__description">{description}</p>
-          <div className="profile-item__type-container">
+
+          {/* <div className="profile-item__type-container">
             <span className="profile-item__type">{profileType}</span>
             <Checkbox checked={isPublic} onChange={handleChange} />
-          </div>
+          </div> */}
 
           <Button
             type="secondary"
