@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { dispatch } from "store";
 import {
   NameFormGroup,
   ProfileDoubleDescription,
@@ -8,7 +9,7 @@ import {
 } from "components/common";
 import {
   AddOtherImages,
-  AddMainImage,
+  AddMainPhoto,
   AddMedia,
   ProfileTypes,
 } from "components/profiles/add-profile/steps";
@@ -32,6 +33,13 @@ const ProfileEdit = () => {
     });
   };
 
+  const setData = (label, data) =>
+    dispatch.profile.setProfile({ [label]: data });
+
+  const setMainPhoto = (file) => setData("mainPhoto", file);
+  const setOtherPhotos = (files) => setData("otherPhotos", files);
+  const setOtherFiles = (files) => setData("otherFiles", files);
+
   useEffect(() => {
     if (!profile) return;
     const { name } = profile;
@@ -52,7 +60,11 @@ const ProfileEdit = () => {
       <NameFormGroup state={state} onChange={handleChange} />
 
       <div className="profile-edit__row">
-        <AddMainImage />
+        <AddMainPhoto
+          isNecessary
+          addFile={setMainPhoto}
+          file={profile.mainPhoto}
+        />
 
         <FormField
           className="profile-edit__epitaph"
@@ -85,10 +97,17 @@ const ProfileEdit = () => {
         </div>
       </div>
 
-      {/* <AddOtherImages label="Фотографії" /> */}
+      {/* <AddOtherImages label="Фотографії" addFiles={setOtherPhotos} files={profile.otherPhotos} /> */}
 
       <ProfileDoubleDescription state={state} onChange={handleChange} />
-      {/* <AddMedia className="profile-edit__media" label="Інші файли" /> */}
+
+      {/* <AddMedia
+        className="profile-edit__media"
+        addFiles={setOtherFiles}
+        files={profile.otherFiles}
+        label="Інші файли"
+      /> */}
+
       <ProfileTypes label="Тип профілю" />
     </main>
   );

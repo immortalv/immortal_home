@@ -52,7 +52,7 @@ const AddProfileAdditionalInfo = ({ profile = {}, onSubmit }) => {
             onChange={handleChange}
           />
 
-          <div className="profile-type__container">
+          {/* <div className="profile-type__container">
             <label className="form-field__label">Публічність профілю</label>
             <div className="form-radio-group">
               <FormField
@@ -74,7 +74,7 @@ const AddProfileAdditionalInfo = ({ profile = {}, onSubmit }) => {
                 onChange={handleChange}
               />
             </div>
-          </div>
+          </div> */}
 
           <FormField
             className="add-profile__epitaph"

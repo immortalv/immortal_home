@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import clsx from "clsx";
 import { useDropzone } from "react-dropzone";
-import { PlusIcon, CrossIcon } from "icons";
+import { PlusIcon, CrossIconSolid } from "icons";
 
 import "./style.scss";
 
@@ -67,7 +67,7 @@ const AddFile = ({
               src={files[0]?.preview || files[0]}
             />
             <button className="add-file__remove" onClick={removeFiles}>
-              <CrossIcon className="add-file__remove-icon" />
+              <CrossIconSolid className="add-file__remove-icon" />
             </button>
           </>
         )}

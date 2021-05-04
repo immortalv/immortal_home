@@ -59,3 +59,21 @@ export const getProfileQrCodeImage = (data) => {
   const dataUrl = _canvas.toDataURL();
   return dataUrl;
 };
+
+export const isImage = (file) => file.mimeType.includes("image/");
+
+export const filterUploadedContent = (files) => {
+  return files.reduce(
+    (acc, file) => {
+      if (file.status !== "fulfilled") return acc;
+      if (isImage(file.value)) {
+        acc.otherPhotos.push(file.value.url);
+      } else {
+        acc.otherFiles.push(file.value.url);
+      }
+
+      return acc;
+    },
+    { otherPhotos: [], otherFiles: [] }
+  );
+};

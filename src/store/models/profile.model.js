@@ -5,7 +5,11 @@ import {
   getProfile,
 } from "services/api/profile.service";
 import { profileDataMock } from "constants/profile-data.mock";
-import { getNextStep, getPreviousStep } from "utils/profile.utils";
+import {
+  getNextStep,
+  getPreviousStep,
+  filterUploadedContent,
+} from "utils/profile.utils";
 import {
   ADD_PROFILE_STEPS_NAME,
   ADD_PROFILE_STEPS,
@@ -85,10 +89,7 @@ export const profile = {
         } = state;
         //@TODO Check whether all data is present
 
-        const { originalKey: mainPhoto } = await upload(
-          profile.mainPhoto[0],
-          userId
-        );
+        const { url: mainPhoto } = await upload(profile.mainPhoto[0], userId);
 
         // const [
         //   { originalKey: mainPhoto },
@@ -98,25 +99,18 @@ export const profile = {
         //   await upload(profile.coverPhoto[0], userId),
         // ]);
 
-        const otherPhotosData = await Promise.all(
-          profile.otherPhotos.map(async (file) => await upload(file, userId))
-        );
-        const otherPhotos = otherPhotosData.map((file) => file.originalKey);
+        const otherData = await Promise.allSettled([
+          ...profile.otherPhotos.map(
+            async (file) => await upload(file, userId)
+          ),
+          ...profile.otherFiles.map(async (file) => await upload(file, userId)),
+        ]);
 
-        const otherFilesData = await Promise.all(
-          profile.otherFiles.map(async (file) => await upload(file, userId))
-        );
-        const otherFiles = otherFilesData.map((file) => file.originalKey);
+        const { otherPhotos, otherFiles } = filterUploadedContent(otherData);
 
         const { id } = await createProfile(
           {
-            name: profile.name,
-            description: profile.description,
-            descriptionAdditional: profile.descriptionAdditional,
-            birthDate: profile.birthDate,
-            deathDate: profile.deathDate,
-            profileType: profile.profileType,
-            epitaph: profile.epitaph,
+            ...profile,
             mainPhoto,
             otherPhotos,
             otherFiles,

@@ -1,29 +1,28 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { dispatch } from "store";
 import { AddFile } from "components/common";
 import { CrossIconSolid } from "icons";
 
 import "./style.scss";
 
-const AddOtherImages = ({ label = "Інші фото" }) => {
+const AddOtherImages = ({ label = "Інші фото", files, addFiles }) => {
   const { otherPhotos } = useSelector((state) => state.profile);
 
-  const setPhotos = (files) => {
-    const fileNames = otherPhotos.map((file) => file.name);
-    const filteredFiles = files.filter(
+  const setPhotos = (setedFiles) => {
+    const fileNames = files.map((file) => file.name);
+    const filteredFiles = setedFiles.filter(
       (file) => !fileNames.includes(file.name)
     );
 
-    const filesToSet = [...otherPhotos, ...filteredFiles];
+    const filesToSet = [...files, ...filteredFiles];
     if (filesToSet.length > 15) return;
 
-    dispatch.profile.setProfile({ otherPhotos: filesToSet });
+    addFiles(filesToSet);
   };
 
   const removePhoto = (fileName) => {
-    const files = otherPhotos.filter((file) => file.name !== fileName);
-    dispatch.profile.setProfile({ otherPhotos: files });
+    const filteredFiles = otherPhotos.filter((file) => file.name !== fileName);
+    addFiles(filteredFiles);
   };
 
   return (
@@ -31,7 +30,7 @@ const AddOtherImages = ({ label = "Інші фото" }) => {
       <span className="add-file__label">{label}</span>
       <div className="add-file-others-container">
         <AddFile
-          files={otherPhotos}
+          files={files}
           setFiles={setPhotos}
           withPreview={false}
           maxFiles={15}
