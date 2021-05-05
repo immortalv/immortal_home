@@ -38,7 +38,7 @@ const AddFile = ({
     }
   }, [files]);
 
-  const showFile = withPreview && !!files.length
+  const showFile = withPreview && !!files.length;
 
   return (
     <>
@@ -62,10 +62,7 @@ const AddFile = ({
 
         {showFile && (
           <>
-            <img
-              className="add-file__file"
-              src={files[0]?.preview || files[0]}
-            />
+            <img className="add-file__file" src={files[0]?.preview || files} />
             <button className="add-file__remove" onClick={removeFiles}>
               <CrossIconSolid className="add-file__remove-icon" />
             </button>

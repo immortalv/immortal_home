@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { dispatch } from "store";
+import { transfromDate, getFilePreview } from "utils/profile.utils";
 import {
   NameFormGroup,
   ProfileDoubleDescription,
@@ -15,7 +16,6 @@ import {
 } from "components/profiles/add-profile/steps";
 
 import { useGetProfile } from "./hooks";
-import { transfromDate } from "utils/profile.utils";
 
 const ProfileEdit = () => {
   const { id } = useParams();
@@ -63,7 +63,7 @@ const ProfileEdit = () => {
         <AddMainPhoto
           isNecessary
           addFile={setMainPhoto}
-          file={profile.mainPhoto}
+          file={getFilePreview(profile.mainPhoto)}
         />
 
         <FormField
@@ -97,16 +97,20 @@ const ProfileEdit = () => {
         </div>
       </div>
 
-      {/* <AddOtherImages label="Фотографії" addFiles={setOtherPhotos} files={profile.otherPhotos} /> */}
+      <AddOtherImages
+        label="Фотографії"
+        addFiles={setOtherPhotos}
+        files={profile.otherPhotos}
+      />
 
       <ProfileDoubleDescription state={state} onChange={handleChange} />
 
-      {/* <AddMedia
+      <AddMedia
         className="profile-edit__media"
         addFiles={setOtherFiles}
         files={profile.otherFiles}
         label="Інші файли"
-      /> */}
+      />
 
       <ProfileTypes label="Тип профілю" />
     </main>

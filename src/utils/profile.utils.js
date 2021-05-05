@@ -2,6 +2,7 @@ import QRCodeStyling from "qr-code-styling";
 import { QRCodeSettings } from "constants/profile.constants";
 import { IMMORTAL_URL } from "constants/api.constants";
 import { PROFILE } from "constants/routes.constants";
+import { getProfileDataFromBucket } from "./image.utils";
 
 export const getNextStep = (steps, activeStep) => {
   const activeIndex = steps.indexOf(activeStep);
@@ -76,4 +77,9 @@ export const filterUploadedContent = (files) => {
     },
     { otherPhotos: [], otherFiles: [] }
   );
+};
+
+export const getFilePreview = (file) => {
+  if (typeof file === "string") return getProfileDataFromBucket(file);
+  return file.preview || file;
 };

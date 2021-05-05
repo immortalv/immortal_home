@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { getFilePreview } from "utils/profile.utils";
 import { AddFile } from "components/common";
 import { CrossIconSolid } from "icons";
 
@@ -21,7 +22,9 @@ const AddOtherImages = ({ label = "Інші фото", files, addFiles }) => {
   };
 
   const removePhoto = (fileName) => {
-    const filteredFiles = otherPhotos.filter((file) => file.name !== fileName);
+    const filteredFiles = otherPhotos.filter(
+      (file) => (file.name || file) !== fileName
+    );
     addFiles(filteredFiles);
   };
 
@@ -40,14 +43,14 @@ const AddOtherImages = ({ label = "Інші фото", files, addFiles }) => {
           {otherPhotos.map((file) => (
             <div className="image-row-list__item" key={file.preview}>
               <img
-                key={file.preview}
-                src={file.preview}
+                key={file.preview || file}
+                src={getFilePreview(file)}
                 className="image-row-list__img"
               />
 
               <button
                 className="image-row-list__remove"
-                onClick={() => removePhoto(file.name)}
+                onClick={() => removePhoto(file.name || file)}
               >
                 <CrossIconSolid className="image-row-list__remove-icon" />
               </button>
