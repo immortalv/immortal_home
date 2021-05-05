@@ -2,7 +2,7 @@ import React from "react";
 import Image from "components/common/image/image";
 import { transfromDate } from "utils/profile.utils";
 import Video from '../../../common/video/video';
-import { getProfileDataFromBucket } from "utils/image.utils";
+import { getProfileDataFromBucket, getProfileImg } from "utils/image.utils";
 
 import "./style.scss";
 
@@ -24,7 +24,7 @@ const ProfileArticle = ({ profileData }) => {
         <div className="profile-article__data-container">
           <div className="profile-article__img-block">
             <img
-              src={getProfileDataFromBucket(mainPhoto)}
+              src={getProfileImg(mainPhoto)}
               alt="Main profile photo"
               className="profile-article__avatar-img"
             />

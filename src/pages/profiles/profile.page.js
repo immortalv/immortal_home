@@ -34,7 +34,8 @@ const ProfilePage = () => {
 
   if (!chosenProfile || loading.global) return <Spinner />;
 
-  return <ProfileArticle profileData={chosenProfile} />
+  return <ProfileArticle profileData={chosenProfile} />;
+  // return <ProfileBook profileData={chosenProfile} />;
 
   // switch (chosenProfile.template) {
   //   case PROFILE_TEMPLATE_TYPES.SIMPLE:

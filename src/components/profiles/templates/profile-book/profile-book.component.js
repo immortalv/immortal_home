@@ -3,7 +3,7 @@ import { transfromDate } from "utils/profile.utils";
 import forestImg from "assets/profile-simple-background.jpg";
 import Image from "../../../common/image/image";
 import Video from '../../../common/video/video';
-import { getProfileDataFromBucket } from "utils/image.utils";
+import { getProfileDataFromBucket, getProfileImg } from "utils/image.utils";
 
 import "./style.scss";
 
@@ -25,7 +25,7 @@ const ProfileBook = ({ profileData }) => {
         <div className="profile-book__page profile-book__page--dark profile-book__page-main">
           <h1 className="title profile__name profile-book__name">{name}</h1>
           <img
-            src={getProfileDataFromBucket(mainPhoto)}
+            src={getProfileImg(mainPhoto)}
             alt="Main profile photo"
             className="profile-book__avatar-img"
           />

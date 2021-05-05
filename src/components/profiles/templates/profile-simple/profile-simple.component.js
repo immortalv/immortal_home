@@ -1,14 +1,12 @@
 import React from "react";
 import { transfromDate } from "utils/profile.utils";
 import forestImg from "assets/profile-simple-background.jpg";
+import { getProfileDataFromBucket } from "utils/image.utils";
 
 import Video from '../../../common/video/video';
 import Image from "components/common/image/image";
 
 import "./style.scss";
-
-const getImagefromBucket = (name) =>
-  `https://immortal-profile-content.s3.eu-central-1.amazonaws.com/${name}`;
 
 const ProfileSimple = ({ profileData }) => {
   const {
@@ -32,7 +30,7 @@ const ProfileSimple = ({ profileData }) => {
           alt="background"
           className="profile-simple__background-img"
         />
-        <img src={mainPhoto} alt="" className="profile-simple__avatar-img" />
+        <img src={getProfileDataFromBucket(mainPhoto)} alt="" className="profile-simple__avatar-img" />
         <span className="profile-simple__date profile-simple__date--birth">
           {transfromDate(birthDate)}
         </span>
