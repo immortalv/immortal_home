@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import clsx from "clsx";
 import { useDropzone } from "react-dropzone";
-import { PlusIcon, CrossIcon } from "icons";
+import { PlusIcon, CrossIconSolid } from "icons";
 
 import "./style.scss";
 
@@ -33,8 +33,12 @@ const AddFile = ({
 
   useEffect(() => {
     if (!files || !files.length) return;
-    files.forEach((file) => URL.revokeObjectURL(file));
+    if (Array.isArray(files)) {
+      files.forEach((file) => URL.revokeObjectURL(file));
+    }
   }, [files]);
+
+  const showFile = withPreview && !!files.length;
 
   return (
     <>
@@ -46,7 +50,7 @@ const AddFile = ({
           isDragActive && "add-file__container--active"
         )}
       >
-        {(!withPreview || !files.length) && (
+        {!showFile && (
           <>
             <div className="add-file__add-field" {...getRootProps()} />
             <input {...getInputProps()} />
@@ -56,11 +60,11 @@ const AddFile = ({
           </>
         )}
 
-        {withPreview && !!files.length && (
+        {showFile && (
           <>
-            <img className="add-file__file" src={files[0]?.preview} />
+            <img className="add-file__file" src={files[0]?.preview || files} />
             <button className="add-file__remove" onClick={removeFiles}>
-              <CrossIcon className="add-file__remove-icon" />
+              <CrossIconSolid className="add-file__remove-icon" />
             </button>
           </>
         )}

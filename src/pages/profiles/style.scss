@@ -1,6 +1,5 @@
 @import "styles/media-queries.module";
 
-
 .profiles {
   .home__top-block {
     background: url("../../assets/home-background.jpg") no-repeat,
@@ -13,6 +12,44 @@
 
     @include for-phone-only {
       font-size: 30px;
+    }
+  }
+}
+
+.profile-edit {
+  display: flex;
+  flex-direction: column;
+  grid-row-gap: 20px;
+  padding: 70px 120px 30px;
+
+  &__title {
+    margin: 30px auto 50px;
+  }
+
+  .add-file__container,
+  .image-row-list__img {
+    border-radius: 6px;
+  }
+
+  &__row {
+    display: flex;
+    grid-column-gap: 25px;
+  }
+
+  &__epitaph {
+    height: 250px;
+    // width: 350px;
+  }
+
+  &__date {
+    &:first-child {
+      margin-bottom: 35px;
+    }
+  }
+
+  &__media {
+    .add-profile__subtitle {
+      
     }
   }
 }

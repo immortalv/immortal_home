@@ -4,6 +4,7 @@
 
 .add-file {
   &__container {
+    display: flex;
     cursor: pointer;
     position: relative;
     width: 100%;
@@ -40,6 +41,7 @@
     max-width: 100%;
     min-width: 100px;
     object-fit: contain;
+    margin:auto;
   }
 
   &__add {

@@ -1,18 +1,25 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { dispatch } from "store";
-import { Button, AddFile } from "components/common";
+import { Button } from "components/common";
 import { showErrorToast } from "components/toasters";
 import AddMedia from "./add-media.component";
-
-import "./style.scss";
+import AddMainPhoto from "./add-main-photo.component";
 import AddOtherImages from "./add-other-images.component";
 
-const AddImages = ({ onSubmit }) => {
-  const { mainPhoto } = useSelector((state) => state.profile);
+import "./style.scss";
 
-  const setMainPhoto = (file) =>
-    dispatch.profile.setProfile({ mainPhoto: file });
+const AddImages = ({ onSubmit }) => {
+  const { mainPhoto, otherPhotos, otherFiles } = useSelector(
+    (state) => state.profile
+  );
+
+  const setData = (label, data) =>
+    dispatch.profile.setProfile({ [label]: data });
+
+  const setMainPhoto = (file) => setData('mainPhoto', file);
+  const setOtherPhotos = (files) => setData('otherPhotos', files);
+  const setOtherFiles = (files) => setData('otherFiles', files);
 
   const submit = () => {
     if (!mainPhoto?.length) return showErrorToast("Додайте головне фото");
@@ -24,17 +31,13 @@ const AddImages = ({ onSubmit }) => {
       <h1 className="header-s-1 add-profile__title">Додайте фотографії</h1>
 
       <div className="add-profile__images-container">
-        <span className="add-file__label">
-          Головне фото<span className="label--necessary">*</span>
-        </span>
-        <AddFile
-          className="add-image__main"
-          files={mainPhoto}
-          setFiles={setMainPhoto}
+        <AddMainPhoto isNecessary addFile={setMainPhoto} file={mainPhoto} />
+        <AddOtherImages addFiles={setOtherPhotos} files={otherPhotos} />
+        <AddMedia
+          addFiles={setOtherFiles}
+          files={otherFiles}
+          title="Додайте інші файли"
         />
-
-        <AddOtherImages />
-        <AddMedia />
       </div>
 
       <Button onClick={submit} type="secondary" className="add-profile__btn">

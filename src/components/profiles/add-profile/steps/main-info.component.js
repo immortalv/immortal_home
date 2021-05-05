@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { FormField, Button } from "components/common";
+import {
+  NameFormGroup,
+  Button,
+  ProfileDoubleDescription,
+} from "components/common";
 import clsx from "clsx";
 import { showErrorToast } from "components/toasters";
 
@@ -66,50 +70,8 @@ const AddProfileMainInfo = ({ profile = {}, onSubmit }) => {
       <h1 className="header-s-1  add-profile__title">Розкажіть про людину</h1>
       <div className="add-profile__content">
         <div className="add-profile__main-info">
-          <div className="form-field__group">
-            <FormField
-              required
-              label="Прізвище*"
-              value={state?.lastName || ""}
-              name="lastName"
-              onChange={handleChange}
-            />
-            <FormField
-              required
-              label="Ім’я*"
-              value={state?.firstName || ""}
-              name="firstName"
-              onChange={handleChange}
-            />
-            <FormField
-              label="По батькові"
-              value={state?.surName || ""}
-              name="surName"
-              onChange={handleChange}
-            />
-          </div>
-
-          <FormField
-            required
-            className={clsx("add-profile__description")}
-            placeholder="Починайте тут..."
-            label="Опис*"
-            type="textarea"
-            tag="textarea"
-            name="description"
-            onChange={handleChange}
-            value={state.description || ""}
-          />
-          <FormField
-            className={clsx("add-profile__description")}
-            placeholder="Починайте тут..."
-            label="( блок 2 )"
-            type="textarea"
-            tag="textarea"
-            name="descriptionAdditional"
-            onChange={handleChange}
-            value={state.descriptionAdditional || ""}
-          />
+          <NameFormGroup state={state} onChange={handleChange} />
+          <ProfileDoubleDescription state={state} onChange={handleChange} />
         </div>
       </div>
       <Button

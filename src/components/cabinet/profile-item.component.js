@@ -6,7 +6,7 @@ import { Button, Checkbox } from "components/common";
 import { getProfileDataFromBucket } from "utils/image.utils";
 import { getQRProfileUrl } from "utils/profile.utils";
 import { sendEmail } from "services/api/email.service";
-import routesConstants, { PROFILE } from "constants/routes.constants";
+import { PROFILE } from "constants/routes.constants";
 import { QRCodeSettings } from "constants/profile.constants";
 
 import QRCodeModal from "./qrcode-modal.component";
@@ -30,7 +30,7 @@ const ProfileItem = ({ profile }) => {
 
   const handleChange = () => setIsPublic(!isPublic);
   const goToProfilePage = () => history.push(`${PROFILE}/${profile.id}`);
-  const goToEditPage = () => history.push(routesConstants.PROFILE_EDIT);
+  const goToEditPage = () => history.push(`${PROFILE}/${profile.id}/edit`);
 
   useEffect(() => {
     const qrCode = new QRCodeStyling({
@@ -94,10 +94,11 @@ const ProfileItem = ({ profile }) => {
         <div className="profile-item__info">
           <h4 className="profile-item__name">{name}</h4>
           <p className="profile-item__description">{description}</p>
-          <div className="profile-item__type-container">
+
+          {/* <div className="profile-item__type-container">
             <span className="profile-item__type">{profileType}</span>
             <Checkbox checked={isPublic} onChange={handleChange} />
-          </div>
+          </div> */}
 
           <Button
             type="secondary"

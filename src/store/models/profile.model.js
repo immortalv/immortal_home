@@ -4,7 +4,12 @@ import {
   uploadFile,
   getProfile,
 } from "services/api/profile.service";
-import { getNextStep, getPreviousStep } from "utils/profile.utils";
+import { profileDataMock } from "constants/profile-data.mock";
+import {
+  getNextStep,
+  getPreviousStep,
+  filterUploadedContent,
+} from "utils/profile.utils";
 import {
   ADD_PROFILE_STEPS_NAME,
   ADD_PROFILE_STEPS,
@@ -84,29 +89,29 @@ export const profile = {
         } = state;
         //@TODO Check whether all data is present
 
-        const [
-          { originalKey: mainPhoto },
-          { originalKey: coverPhoto },
-        ] = await Promise.all([
-          await upload(profile.mainPhoto[0], userId),
-          await upload(profile.coverPhoto[0], userId),
+        const { url: mainPhoto } = await upload(profile.mainPhoto[0], userId);
+
+        // const [
+        //   { originalKey: mainPhoto },
+        //   { originalKey: coverPhoto },
+        // ] = await Promise.all([
+        //   await upload(profile.mainPhoto[0], userId),
+        //   await upload(profile.coverPhoto[0], userId),
+        // ]);
+
+        const otherData = await Promise.allSettled([
+          ...profile.otherPhotos.map(
+            async (file) => await upload(file, userId)
+          ),
+          ...profile.otherFiles.map(async (file) => await upload(file, userId)),
         ]);
 
-        const otherPhotosData = await Promise.all(
-          profile.otherPhotos.map(async (file) => await upload(file, userId))
-        );
-        const otherPhotos = otherPhotosData.map((file) => file.originalKey);
-
-        const otherFilesData = await Promise.all(
-          profile.otherFiles.map(async (file) => await upload(file, userId))
-        );
-        const otherFiles = otherFilesData.map((file) => file.originalKey);
+        const { otherPhotos, otherFiles } = filterUploadedContent(otherData);
 
         const { id } = await createProfile(
           {
             ...profile,
             mainPhoto,
-            coverPhoto,
             otherPhotos,
             otherFiles,
           },
@@ -121,11 +126,14 @@ export const profile = {
       }
     },
 
-    async getProfile(payload, state) {
-      const { id, token } = payload;
-      const profile = await getProfile(id, token);
-
-      dispatch.profiles.setProfile(profile);
+    async getProfile(payload) {
+      try {
+        const { id, token } = payload;
+        const profile = await getProfile(id, token);
+        dispatch.profile.setProfile(profile);
+      } catch (error) {
+        dispatch.profile.setProfile(profileDataMock);
+      }
     },
   }),
 };

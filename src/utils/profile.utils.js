@@ -2,6 +2,7 @@ import QRCodeStyling from "qr-code-styling";
 import { QRCodeSettings } from "constants/profile.constants";
 import { IMMORTAL_URL } from "constants/api.constants";
 import { PROFILE } from "constants/routes.constants";
+import { getProfileDataFromBucket } from "./image.utils";
 
 export const getNextStep = (steps, activeStep) => {
   const activeIndex = steps.indexOf(activeStep);
@@ -28,7 +29,7 @@ export const getPreviousStep = (steps, activeStep) => {
   return { previousStep, shouldRedirect: false };
 };
 
-export const transfromDate = (date) => {
+export const transfromDate = (date, dateInput = false) => {
   const dateObject = new Date(date);
   let day = dateObject.getDate();
   let month = dateObject.getMonth();
@@ -38,6 +39,8 @@ export const transfromDate = (date) => {
 
   if (String(month).length === 1) month = `0${month}`;
   if (String(day).length === 1) day = `0${day}`;
+
+  if (dateInput) return `${year}-${month}-${day}`;
 
   return `${day}.${month}.${year}`;
 };
@@ -56,4 +59,27 @@ export const getProfileQrCodeImage = (data) => {
 
   const dataUrl = _canvas.toDataURL();
   return dataUrl;
+};
+
+export const isImage = (file) => file.mimeType.includes("image/");
+
+export const filterUploadedContent = (files) => {
+  return files.reduce(
+    (acc, file) => {
+      if (file.status !== "fulfilled") return acc;
+      if (isImage(file.value)) {
+        acc.otherPhotos.push(file.value.url);
+      } else {
+        acc.otherFiles.push(file.value.url);
+      }
+
+      return acc;
+    },
+    { otherPhotos: [], otherFiles: [] }
+  );
+};
+
+export const getFilePreview = (file) => {
+  if (typeof file === "string") return getProfileDataFromBucket(file);
+  return file.preview || file;
 };

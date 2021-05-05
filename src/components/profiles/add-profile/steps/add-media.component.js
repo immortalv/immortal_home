@@ -1,34 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { dispatch } from "store";
+import React from "react";
+import clsx from "clsx";
 import { AddFileDropzone } from "components/common";
 import { CrossIconSolid } from "icons";
 
 import "./style.scss";
 
-const AddMedia = () => {
-  const { otherFiles } = useSelector((state) => state.profile);
-
-  const onOtherMediaDrop = (files) => {
-    const fileNames = otherFiles.map((file) => file.name);
-    const filteredFiles = files.filter(
+const AddMedia = ({ className, title, label, files, addFiles }) => {
+  const onOtherMediaDrop = (settedFiles) => {
+    const fileNames = files.map((file) => file.name);
+    const filteredFiles = settedFiles.filter(
       (file) => !fileNames.includes(file.name)
     );
 
-    const filesToSet = [...otherFiles, ...filteredFiles];
+    const filesToSet = [...files, ...filteredFiles];
     if (filesToSet.length > 15) return;
 
-    dispatch.profile.setProfile({ otherFiles: filesToSet });
+    addFiles(filesToSet);
   };
 
   const removeFile = (fileName) => {
-    const files = otherFiles.filter((file) => file.name !== fileName);
-    dispatch.profile.setProfile({ otherFiles: files });
+    const filteredFiles = files.filter((file) => file.name !== fileName);
+    addFiles(filteredFiles);
   };
 
   return (
-    <>
-      <h2 className="header-s-2 add-profile__subtitle">Додайте інші файли</h2>
+    <div className={clsx("add-media__container", className)}>
+      {title && <h2 className="header-s-2 add-profile__subtitle">{title}</h2>}
+      {label && <span className="add-file__label">{label}</span>}
 
       <div className="add-file-block add-file-media">
         <AddFileDropzone
@@ -37,7 +35,7 @@ const AddMedia = () => {
         />
 
         <ul className="file-list">
-          {otherFiles.map((file) => (
+          {files.map((file) => (
             <li key={file.name} className="file-list__item">
               {file.name}
               <button
@@ -50,7 +48,7 @@ const AddMedia = () => {
           ))}
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 
