@@ -22,7 +22,6 @@ const AddProfileAdditionalInfo = ({ profile = {}, onSubmit }) => {
   const handleSubmit = () => {
     if (!state.birthDate) return showErrorToast("Додайте дату народження");
     if (!state.deathDate) return showErrorToast("Додайте дату смерті");
-    if (!state.profileType) return showErrorToast("Виберіть тип профілю");
 
     onSubmit(state, true);
     setState({});

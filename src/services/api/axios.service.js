@@ -1,8 +1,6 @@
 import axios from "axios";
 import { BASE_API_URL } from "constants/api.constants";
 
-const getToken = () => localStorage.getItem("access-token");
-
 const client = axios.create({ BASE_API_URL });
 
 // client.interceptors.request.use(
@@ -45,6 +43,13 @@ const securePut = (url, data, token, params) =>
     },
     ...params,
   });
+const securePatch = (url, data, token, params) =>
+  client.patch(url, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    ...params,
+  });
 const secureDel = (url, params) => client.delete(url, params);
 
 export default {
@@ -55,6 +60,7 @@ export default {
   secureGet,
   securePost,
   securePut,
+  securePatch,
   secureDel,
 };
 

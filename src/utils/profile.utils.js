@@ -83,3 +83,5 @@ export const getFilePreview = (file) => {
   if (typeof file === "string") return getProfileDataFromBucket(file);
   return file.preview || file;
 };
+
+export const clearUserId = (id) => id.split("|")?.[1] || "";

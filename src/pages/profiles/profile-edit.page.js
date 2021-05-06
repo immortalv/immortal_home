@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { dispatch } from "store";
 import { transfromDate, getFilePreview } from "utils/profile.utils";
@@ -14,11 +14,14 @@ import {
   AddMedia,
   ProfileTypes,
 } from "components/profiles/add-profile/steps";
+import { ChevronLeftIcon } from "icons";
 
 import { useGetProfile } from "./hooks";
+import routesConstants from "constants/routes.constants";
 
 const ProfileEdit = () => {
   const { id } = useParams();
+  const history = useHistory();
   const { profile } = useSelector((state) => state);
 
   useGetProfile(id);
@@ -32,6 +35,8 @@ const ProfileEdit = () => {
       [e.target.name]: value,
     });
   };
+
+  const goToCabinet = () => history.push(routesConstants.CABINET);
 
   const setData = (label, data) =>
     dispatch.profile.setProfile({ [label]: data });
@@ -56,6 +61,10 @@ const ProfileEdit = () => {
   return (
     <main className="profile-edit">
       <h1 className="header-s-1  profile-edit__title">Редагування</h1>
+      <button onClick={goToCabinet} className="btn-back profile-edit__btn-back">
+        <ChevronLeftIcon className="btn-back__icon profile-edit__btn-back__icon" />
+        Назад
+      </button>
 
       <NameFormGroup state={state} onChange={handleChange} />
 
