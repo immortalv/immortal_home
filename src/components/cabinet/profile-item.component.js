@@ -87,7 +87,7 @@ const ProfileItem = ({ profile }) => {
       <div className="profile-item">
         <img
           onClick={goToProfilePage}
-          src={getProfileDataFromBucket(profile.mainPhoto)}
+          src={profile.mainPhoto}
           className="profile-item__img"
           alt="profile picture"
         />

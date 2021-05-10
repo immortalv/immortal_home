@@ -23,7 +23,7 @@ const ProfileBook = ({ profileData }) => {
         <div className="profile-book__page profile-book__page--dark profile-book__page-main">
           <h1 className="title profile__name profile-book__name">{name}</h1>
           <img
-            src={getProfileDataFromBucket(mainPhoto)}
+            src={mainPhoto}
             alt="Main profile photo"
             className="profile-book__avatar-img"
           />
@@ -56,7 +56,7 @@ const ProfileBook = ({ profileData }) => {
             {otherPhotos.map((img) => (
               <Image
                 key={img}
-                img={getProfileDataFromBucket(img)}
+                img={img}
                 alt="profile image"
                 className={"image-data__item--book"}
               />
@@ -67,7 +67,7 @@ const ProfileBook = ({ profileData }) => {
             {otherFiles.map((img) => (
               <img
                 key={img}
-                src={getProfileDataFromBucket(img)}
+                src={img}
                 alt={`Video data`}
               />
             ))}

@@ -119,9 +119,11 @@ export const profile = {
 
         const otherData = await Promise.allSettled([
           ...profile.otherPhotos.map(
-            async (file) => await upload(file, userId)
+            async (file) => await upload(file, queryParams)
           ),
-          ...profile.otherFiles.map(async (file) => await upload(file, userId)),
+          ...profile.otherFiles.map(
+            async (file) => await upload(file, queryParams)
+          ),
         ]);
 
         const { otherPhotos, otherFiles } = filterUploadedContent(otherData);
@@ -131,7 +133,7 @@ export const profile = {
 
         return id;
       } catch (error) {
-        showErrorToast("Щось пішло не так...")
+        showErrorToast("Щось пішло не так...");
         console.error(error);
         dispatch.profile.clearState();
         window.location.pathname = routesConstants.CABINET;
