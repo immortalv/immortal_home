@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FormField, Button } from "components/common";
 import { showErrorToast } from "components/toasters";
+import { transfromDate } from "utils/profile.utils";
 
 import "./style.scss";
 
@@ -22,7 +23,6 @@ const AddProfileAdditionalInfo = ({ profile = {}, onSubmit }) => {
   const handleSubmit = () => {
     if (!state.birthDate) return showErrorToast("Додайте дату народження");
     if (!state.deathDate) return showErrorToast("Додайте дату смерті");
-    if (!state.profileType) return showErrorToast("Виберіть тип профілю");
 
     onSubmit(state, true);
     setState({});
@@ -43,6 +43,7 @@ const AddProfileAdditionalInfo = ({ profile = {}, onSubmit }) => {
             name="birthDate"
             label="Дата народження"
             onChange={handleChange}
+            value={transfromDate(state.birthDate, true)}
           />
           <FormField
             className="add-profile__date"
@@ -50,6 +51,7 @@ const AddProfileAdditionalInfo = ({ profile = {}, onSubmit }) => {
             name="deathDate"
             label="Дата смерті"
             onChange={handleChange}
+            value={transfromDate(state.birthDate, true)}
           />
 
           {/* <div className="profile-type__container">

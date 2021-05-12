@@ -26,7 +26,7 @@ const ProfileArticle = ({ profileData }) => {
         <div className="profile-article__data-container">
           <div className="profile-article__img-block">
             <img
-              src={getProfileImg(mainPhoto)}
+              src={mainPhoto}
               alt="Main profile photo"
               className="profile-article__avatar-img"
             />
@@ -55,7 +55,7 @@ const ProfileArticle = ({ profileData }) => {
               {otherPhotos.map((img) => (
                 <Image
                   key={img}
-                  img={getProfileDataFromBucket(img)}
+                  img={img}
                   alt="profile image"
                   className={"image-data__item image-data__item--article"}
                 />
@@ -72,7 +72,7 @@ const ProfileArticle = ({ profileData }) => {
       {otherFiles && (
         <div className="video-data__container--article">
           {otherFiles.map((img) => (
-            <Video url={img} key={img.src} />
+            <Video url={img} key={img} />
           ))}
         </div>
       )

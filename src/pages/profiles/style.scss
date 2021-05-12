@@ -1,3 +1,4 @@
+@import "styles/variables.module";
 @import "styles/media-queries.module";
 
 .profiles {
@@ -17,13 +18,27 @@
 }
 
 .profile-edit {
+  position: relative;
   display: flex;
   flex-direction: column;
   grid-row-gap: 20px;
-  padding: 70px 120px 30px;
+  padding: 30px 120px 30px;
 
   &__title {
     margin: 30px auto 50px;
+  }
+
+  &__btn-back {
+    position: absolute;
+    top: 80px;
+    right: 120px;
+    color: $theme-c-black;
+
+    &__icon {
+      path {
+        fill: $theme-c-black;
+      }
+    }
   }
 
   .add-file__container,

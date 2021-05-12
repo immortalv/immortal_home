@@ -3,13 +3,16 @@ import {
   createProfile,
   uploadFile,
   getProfile,
+  updateProfile,
 } from "services/api/profile.service";
 import { profileDataMock } from "constants/profile-data.mock";
 import {
+  clearUserId,
   getNextStep,
   getPreviousStep,
   filterUploadedContent,
 } from "utils/profile.utils";
+import { showErrorToast } from "components/toasters";
 import {
   ADD_PROFILE_STEPS_NAME,
   ADD_PROFILE_STEPS,
@@ -89,7 +92,22 @@ export const profile = {
         } = state;
         //@TODO Check whether all data is present
 
-        const { url: mainPhoto } = await upload(profile.mainPhoto[0], userId);
+        const profileData = {
+          ...profile,
+          mainPhoto: "",
+          coverPhoto: "",
+          otherPhotos: "",
+          otherFiles: "",
+        };
+
+        const { id } = await createProfile(profileData, profile.token);
+
+        const queryParams = `userId=${clearUserId(userId)}&profileId=${id}`;
+
+        const { url: mainPhoto } = await upload(
+          profile.mainPhoto[0],
+          queryParams
+        );
 
         // const [
         //   { originalKey: mainPhoto },
@@ -101,25 +119,21 @@ export const profile = {
 
         const otherData = await Promise.allSettled([
           ...profile.otherPhotos.map(
-            async (file) => await upload(file, userId)
+            async (file) => await upload(file, queryParams)
           ),
-          ...profile.otherFiles.map(async (file) => await upload(file, userId)),
+          ...profile.otherFiles.map(
+            async (file) => await upload(file, queryParams)
+          ),
         ]);
 
         const { otherPhotos, otherFiles } = filterUploadedContent(otherData);
+        const updatedProfile = { mainPhoto, otherPhotos, otherFiles };
 
-        const { id } = await createProfile(
-          {
-            ...profile,
-            mainPhoto,
-            otherPhotos,
-            otherFiles,
-          },
-          profile.token
-        );
+        await updateProfile(id, updatedProfile, profile.token);
 
         return id;
       } catch (error) {
+        showErrorToast("Щось пішло не так...");
         console.error(error);
         dispatch.profile.clearState();
         window.location.pathname = routesConstants.CABINET;
@@ -138,12 +152,10 @@ export const profile = {
   }),
 };
 
-const clearUserId = (id) => id.split("|")?.[1] || "";
-
-async function upload(file, id) {
+async function upload(file, queryParams) {
   const formData = new FormData();
   formData.append("files", file);
-  const respone = await uploadFile(formData, clearUserId(id));
+  const respone = await uploadFile(formData, queryParams);
 
   return await respone;
 }

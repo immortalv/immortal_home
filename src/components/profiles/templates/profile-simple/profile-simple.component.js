@@ -31,7 +31,7 @@ const ProfileSimple = ({ profileData }) => {
           alt="background"
           className="profile-simple__background-img"
         />
-        <img src={getProfileDataFromBucket(mainPhoto)} alt="" className="profile-simple__avatar-img" />
+        <img src={mainPhoto} alt="" className="profile-simple__avatar-img" />
         <span className="profile-simple__date profile-simple__date--birth">
           {transfromDate(birthDate)}
         </span>
@@ -47,15 +47,16 @@ const ProfileSimple = ({ profileData }) => {
         {otherPhotos.map((img) => (
           <Image
             key={img}
-            img={getProfileDataFromBucket(img)}
-            className={"image-data__item"}
+            img={img}
+            alt="profile image"
+            className={"image-data__item image-data__item--simple"}
           />
         ))}
       </div>
       {otherFiles.length && (
         <div className="video-data__container video-data__container--simple">
           {otherFiles.map((img) => (
-            <Video url={img} key={img.src} />
+            <Video url={img} key={img} />
           ))}
         </div>
       )}
