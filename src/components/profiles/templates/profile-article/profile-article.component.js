@@ -1,7 +1,9 @@
 import React from "react";
-import Image from "components/common/image/image";
+
+import Video from '../../../video/video-component';
+import Image from "../../../common/image/image";
+
 import { transfromDate } from "utils/profile.utils";
-import Video from '../../../common/video/video';
 import { getProfileDataFromBucket, getProfileImg } from "utils/image.utils";
 
 import "./style.scss";

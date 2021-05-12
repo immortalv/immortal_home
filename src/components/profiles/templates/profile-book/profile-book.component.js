@@ -1,9 +1,10 @@
 import React from "react";
-import { transfromDate } from "utils/profile.utils";
-import forestImg from "assets/profile-simple-background.jpg";
+
+import Video from '../../../video/video-component';
 import Image from "../../../common/image/image";
-import Video from '../../../common/video/video';
-import { getProfileDataFromBucket, getProfileImg } from "utils/image.utils";
+
+import { getProfileImg } from "utils/image.utils";
+import { transfromDate } from "utils/profile.utils";
 
 import "./style.scss";
 
@@ -58,14 +59,14 @@ const ProfileBook = ({ profileData }) => {
             {otherPhotos.map((img) => (
               <Image
                 key={img}
-                img={getProfileDataFromBucket(img)}
+                img={getProfileImg(img)}
                 alt="profile image"
                 className={"image-data__item--book"}
               />
             ))}
           </div>
 
-          <div className="video-data__container">
+          <div className="video-data__container--book">
             {otherFiles.map((img) => (
               <Video video={img} key={img.src} />
             ))}

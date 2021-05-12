@@ -35,17 +35,7 @@ export const profileDataMock = {
       src: getProfileImg("avatar-image-1", "jpg"),
     },
   ],
-  otherFiles: [
-    {
-      src: getProfileImg("profile-video", "jpg"),
-    },
-    {
-      src: getProfileImg("profile-video-1", "jpg"),
-    },
-    {
-      src: getProfileImg("profile-video-1", "jpg"),
-    },
-  ],
+  otherFiles: ["https://immortal-content.s3.us-east-2.amazonaws.com/vid.webm", "https://immortal-content.s3.us-east-2.amazonaws.com/vid.webm"],
   description: `Тисячі любителів футболу та спорту мають причини бути вдячними моїй сестрі Василині, яка померла у віці 55 років від множинних ракових захворювань через дев'ять років після першого діагнозу рак молочної залози.
 
     Як керівник судових справ та конституційних справ у Supporter Direct, організації, яка сприяє залученню вболівальників до управління їх клубами та заохочує їх створювати акціонерні фонди, вона допомогла створити майже 200 таких трестів по всій країні.

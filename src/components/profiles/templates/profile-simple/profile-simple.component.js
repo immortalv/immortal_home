@@ -1,10 +1,11 @@
 import React from "react";
-import { transfromDate } from "utils/profile.utils";
+
 import forestImg from "assets/profile-simple-background.jpg";
 import { getProfileDataFromBucket } from "utils/image.utils";
+import { transfromDate } from "utils/profile.utils";
 
-import Video from '../../../common/video/video';
-import Image from "components/common/image/image";
+import Video from '../../../video/video-component';
+import Image from "../../../common/image/image";
 
 import "./style.scss";
 
@@ -45,19 +46,19 @@ const ProfileSimple = ({ profileData }) => {
       <div className="image-data__container--simple">
         {otherPhotos.map((img) => (
           <Image
-            key={img.src}
-            img={img}
+            key={img}
+            img={getProfileDataFromBucket(img)}
             className={"image-data__item"}
           />
         ))}
       </div>
-      {/* {otherFiles.length && (
-        <div className="video-data__container">
+      {otherFiles.length && (
+        <div className="video-data__container video-data__container--simple">
           {otherFiles.map((img) => (
-            <Video video={img} key={img.src} />
+            <Video url={img} key={img.src} />
           ))}
         </div>
-      )} */}
+      )}
       {descriptionAdditional && (
         <p className="profile__description profile-simple__description">
           {descriptionAdditional}
