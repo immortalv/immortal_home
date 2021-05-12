@@ -1,7 +1,7 @@
 import React from "react";
 
-import Video from '../../../video/video-component';
-import Image from "../../../common/image/image";
+import Video from 'components/video';
+import Image from "components/common/image";
 
 import { transfromDate } from "utils/profile.utils";
 import { getProfileDataFromBucket, getProfileImg } from "utils/image.utils";
@@ -72,7 +72,7 @@ const ProfileArticle = ({ profileData }) => {
       {otherFiles && (
         <div className="video-data__container--article">
           {otherFiles.map((img) => (
-            <Video url={img} key={img} />
+            <Video url={img} key={img} className={'video-img__wrapper--article'} />
           ))}
         </div>
       )

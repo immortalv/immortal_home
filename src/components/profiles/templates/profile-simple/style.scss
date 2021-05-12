@@ -81,6 +81,13 @@
   }
 }
 
+.image-data__item {
+  min-width: 185px;
+  padding-right: 15px;
+  border-radius: 20px;
+  filter: drop-shadow(4px 4px 25px rgba(0, 0, 0, 0.15));
+}
+
 .image-data__container--simple {
   display: flex;
   overflow: hidden;
@@ -126,4 +133,14 @@
       width: 70vw;
     }
   }
+}
+
+.video-img__wrapper--simple {
+  margin-right: 20px;
+  margin-bottom: 10px;
+  width: 488px;
+}
+
+.plyr--video {
+  border-radius: 20px;
 }

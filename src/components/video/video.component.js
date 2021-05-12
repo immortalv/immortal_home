@@ -4,11 +4,11 @@ import 'plyr-react/dist/plyr.css'
 
 import { getVideoSource } from 'utils/video.utils'
 
-import './style.scss';
-
-const Video = ({ url }) => {
+const Video = ({ url, className }) => {
   return (
-    <Plyr source={getVideoSource(url)} />
+    <div className={className}>
+      <Plyr source={getVideoSource(url)} />
+    </div>
   )
 }
 

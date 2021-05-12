@@ -82,6 +82,23 @@
   }
 }
 
+.image-data__item {
+  min-width: 185px;
+  padding-right: 15px;
+  border-radius: 20px;
+  filter: drop-shadow(4px 4px 25px rgba(0, 0, 0, 0.15));
+
+  &--article {
+
+    @include for-phone-only {
+      min-width: 155px;
+    }
+  
+    @include no-edge-margins();
+  }
+  
+}
+
 .image-date__container--article {
     margin: 0;
     flex-wrap: nowrap;
@@ -97,15 +114,6 @@
       max-width: 100vw;
       margin: 0 25px;
     }
-}
-
-.image-data__item--article {
-
-  @include for-phone-only {
-    min-width: 155px;
-  }
-
-  @include no-edge-margins();
 }
 
 
@@ -136,4 +144,14 @@
     @include for-phablet {
       width: 50vw;
     }
+}
+
+.video-img__wrapper--book {
+  margin-right: 20px;
+  margin-bottom: 10px;
+  width: 488px;
+}
+
+.plyr--video {
+  border-radius: 20px;
 }

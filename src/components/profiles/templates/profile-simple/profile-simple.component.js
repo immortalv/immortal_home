@@ -4,8 +4,8 @@ import forestImg from "assets/profile-simple-background.jpg";
 import { getProfileDataFromBucket } from "utils/image.utils";
 import { transfromDate } from "utils/profile.utils";
 
-import Video from '../../../video/video-component';
-import Image from "../../../common/image/image";
+import Video from 'components/video';
+import Image from "components/common/image";
 
 import "./style.scss";
 
@@ -56,7 +56,7 @@ const ProfileSimple = ({ profileData }) => {
       {otherFiles.length && (
         <div className="video-data__container video-data__container--simple">
           {otherFiles.map((img) => (
-            <Video url={img} key={img} />
+            <Video url={img} key={img} className={'video-img__wrapper--simple'} />
           ))}
         </div>
       )}

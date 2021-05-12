@@ -1,7 +1,7 @@
 import React from "react";
 
-import Video from '../../../video/video-component';
-import Image from "../../../common/image/image";
+import Video from 'components/video';
+import Image from "components/common/image";
 
 import { getProfileImg } from "utils/image.utils";
 import { transfromDate } from "utils/profile.utils";
@@ -68,7 +68,7 @@ const ProfileBook = ({ profileData }) => {
 
           <div className="video-data__container--book">
             {otherFiles.map((img) => (
-              <Video video={img} key={img} />
+              <Video video={img} key={img} className={'video-img__wrapper--book'} />
             ))}
           </div>
         </div>
