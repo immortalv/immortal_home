@@ -68,9 +68,9 @@ export const filterUploadedContent = (files) => {
     (acc, file) => {
       if (file.status !== "fulfilled") return acc;
       if (isImage(file.value)) {
-        acc.otherPhotos.push(file.value.url);
+        acc.otherPhotos.push(file.value);
       } else {
-        acc.otherFiles.push(file.value.url);
+        acc.otherFiles.push(file.value);
       }
 
       return acc;
@@ -80,7 +80,7 @@ export const filterUploadedContent = (files) => {
 };
 
 export const getFilePreview = (file) => {
-  if (typeof file === "string") return getProfileDataFromBucket(file);
+  if (file.key) return getProfileDataFromBucket(file.key);
   return file.preview || file;
 };
 
