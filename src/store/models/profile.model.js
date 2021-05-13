@@ -93,31 +93,22 @@ export const profile = {
         //@TODO Check whether all data is present
 
         const profileData = {
-          ...profile,
-          mainPhoto: "",
-          coverPhoto: "",
-          otherPhotos: "",
-          otherFiles: "",
+          name: profile.name,
+          description: profile.description,
+          descriptionAdditional: profile.descriptionAdditional,
+          birthDate: profile.birthDate,
+          deathDate: profile.deathDate,
+          profileType: profile.profileType, // public/privat
+          epitaph: profile.epitaph,
+          template: profile.template,
         };
 
         const { id } = await createProfile(profileData, profile.token);
 
         const queryParams = `userId=${clearUserId(userId)}&profileId=${id}`;
 
-        const { url: mainPhoto } = await upload(
-          profile.mainPhoto[0],
-          queryParams
-        );
-
-        // const [
-        //   { originalKey: mainPhoto },
-        //   { originalKey: coverPhoto },
-        // ] = await Promise.all([
-        //   await upload(profile.mainPhoto[0], userId),
-        //   await upload(profile.coverPhoto[0], userId),
-        // ]);
-
-        const otherData = await Promise.allSettled([
+        const [mainPhoto, ...otherData] = await Promise.allSettled([
+          await upload(profile.mainPhoto[0], queryParams),
           ...profile.otherPhotos.map(
             async (file) => await upload(file, queryParams)
           ),
@@ -126,8 +117,12 @@ export const profile = {
           ),
         ]);
 
-        const { otherPhotos, otherFiles } = filterUploadedContent(otherData);
-        const updatedProfile = { mainPhoto, otherPhotos, otherFiles };
+        const { otherPhotos, otherFiles } = filterUploadedContent(otherData); // @TODO show message for not uploaded data
+        const updatedProfile = {
+          mainPhoto: mainPhoto.status === "fulfilled" ? mainPhoto.value : {},
+          otherPhotos,
+          otherFiles,
+        };
 
         await updateProfile(id, updatedProfile, profile.token);
 

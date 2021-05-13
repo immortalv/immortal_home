@@ -26,7 +26,7 @@ const ProfileArticle = ({ profileData }) => {
         <div className="profile-article__data-container">
           <div className="profile-article__img-block">
             <img
-              src={mainPhoto}
+              src={getProfileDataFromBucket(mainPhoto.key)}
               alt="Main profile photo"
               className="profile-article__avatar-img"
             />
@@ -54,8 +54,8 @@ const ProfileArticle = ({ profileData }) => {
             <div className="image-data__container image-date__container--article image-data__container--rounded">
               {otherPhotos.map((img) => (
                 <Image
-                  key={img}
-                  img={img}
+                  key={img.key}
+                  img={getProfileDataFromBucket(img.key)}
                   alt="profile image"
                   className={"image-data__item image-data__item--article"}
                 />

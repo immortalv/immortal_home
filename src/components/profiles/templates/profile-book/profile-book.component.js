@@ -3,7 +3,7 @@ import React from "react";
 import Video from 'components/video';
 import Image from "components/common/image";
 
-import { getProfileImg } from "utils/image.utils";
+import { getProfileImg, getProfileDataFromBucket } from "utils/image.utils";
 import { transfromDate } from "utils/profile.utils";
 
 import "./style.scss";
@@ -26,7 +26,7 @@ const ProfileBook = ({ profileData }) => {
         <div className="profile-book__page profile-book__page--dark profile-book__page-main">
           <h1 className="title profile__name profile-book__name">{name}</h1>
           <img
-            src={mainPhoto}
+            src={getProfileDataFromBucket(mainPhoto.key)}
             alt="Main profile photo"
             className="profile-book__avatar-img"
           />
@@ -58,8 +58,8 @@ const ProfileBook = ({ profileData }) => {
           <div className="image-data__container--book image-data__containe--rounded">
             {otherPhotos.map((img) => (
               <Image
-                key={img}
-                img={img}
+                key={img.key}
+                img={getProfileDataFromBucket(img.key)}
                 alt="profile image"
                 className={"image-data__item--book"}
               />
@@ -67,8 +67,8 @@ const ProfileBook = ({ profileData }) => {
           </div>
 
           <div className="video-data__container--book">
-            {otherFiles.map((img) => (
-              <Video video={img} key={img} className={'video-img__wrapper--book'} />
+            {otherFiles.map((file) => (
+              <Video video={file} key={file} className={'video-img__wrapper--book'} />
             ))}
           </div>
         </div>
