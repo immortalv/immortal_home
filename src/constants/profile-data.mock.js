@@ -5,34 +5,36 @@ export const profileDataMock = {
   name: "Василевська Василина",
   birthDate: "29.02.1956",
   deathDate: "31.12.2020",
-  mainPhoto: getProfileImg("profile-image-1", "jpg"),
+  mainPhoto: {
+    key: "mock/profile-image-1.jpg"
+  },
   otherPhotos: [
     {
-      src: getProfileImg("avatar-image-1", "jpg"),
+      key: "mock/profile-image-1.jpg"
     },
     {
-      src: getProfileImg("avatar-image-1", "jpg"),
+      key: "mock/profile-image-1.jpg"
     },
     {
-      src: getProfileImg("avatar-image-1", "jpg"),
+      key: "mock/profile-image-1.jpg"
     },
     {
-      src: getProfileImg("avatar-image-1", "jpg"),
+      key: "mock/profile-image-1.jpg"
     },
     {
-      src: getProfileImg("avatar-image-1", "jpg"),
+      key: "mock/profile-image-1.jpg"
     },
     {
-      src: getProfileImg("avatar-image-1", "jpg"),
+      key: "mock/profile-image-1.jpg"
     },
     {
-      src: getProfileImg("avatar-image-1", "jpg"),
+      key: "mock/profile-image-1.jpg"
     },
     {
-      src: getProfileImg("avatar-image-1", "jpg"),
+      key: "mock/profile-image-1.jpg"
     },
     {
-      src: getProfileImg("avatar-image-1", "jpg"),
+      key: "mock/profile-image-1.jpg"
     },
   ],
   otherFiles: ["https://immortal-content.s3.us-east-2.amazonaws.com/vid.webm", "https://immortal-content.s3.us-east-2.amazonaws.com/vid.webm"],

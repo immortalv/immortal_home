@@ -51,7 +51,7 @@ const ProfileSimple = ({ profileData }) => {
         {otherPhotos.map((img) => (
           <Image
             key={img}
-            img={getProfileDataFromBucket(mainPhoto.key)}
+            img={getProfileDataFromBucket(img.key)}
             alt="profile image"
             className={"image-data__item image-data__item--simple"}
           />
@@ -59,8 +59,8 @@ const ProfileSimple = ({ profileData }) => {
       </div>
       {otherFiles.length && (
         <div className="video-data__container video-data__container--simple">
-          {otherFiles.map((img) => (
-            <Video url={img} key={img} className={'video-img__wrapper--simple'} />
+          {otherFiles.map((file) => (
+            <Video url={file} key={file} className={'video-img__wrapper--simple'} />
           ))}
         </div>
       )}

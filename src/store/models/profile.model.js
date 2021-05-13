@@ -103,6 +103,7 @@ export const profile = {
           template: profile.template,
         };
 
+        debugger;
         const { id } = await createProfile(profileData, profile.token);
 
         const queryParams = `userId=${clearUserId(userId)}&profileId=${id}`;

@@ -71,8 +71,8 @@ const ProfileArticle = ({ profileData }) => {
       )}
       {otherFiles && (
         <div className="video-data__container--article">
-          {otherFiles.map((img) => (
-            <Video url={img} key={img} className={'video-img__wrapper--article'} />
+          {otherFiles.map((file) => (
+            <Video url={file} key={file} className={'video-img__wrapper--article'} />
           ))}
         </div>
       )

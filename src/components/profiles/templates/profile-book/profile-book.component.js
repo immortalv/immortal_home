@@ -68,7 +68,7 @@ const ProfileBook = ({ profileData }) => {
 
           <div className="video-data__container--book">
             {otherFiles.map((file) => (
-              <Video video={file} key={file} className={'video-img__wrapper--book'} />
+              <Video url={file} key={file} className={'video-img__wrapper--book'} />
             ))}
           </div>
         </div>
