@@ -41,7 +41,7 @@
     max-width: 100%;
     min-width: 100px;
     object-fit: contain;
-    margin:auto;
+    margin: auto;
   }
 
   &__add {
@@ -114,6 +114,8 @@
 .add-file-dropzone {
   cursor: pointer;
   &__text {
-
+    @include for-phone-only {
+      font-size: 20px;
+    }
   }
 }

@@ -6,6 +6,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 15px 40px 20px;
 
   &__item {
     cursor: pointer;
@@ -13,7 +14,7 @@
     min-width: 300px;
     max-width: 312px;
     transition: transform 0.2s ease;
-    margin: 10px 10px 0;
+    margin: 10px 20px 0;
     object-fit: contain;
 
     @include no-edge-margins();
@@ -35,10 +36,6 @@
       transform: scale(1.1);
     }
   }
-}
-
-.select-profile.add-profile__content {
-  padding: 0 40px 20px;
 }
 
 .add-profile__main-info {

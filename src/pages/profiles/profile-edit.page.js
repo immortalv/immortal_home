@@ -7,6 +7,7 @@ import {
   NameFormGroup,
   ProfileDoubleDescription,
   FormField,
+  Button,
 } from "components/common";
 import {
   AddOtherImages,
@@ -63,7 +64,7 @@ const ProfileEdit = () => {
       <h1 className="header-s-1  profile-edit__title">Редагування</h1>
       <button onClick={goToCabinet} className="btn-back profile-edit__btn-back">
         <ChevronLeftIcon className="btn-back__icon profile-edit__btn-back__icon" />
-        Назад
+        <span className="btn-back__text">Назад</span>
       </button>
 
       <NameFormGroup state={state} onChange={handleChange} />
@@ -122,6 +123,10 @@ const ProfileEdit = () => {
       />
 
       <ProfileTypes label="Тип профілю" />
+
+      <Button type="secondary" className="profile-edit__btn-save">
+        Зберегти
+      </Button>
     </main>
   );
 };

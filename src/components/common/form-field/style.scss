@@ -120,6 +120,7 @@
 
   @include for-phone-only {
     flex-direction: column;
+    margin-bottom: 20px;
   }
 
   .form-field {

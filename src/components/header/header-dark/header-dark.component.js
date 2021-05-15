@@ -8,13 +8,13 @@ import "./style.scss";
 const HeaderDark = ({ onBackClick }) => {
   return (
     <header className="header-dark">
-       <Link to={routesConstants.HOME}>
-      <LogoIcon className="header-dark__logo" />
+      <Link to={routesConstants.HOME}>
+        <LogoIcon className="header-dark__logo" />
       </Link>
       {onBackClick && (
         <button onClick={onBackClick} className="btn-back header-dark__btn">
           <ChevronLeftIcon className="btn-back__icon" />
-          Назад
+          <span className="btn-back__text">Назад</span>
         </button>
       )}
     </header>

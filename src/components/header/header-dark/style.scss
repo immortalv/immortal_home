@@ -56,5 +56,9 @@
     @include for-phablet {
       height: 20px;
     }
+
+    @include for-phone-only {
+      margin-right: 10px;
+    }
   }
 }
