@@ -64,7 +64,11 @@
   }
 
   &__avatar-img {
-    max-width: 416px;
+    max-width: 312px;
+    width: 312px;
+    height: 312px;
+
+    object-fit: contain;
   }
 
   .quoute-block {

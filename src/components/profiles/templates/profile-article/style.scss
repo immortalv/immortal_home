@@ -49,7 +49,6 @@
   &__data-container {
     display: flex;
     padding: 50px 25px;
-    justify-content: space-between;
 
     @include for-phablet {
       flex-direction: column;
@@ -58,12 +57,11 @@
   }
 
   &__avatar-img {
+    max-width: 312px;
+    height: 312px;
     filter: drop-shadow(4px 4px 25px rgba(0, 0, 0, 0.15));
     border-radius: 20px;
 
-    @include for-phablet {
-      max-width: 384px;
-    }
   }
 
   &__date {

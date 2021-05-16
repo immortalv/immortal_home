@@ -54,6 +54,8 @@ export const profile = {
       };
     },
   },
+
+
   effects: (dispatch) => ({
     async setProfileEffect(payload, state) {
       const nextStep = getNextStep(ADD_PROFILE_STEPS, state.profile.currenStep);
@@ -75,6 +77,7 @@ export const profile = {
         ADD_PROFILE_STEPS,
         state.profile.currenStep
       );
+
 
       if (shouldRedirect) {
         dispatch.profile.clearState();
@@ -103,7 +106,6 @@ export const profile = {
           template: profile.template,
         };
 
-        debugger;
         const { id } = await createProfile(profileData, profile.token);
 
         const queryParams = `userId=${clearUserId(userId)}&profileId=${id}`;
