@@ -18,19 +18,16 @@ const ProfilePage = () => {
 
   useGetProfile(id);
 
-  return <ProfileArticle profileData={profile} />;
-
-
-  // switch (profile?.template) {
-  //   case PROFILE_TEMPLATE_TYPES.SIMPLE:
-  //     return <ProfileSimple profileData={profile} />;
-  //   case PROFILE_TEMPLATE_TYPES.BOOK:
-  //     return <ProfileBook profileData={profile} />;
-  //   case PROFILE_TEMPLATE_TYPES.ARTICLE:
-  //     return <ProfileArticle profileData={profile} />;
-  //   default:
-  //     return <Spinner />;
-  // }
+  switch (profile?.template) {
+    case PROFILE_TEMPLATE_TYPES.SIMPLE:
+      return <ProfileSimple profileData={profile} />;
+    case PROFILE_TEMPLATE_TYPES.BOOK:
+      return <ProfileBook profileData={profile} />;
+    case PROFILE_TEMPLATE_TYPES.ARTICLE:
+      return <ProfileArticle profileData={profile} />;
+    default:
+      return <Spinner />;
+  }
 };
 
 export default ProfilePage;
