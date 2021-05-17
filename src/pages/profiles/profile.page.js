@@ -18,6 +18,7 @@ const ProfilePage = () => {
 
   useGetProfile(id);
 
+
   switch (profile?.template) {
     case PROFILE_TEMPLATE_TYPES.SIMPLE:
       return <ProfileSimple profileData={profile} />;
