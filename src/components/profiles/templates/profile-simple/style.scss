@@ -43,9 +43,9 @@
     border-radius: 100%;
     object-fit: cover;
 
-    @include for-phablet {
-      height: 170px;
-      width: 170px;
+    @include for-tablet-landscape-up {
+      width: 200px;
+      height: 200px;
     }
 
     @include for-phone-only {
