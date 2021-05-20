@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector } from "react-redux";
 import { dispatch } from "store";
 import { transfromDate, getFilePreview } from "utils/profile.utils";
@@ -24,6 +25,7 @@ const ProfileEdit = () => {
   const { id } = useParams();
   const history = useHistory();
   const { profile } = useSelector((state) => state);
+  const { getAccessTokenSilently } = useAuth0();
 
   useGetProfile(id);
 
@@ -42,6 +44,8 @@ const ProfileEdit = () => {
   const setData = (label, data) =>
     dispatch.profile.setProfile({ [label]: data });
 
+  const updateProfile = () => dispatch.profile.updateProfileData({ id });
+
   const setMainPhoto = (file) => setData("mainPhoto", file);
   const setOtherPhotos = (files) => setData("otherPhotos", files);
   const setOtherFiles = (files) => setData("otherFiles", files);
@@ -58,6 +62,15 @@ const ProfileEdit = () => {
       surName,
     });
   }, [profile]);
+
+  useEffect(() => {
+    async function generageToken() {
+      const token = await getAccessTokenSilently();
+      await dispatch.profile.setProfile({ token });
+    }
+
+    if (!profile.token) generageToken();
+  }, []);
 
   return (
     <main className="profile-edit">
@@ -124,7 +137,11 @@ const ProfileEdit = () => {
 
       <ProfileTypes label="Тип профілю" />
 
-      <Button type="secondary" className="profile-edit__btn-save">
+      <Button
+        type="secondary"
+        className="profile-edit__btn-save"
+        onClick={updateProfile}
+      >
         Зберегти
       </Button>
     </main>

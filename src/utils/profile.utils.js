@@ -66,6 +66,22 @@ export const isImage = (file) => file.mimeType.includes("image/");
 export const filterUploadedContent = (files) => {
   return files.reduce(
     (acc, file) => {
+      if (file.status && file.status !== "fulfilled") return acc;
+      if (isImage(file.value || file)) {
+        acc.otherPhotos.push(file.value || file);
+      } else {
+        acc.otherFiles.push(file.value || file);
+      }
+
+      return acc;
+    },
+    { otherPhotos: [], otherFiles: [] }
+  );
+};
+
+export const filter = (files) => {
+  return files.reduce(
+    (acc, file) => {
       if (file.status !== "fulfilled") return acc;
       if (isImage(file.value)) {
         acc.otherPhotos.push(file.value);
@@ -76,6 +92,22 @@ export const filterUploadedContent = (files) => {
       return acc;
     },
     { otherPhotos: [], otherFiles: [] }
+  );
+};
+
+export const getUpdatedFiles = (data) => {
+  // If file has preview property, it need to be uploaded file and needs to be updated in Db
+  return data.reduce(
+    (acc, cur) => {
+      if (cur.preview) {
+        acc.toUpload.push(cur);
+      } else {
+        acc.uploaded.push(cur);
+      }
+
+      return acc;
+    },
+    { uploaded: [], toUpload: [] }
   );
 };
 

@@ -8,7 +8,6 @@ import CabinetPage from "pages/cabinet";
 import AddProfile from "components/profiles/add-profile";
 
 // this is main routes with main layout
-
 const routes = [
   {
     name: "Головна",
@@ -67,5 +66,7 @@ export const subRoutes = [
     component: ProfileEdit,
   },
 ];
+
+export const routesWithFooter = [routesConstants.HOME, routesConstants.PROFILES];
 
 export default routes;

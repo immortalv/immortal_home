@@ -20,3 +20,8 @@ export const uploadFile = async (data, queryParams) =>
   await axios
     .post(`${FILE_UPLOAD_GATEWAY_URL}?${queryParams}`, data)
     .then(({ data }) => data);
+
+export const removeFiles = async (files, queryParams) =>
+  await axios
+    .post(`${FILE_UPLOAD_GATEWAY_URL}?${queryParams}&remove=true`, { files })
+    .then(({ data }) => data);

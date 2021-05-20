@@ -4,6 +4,7 @@ import {
   uploadFile,
   getProfile,
   updateProfile,
+  removeFiles,
 } from "services/api/profile.service";
 import { profileDataMock } from "constants/profile-data.mock";
 import {
@@ -11,8 +12,9 @@ import {
   getNextStep,
   getPreviousStep,
   filterUploadedContent,
+  getUpdatedFiles,
 } from "utils/profile.utils";
-import { showErrorToast } from "components/toasters";
+import { showErrorToast, showSuccessToast } from "components/toasters";
 import {
   ADD_PROFILE_STEPS_NAME,
   ADD_PROFILE_STEPS,
@@ -31,7 +33,6 @@ const initialState = {
   epitaph: "",
 
   mainPhoto: [],
-  coverPhoto: [],
   otherPhotos: [],
   otherFiles: [],
 
@@ -127,6 +128,63 @@ export const profile = {
         await updateProfile(id, updatedProfile, profile.token);
 
         return id;
+      } catch (error) {
+        showErrorToast("Щось пішло не так...");
+        console.error(error);
+        dispatch.profile.clearState();
+        window.location.pathname = routesConstants.CABINET;
+        // window.history.pushState({}, '', routesConstants.CABINET)
+      }
+    },
+
+    async updateProfileData({ id }, state) {
+      try {
+        const {
+          profile,
+          user: { userId },
+        } = state;
+        let mainPhoto = profile.mainPhoto;
+        const queryParams = `userId=${clearUserId(userId)}&profileId=${id}`;
+
+        // if new image setted, upload it
+        if (mainPhoto[0]?.preview) {
+          mainPhoto = await upload(profile.mainPhoto[0], queryParams);
+        }
+
+        // @TODO Check for deleted file
+        const { uploaded, toUpload } = getUpdatedFiles([
+          ...profile.otherPhotos,
+          ...profile.otherFiles,
+        ]);
+
+        const otherData = await Promise.allSettled([
+          ...toUpload.map(async (file) => await upload(file, queryParams)),
+        ]);
+
+        const { otherPhotos, otherFiles } = filterUploadedContent([
+          ...uploaded,
+          ...otherData,
+        ]); // @TODO show message for not uploaded data
+
+        const updatedProfile = {
+          ...profile,
+          mainPhoto,
+          otherPhotos,
+          otherFiles,
+        };
+
+        const { filesToDelete } = await updateProfile(
+          id,
+          updatedProfile,
+          profile.token
+        );
+
+        if (filesToDelete.length) {
+          await removeFiles(filesToDelete, queryParams);
+        }
+
+        dispatch.profile.getProfile({ id, token: profile.token });
+        showSuccessToast("Профіль успішно оновлено");
       } catch (error) {
         showErrorToast("Щось пішло не так...");
         console.error(error);
