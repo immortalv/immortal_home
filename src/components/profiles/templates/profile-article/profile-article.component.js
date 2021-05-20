@@ -1,7 +1,10 @@
 import React from "react";
-import Image from "components/common/image/image";
+
+import Video from 'components/video';
+import Image from "components/common/image";
+
 import { transfromDate } from "utils/profile.utils";
-import { getProfileDataFromBucket } from "utils/image.utils";
+import { getProfileDataFromBucket, getProfileImg } from "utils/image.utils";
 
 import "./style.scss";
 
@@ -68,17 +71,13 @@ const ProfileArticle = ({ profileData }) => {
       )}
       {otherFiles && (
         <div className="video-data__container--article">
-          {otherFiles.map((img) => (
-            <img
-              key={img.key}
-              img={getProfileDataFromBucket(img.key)}
-              alt={`image data`}
-              className="video-data__container--img"
-            />
+          {otherFiles.map((file) => (
+            <Video url={file} key={file} className={'video-img__wrapper--article'} />
           ))}
         </div>
-      )}
-    </main>
+      )
+      }
+    </main >
   );
 };
 

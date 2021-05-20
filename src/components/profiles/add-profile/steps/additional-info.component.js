@@ -51,7 +51,7 @@ const AddProfileAdditionalInfo = ({ profile = {}, onSubmit }) => {
             name="deathDate"
             label="Дата смерті"
             onChange={handleChange}
-            value={transfromDate(state.birthDate, true)}
+            value={transfromDate(state.deathDate, true)}
           />
 
           {/* <div className="profile-type__container">
