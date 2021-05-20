@@ -20,11 +20,15 @@ import { ChevronLeftIcon } from "icons";
 
 import { useGetProfile } from "./hooks";
 import routesConstants from "constants/routes.constants";
+import Spinner from "components/spinner/spinner.component";
 
 const ProfileEdit = () => {
   const { id } = useParams();
   const history = useHistory();
-  const { profile } = useSelector((state) => state);
+  const {
+    profile,
+    loading: { global: loading },
+  } = useSelector((state) => state);
   const { getAccessTokenSilently } = useAuth0();
 
   useGetProfile(id);
@@ -72,6 +76,7 @@ const ProfileEdit = () => {
     if (!profile.token) generageToken();
   }, []);
 
+  if (loading) return <Spinner text="Оновлюємо профіль" />;
   return (
     <main className="profile-edit">
       <h1 className="header-s-1  profile-edit__title">Редагування</h1>
