@@ -1,33 +1,13 @@
 @import "styles/variables.module";
+@import "styles/base.module";
 
 .App {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   max-width: 1440px;
   min-height: 100vh;
   margin: auto;
   position: relative;
-  background-color: #fff;
-}
-
-@mixin header-s {
-  font-family: $theme-f-opensans;
-  font-weight: bold;
-  color: $theme-c-black;
-}
-
-.header-s {
-  &-1 {
-    font-size: 64px;
-    @include header-s();
-  }
-
-  &-2 {
-    font-size: 40px;
-    @include header-s();
-  }
-}
-
-.text-subtitle {
-  font-family: $theme-f-opensans;
-  color: $theme-c-black;
-  font-size: 24px;
+  background-color: #f3f3f3;
 }

@@ -10,6 +10,7 @@
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
     "formik": "^2.2.6",
+    "plyr-react": "^3.0.8",
     "qr-code-styling": "^1.3.4",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -20,13 +21,18 @@
     "react-redux": "7.2.2",
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.1",
+    "react-toastify": "^7.0.4",
     "redux": "^4.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --check **/*.js",
+    "prettier:fix": "prettier --write **/*.js"
   },
   "eslintConfig": {
     "extends": [
@@ -48,8 +54,13 @@
   },
   "devDependencies": {
     "eslint": "^7.20.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.22.0",
+    "husky": "^6.0.0",
     "node-sass": "^4.14.1",
+    "prettier": "^2.2.1",
     "web-vitals": "^0.2.4"
   }
 }

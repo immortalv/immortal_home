@@ -43,11 +43,11 @@ const AddProfile = () => {
   const renderActiveStep = () => {
     switch (profile.currenStep) {
       case ADD_PROFILE_STEPS_NAME.TEMPLATE:
-        return <SelectProfile profile={profile} onSubmit={handleNextStep} />;
+        return <SelectProfile onSubmit={handleNextStep} />;
       case ADD_PROFILE_STEPS_NAME.MAIN_INFORMATION:
         return <MainInfo profile={profile} onSubmit={handleNextStep} />;
       case ADD_PROFILE_STEPS_NAME.PHOTOS:
-        return <AddImages profile={profile} onSubmit={handleNextStep} />;
+        return <AddImages onSubmit={handleNextStep} />;
       case ADD_PROFILE_STEPS_NAME.ADDITIONAL_INFORMATION:
         return <AdditionalInfo profile={profile} onSubmit={handleNextStep} />;
       case ADD_PROFILE_STEPS_NAME.PROFILE_CREATED:
@@ -55,12 +55,7 @@ const AddProfile = () => {
           <ProfileCreated id={profile.id} onPageChange={clearProfileState} />
         );
       default:
-        return (
-          <SelectProfile
-            storeTemplate={profile?.template || ""}
-            onSubmit={handleNextStep}
-          />
-        );
+        return <SelectProfile onSubmit={handleNextStep} />;
     }
   };
 

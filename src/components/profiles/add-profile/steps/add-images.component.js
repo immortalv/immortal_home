@@ -1,33 +1,28 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { dispatch } from "store";
-import { Button, AddFile } from "components/common";
-import { CrossIcon } from "icons";
+import { Button } from "components/common";
+import { showErrorToast } from "components/toasters";
 import AddMedia from "./add-media.component";
+import AddMainPhoto from "./add-main-photo.component";
+import AddOtherImages from "./add-other-images.component";
 
 import "./style.scss";
 
 const AddImages = ({ onSubmit }) => {
-  const { mainPhoto, coverPhoto, otherPhotos } = useSelector(
+  const { mainPhoto, otherPhotos, otherFiles } = useSelector(
     (state) => state.profile
   );
 
-  const setMainPhoto = (file) =>
-    dispatch.profile.setProfile({ mainPhoto: file });
+  const setData = (label, data) =>
+    dispatch.profile.setProfile({ [label]: data });
 
-  const setCoverPhoto = (file) =>
-    dispatch.profile.setProfile({ coverPhoto: file });
-
-  const setOtherPhotos = (files) =>
-    dispatch.profile.setProfile({ otherPhotos: files });
-
-  const removeOtherPhoto = (fileName) => {
-    const files = otherPhotos.filter((file) => file.name !== fileName);
-    dispatch.profile.setProfile({ otherPhotos: files });
-  };
+  const setMainPhoto = (file) => setData('mainPhoto', file);
+  const setOtherPhotos = (files) => setData('otherPhotos', files);
+  const setOtherFiles = (files) => setData('otherFiles', files);
 
   const submit = () => {
-    if (!mainPhoto?.length) return;
+    if (!mainPhoto?.length) return showErrorToast("Додайте головне фото");
     onSubmit();
   };
 
@@ -36,49 +31,14 @@ const AddImages = ({ onSubmit }) => {
       <h1 className="header-s-1 add-profile__title">Додайте фотографії</h1>
 
       <div className="add-profile__images-container">
-        <div className="add-file-block add-file-main">
-          <AddFile files={mainPhoto} setFiles={setMainPhoto} />
-          <span className="add-file__label">
-            Головне фото<span className="label--necessary">*</span>
-          </span>
-        </div>
-        <div className="add-file-block add-file-cover">
-          <span className="add-file__label">Фото обкладинки</span>
-          <AddFile files={coverPhoto} setFiles={setCoverPhoto} />
-        </div>
-        <div className="add-file-block add-file-others-block">
-          <div className="add-file-others-container">
-            <AddFile
-              files={otherPhotos}
-              setFiles={setOtherPhotos}
-              withPreview={false}
-              maxFiles={15}
-              className="add-file-others"
-            />
-            <div className="image-row-list">
-              {otherPhotos.map((file) => (
-                <div className="image-row-list__item" key={file.preview}>
-                  <img
-                    key={file.preview}
-                    src={file.preview}
-                    className="image-row-list__img"
-                  />
-
-                  <button
-                    className="image-row-list__remove"
-                    onClick={() => removeOtherPhoto(file.name)}
-                  >
-                    <CrossIcon className="image-row-list__remove-icon" />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-          <span className="add-file__label">Інші</span>
-        </div>
+        <AddMainPhoto isNecessary addFile={setMainPhoto} file={mainPhoto} />
+        <AddOtherImages addFiles={setOtherPhotos} files={otherPhotos} />
+        <AddMedia
+          addFiles={setOtherFiles}
+          files={otherFiles}
+          title="Додайте інші файли"
+        />
       </div>
-
-      <AddMedia />
 
       <Button onClick={submit} type="secondary" className="add-profile__btn">
         Далі

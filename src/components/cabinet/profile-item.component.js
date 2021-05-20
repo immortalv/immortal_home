@@ -3,7 +3,7 @@ import { renderEmail, Email, Item, Image } from "react-html-email";
 import { useHistory } from "react-router";
 import QRCodeStyling from "qr-code-styling";
 import { Button, Checkbox } from "components/common";
-import { getProfilefromBucket } from "utils/image.utils";
+import { getProfileDataFromBucket } from "utils/image.utils";
 import { getQRProfileUrl } from "utils/profile.utils";
 import { sendEmail } from "services/api/email.service";
 import { PROFILE } from "constants/routes.constants";
@@ -30,6 +30,7 @@ const ProfileItem = ({ profile }) => {
 
   const handleChange = () => setIsPublic(!isPublic);
   const goToProfilePage = () => history.push(`${PROFILE}/${profile.id}`);
+  const goToEditPage = () => history.push(`${PROFILE}/${profile.id}/edit`);
 
   useEffect(() => {
     const qrCode = new QRCodeStyling({
@@ -86,19 +87,24 @@ const ProfileItem = ({ profile }) => {
       <div className="profile-item">
         <img
           onClick={goToProfilePage}
-          src={getProfilefromBucket(profile.mainPhoto)}
+          src={getProfileDataFromBucket(profile.mainPhoto.key)}
           className="profile-item__img"
           alt="profile picture"
         />
         <div className="profile-item__info">
           <h4 className="profile-item__name">{name}</h4>
           <p className="profile-item__description">{description}</p>
-          <div className="profile-item__type-container">
+
+          {/* <div className="profile-item__type-container">
             <span className="profile-item__type">{profileType}</span>
             <Checkbox checked={isPublic} onChange={handleChange} />
-          </div>
+          </div> */}
 
-          <Button type="secondary" className="profile-item__btn">
+          <Button
+            type="secondary"
+            className="profile-item__btn"
+            onClick={goToEditPage}
+          >
             Редагувати
           </Button>
         </div>

@@ -1,6 +1,10 @@
 import React from "react";
-import Image from "components/common/image/image";
+
+import Video from 'components/video';
+import Image from "components/common/image";
+
 import { transfromDate } from "utils/profile.utils";
+import { getProfileDataFromBucket, getProfileImg } from "utils/image.utils";
 
 import "./style.scss";
 
@@ -22,8 +26,8 @@ const ProfileArticle = ({ profileData }) => {
         <div className="profile-article__data-container">
           <div className="profile-article__img-block">
             <img
-              src={mainPhoto}
-              alt=""
+              src={getProfileDataFromBucket(mainPhoto.key)}
+              alt="Main profile photo"
               className="profile-article__avatar-img"
             />
             <span className="profile-article__date">
@@ -50,8 +54,9 @@ const ProfileArticle = ({ profileData }) => {
             <div className="image-data__container image-date__container--article image-data__container--rounded">
               {otherPhotos.map((img) => (
                 <Image
-                  key={img.src}
-                  img={img}
+                  key={img.key}
+                  img={getProfileDataFromBucket(img.key)}
+                  alt="profile image"
                   className={"image-data__item image-data__item--article"}
                 />
               ))}
@@ -66,17 +71,13 @@ const ProfileArticle = ({ profileData }) => {
       )}
       {otherFiles && (
         <div className="video-data__container--article">
-          {otherFiles.map((img) => (
-            <img
-              key={img.src}
-              src={img.src}
-              alt={`image data`}
-              className="video-data__container--img"
-            />
+          {otherFiles.map((file) => (
+            <Video url={file} key={file} className={'video-img__wrapper--article'} />
           ))}
         </div>
-      )}
-    </main>
+      )
+      }
+    </main >
   );
 };
 

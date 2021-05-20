@@ -1,5 +1,5 @@
+@import "styles/variables.module";
 @import "styles/media-queries.module";
-
 
 .profiles {
   .home__top-block {
@@ -13,6 +13,155 @@
 
     @include for-phone-only {
       font-size: 30px;
+    }
+  }
+}
+
+.profile-edit {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  grid-row-gap: 20px;
+  padding: 20px 60px 120px;
+
+  @include for-desktop-up {
+    padding: 30px 120px 120px;
+  }
+
+  @include for-phone-only {
+    padding: 15px 20px 120px;
+  }
+
+  &__title {
+    margin: 0 auto 50px;
+
+    @include for-phablet {
+      margin: 0 auto 30px;
+      font-size: 55px !important;
+    }
+
+    @include for-phone-only {
+      font-size: 35px !important;
+    }
+  }
+
+  &__btn-back {
+    position: absolute;
+    top: 50px;
+    right: 80px;
+    color: $theme-c-black;
+
+    @include for-desktop-up {
+      right: 120px;
+    }
+
+    @include for-phablet {
+      top: 30px;
+      right: 30px;
+    }
+
+    @include for-phone-only {
+      top: 20px;
+      right: 10px;
+
+      .btn-back__text {
+        display: none;
+      }
+    }
+
+    &__icon {
+      path {
+        fill: $theme-c-black;
+      }
+    }
+  }
+
+  .add-image__main {
+    width: 250px;
+    height: 250px;
+
+    @include for-desktop-up {
+      width: 300px;
+      height: 300px;
+    }
+
+    @include for-phone-only {
+      width: 150px;
+      height: 150px;
+      // margin: auto;
+    }
+  }
+
+  .add-file__container,
+  .image-row-list__img {
+    border-radius: 6px;
+  }
+
+  &__row {
+    display: flex;
+    grid-column-gap: 25px;
+
+    & > * {
+      flex: 1;
+    }
+
+    @include for-phone-only {
+      flex-direction: column;
+    }
+  }
+
+  &__epitaph {
+    height: 250px;
+    min-width: 200px;
+  }
+
+  &__date {
+    width: 280px;
+    max-width: 100%;
+
+    @include for-desktop-up {
+      width: 350px;
+    }
+
+    &:first-child {
+      margin-bottom: 35px;
+
+      @include for-phone-only {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  &__media {
+    .add-profile__subtitle {
+    }
+  }
+
+  .form-field__description {
+    @include for-phone-only {
+      height: 150px;
+      margin: 10px 0;
+    }
+  }
+
+  &__btn-save {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 384px;
+    max-width: 60vw;
+    border-radius: 6px;
+  }
+
+  .select-profile {
+    padding: 15px 0 20px;
+
+    @include for-phablet {
+      .select-profile__item {
+        min-width: 250px;
+      }
     }
   }
 }

@@ -6,6 +6,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 15px 40px 20px;
 
   &__item {
     cursor: pointer;
@@ -13,12 +14,18 @@
     min-width: 300px;
     max-width: 312px;
     transition: transform 0.2s ease;
-    margin: 10px 10px 0;
+    margin: 10px 20px 30px;
+    object-fit: contain;
 
     @include no-edge-margins();
 
     @include for-phablet {
       margin: 10px 15px 0;
+    }
+
+    @include for-phone-only {
+      max-height: 40vh;
+      margin: 10px 0;
     }
 
     &--active {
@@ -29,10 +36,6 @@
       transform: scale(1.1);
     }
   }
-}
-
-.select-profile.add-profile__content {
-  padding: 0 40px 20px;
 }
 
 .add-profile__main-info {
@@ -55,6 +58,10 @@
       "date-death"
       "epitaph"
       "type";
+  }
+
+  @include for-phone-only {
+    justify-items: flex-start;
   }
 }
 
@@ -80,6 +87,10 @@
     margin-bottom: 30px;
   }
 
+  @include for-phone-only {
+    margin-bottom: 15px;
+  }
+
   &:first-child {
     grid-area: date-birth;
   }
@@ -96,10 +107,6 @@
 
 .form-radio-group {
   display: flex;
-
-  @include for-phone-only {
-    flex-direction: column;
-  }
 
   .form-field {
     margin: 20px;
@@ -119,19 +126,17 @@
       margin-top: 30px;
     }
   }
+
+  @include for-phone-only {
+    align-items: flex-start;
+  }
 }
 
 .add-profile__images-container {
-  display: grid;
-  grid-template-areas:
-    "main cover cover"
-    "main  others others";
-
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: 1fr 1fr;
-
+  display: flex;
+  flex-direction: column;
   grid-row-gap: 20px;
-  grid-column-gap: 30px;
+  text-align: left;
 
   width: 100%;
   max-width: 1320px;
@@ -140,70 +145,24 @@
   margin: auto;
 
   @include for-tablet-landscape-up {
-    padding: 0 30px 30px;
+    padding: 0 25px 25px;
   }
 
   @include for-phablet {
-    grid-template-areas:
-      "main"
-      "cover"
-      "others";
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+    grid-row-gap: 10px;
   }
 }
 
+.add-file__label {
+  margin-bottom: 15px;
+}
+
 .add-file {
-  &-block {
-    max-width: 100%;
-    max-height: 100%;
-  }
-
-  &-main {
-    grid-area: main;
-    aspect-ratio: 1/1;
-    width: 100%;
-    max-height: 384px;
-
-    @include for-tablet-landscape-up {
-      max-height: 250px;
-    }
-
-    @include for-phablet {
-      margin: auto;
-    }
-
-    @include for-phone-only {
-      max-height: 175px;
-    }
-
-    @include for-tablet-landscape-up {
-    }
-  }
-
-  &-cover {
-    display: flex;
-    flex-direction: column;
-    grid-area: cover;
-    height: 205px;
-
-    @include for-phablet {
-      flex-direction: column-reverse;
-    }
-
-    .add-file__label {
-      margin: 0 0 16px;
-
-      @include for-phablet {
-        margin-top: 16px;
-      }
-    }
-  }
-
   &-others {
     max-height: 200px;
     max-width: 200px;
     margin-right: 15px;
+    margin-top: 10px;
 
     aspect-ratio: 1/1;
     width: 100%;
@@ -230,16 +189,20 @@
       flex-wrap: wrap;
     }
   }
+}
 
-  &-others-block {
-    grid-area: others;
-  }
+.add-image {
+  &__main {
+    aspect-ratio: 1;
+    margin-bottom: 25px;
 
-  &-media {
-    margin: 50px;
+    width: 300px;
+    height: 300px;
 
-    @include for-phone-only {
-      margin: 25px 20px 15px;
+    @include for-phablet {
+      min-width: 150px;
+      min-height: 150px;
+      margin-bottom: 15px;
     }
   }
 }
@@ -280,15 +243,17 @@
   display: inline-block;
   font-family: $theme-f-opensans;
   font-weight: bold;
-  margin-top: 20px;
-
-  @include for-phone-only {
-    margin-top: 15px;
-  }
+  align-self: flex-start;
 }
 
 .label--necessary {
   color: #ff4c4c;
+}
+
+.add-other-images__container{
+  .add-file__label {
+    margin-bottom: 5px;
+  }
 }
 
 .profile-created {
@@ -323,26 +288,35 @@
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 0 5px 10px;
+  padding: 10px 5px 10px;
   overflow-x: auto;
 
   @include styled-scrollbar();
 
+  @include for-phone-only {
+    padding-left: 0;
+  }
+
   &__item {
     position: relative;
     margin: 0 10px;
+
+    @include for-phone-only {
+      margin-top: 5px;
+    }
+
+    @include no-edge-margins();
   }
 
   &__img {
-    width: auto;
-    height: 100%;
-    height: 170px;
-    width: 170px;
+    height: 200px;
+    width: 200px;
     aspect-ratio: 1/1;
     object-fit: cover;
 
     @include for-phone-only {
-      max-width: 120px;
+      width: 100px;
+      height: 100px;
       margin: 5px 0;
     }
   }
@@ -351,7 +325,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    transform: translate(15px, -22%);
+    transform: translate(20px, -35%);
     // transform: translate(50%, -50%);
 
     border: none;
@@ -360,14 +334,18 @@
   }
 
   &__remove-icon {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
   }
 }
 
 .file-list {
   @include list-grid();
   padding: 25px 0;
+
+  @include for-phone-only {
+    padding-bottom: 0;
+  }
 
   &__item {
     display: flex;
@@ -380,6 +358,7 @@
     box-sizing: border-box;
     border-radius: 6px;
     height: 64px;
+    overflow: hidden;
 
     @include for-phone-only {
       height: 45px;
@@ -392,6 +371,7 @@
     border: none;
     background: transparent;
     cursor: pointer;
+    padding: 0;
 
     &-icon {
       width: 30px;

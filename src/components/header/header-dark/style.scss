@@ -34,6 +34,7 @@
 
   &__btn {
     margin-left: auto;
+    color: $theme-c-white;
   }
 }
 
@@ -43,7 +44,6 @@
   background-color: transparent;
   cursor: pointer;
   border: none;
-  color: $theme-c-white;
   font-size: 24px;
 
   @include for-phablet {
@@ -55,6 +55,10 @@
 
     @include for-phablet {
       height: 20px;
+    }
+
+    @include for-phone-only {
+      margin-right: 10px;
     }
   }
 }

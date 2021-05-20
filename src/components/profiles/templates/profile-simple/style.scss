@@ -13,7 +13,7 @@
       padding: 0 15px;
     }
   }
-  --avatar-img-size: 350px;
+  --avatar-img-size: 312px;
 
   &__top-container {
     position: relative;
@@ -36,18 +36,21 @@
     position: absolute;
     bottom: 0;
     transform: translateY(50%);
+    height: 312px;
+    width: 312px;
     max-height: var(--avatar-img-size);
     max-width: var(--avatar-img-size);
     border-radius: 100%;
     object-fit: cover;
 
-    aspect-ratio: 1/1;
-
-    @include for-phablet {
-      width: 40vw;
+    @include for-tablet-landscape-up {
+      width: 200px;
+      height: 200px;
     }
 
     @include for-phone-only {
+      height: 150px;
+      width: 150px;
       top: 0;
     }
   }
@@ -81,15 +84,22 @@
   }
 }
 
-.image-data__container--simple {
-    display: flex;
-    overflow: hidden;
-    overflow-x: auto;
-    margin: 20px 90px;
+.image-data__item {
+  min-width: 185px;
+  padding-right: 15px;
+  border-radius: 20px;
+  filter: drop-shadow(4px 4px 25px rgba(0, 0, 0, 0.15));
+}
 
-    @include for-phone-only {
-      margin: 15px;
-    }
+.image-data__container--simple {
+  display: flex;
+  overflow: hidden;
+  overflow-x: auto;
+  margin: 50px 90px;
+
+  @include for-phone-only {
+    margin: 15px;
+  }
   &__item {
     width: 176px;
     height: 176px;
@@ -100,8 +110,7 @@
     @include no-edge-margins();
   }
 
-
-    @include styled-scrollbar();
+  @include styled-scrollbar();
 }
 
 .video-data {
@@ -126,5 +135,15 @@
     @include for-phablet {
       width: 70vw;
     }
+  }
+}
+
+.video-img__wrapper--simple {
+  margin-right: 20px;
+  margin-bottom: 10px;
+  width: 488px;
+
+  .plyr--video {
+    border-radius: 20px;
   }
 }

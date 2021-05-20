@@ -3,8 +3,18 @@ import {
   createProfile,
   uploadFile,
   getProfile,
+  updateProfile,
+  removeFiles,
 } from "services/api/profile.service";
-import { getNextStep, getPreviousStep } from "utils/profile.utils";
+import { profileDataMock } from "constants/profile-data.mock";
+import {
+  clearUserId,
+  getNextStep,
+  getPreviousStep,
+  filterUploadedContent,
+  getUpdatedFiles,
+} from "utils/profile.utils";
+import { showErrorToast, showSuccessToast } from "components/toasters";
 import {
   ADD_PROFILE_STEPS_NAME,
   ADD_PROFILE_STEPS,
@@ -23,7 +33,6 @@ const initialState = {
   epitaph: "",
 
   mainPhoto: [],
-  coverPhoto: [],
   otherPhotos: [],
   otherFiles: [],
 
@@ -46,6 +55,8 @@ export const profile = {
       };
     },
   },
+
+
   effects: (dispatch) => ({
     async setProfileEffect(payload, state) {
       const nextStep = getNextStep(ADD_PROFILE_STEPS, state.profile.currenStep);
@@ -53,7 +64,9 @@ export const profile = {
       if (nextStep === ADD_PROFILE_STEPS_NAME.PROFILE_CREATED) {
         dispatch.profile.setProfile({ ...payload });
         const id = await dispatch.profile.saveProfile();
-        dispatch.profile.setProfile({ ...payload, id, currenStep: nextStep });
+        if (id) {
+          dispatch.profile.setProfile({ ...payload, id, currenStep: nextStep });
+        }
         return;
       }
 
@@ -65,6 +78,7 @@ export const profile = {
         ADD_PROFILE_STEPS,
         state.profile.currenStep
       );
+
 
       if (shouldRedirect) {
         dispatch.profile.clearState();
@@ -82,58 +96,122 @@ export const profile = {
         } = state;
         //@TODO Check whether all data is present
 
-        const { originalKey: mainPhoto } = await upload(
-          profile.mainPhoto[0],
-          userId
-        );
-        const { originalKey: coverPhoto } = await upload(
-          profile.coverPhoto[0],
-          userId
-        );
+        const profileData = {
+          name: profile.name,
+          description: profile.description,
+          descriptionAdditional: profile.descriptionAdditional,
+          birthDate: profile.birthDate,
+          deathDate: profile.deathDate,
+          profileType: profile.profileType, // public/privat
+          epitaph: profile.epitaph,
+          template: profile.template,
+        };
 
-        const otherPhotosData = await Promise.all(
-          profile.otherPhotos.map(async (file) => await upload(file, userId))
-        );
-        const otherPhotos = otherPhotosData.map((file) => file.originalKey);
+        const { id } = await createProfile(profileData, profile.token);
 
-        const otherFilesData = await Promise.all(
-          profile.otherFiles.map(async (file) => await upload(file, userId))
-        );
-        const otherFiles = otherFilesData.map((file) => file.originalKey);
+        const queryParams = `userId=${clearUserId(userId)}&profileId=${id}`;
 
-        const { id } = await createProfile(
-          {
-            ...profile,
-            mainPhoto,
-            coverPhoto,
-            otherPhotos,
-            otherFiles,
-          },
-          profile.token
-        );
+        const [mainPhoto, ...otherData] = await Promise.allSettled([
+          await upload(profile.mainPhoto[0], queryParams),
+          ...profile.otherPhotos.map(
+            async (file) => await upload(file, queryParams)
+          ),
+          ...profile.otherFiles.map(
+            async (file) => await upload(file, queryParams)
+          ),
+        ]);
+
+        const { otherPhotos, otherFiles } = filterUploadedContent(otherData); // @TODO show message for not uploaded data
+        const updatedProfile = {
+          mainPhoto: mainPhoto.status === "fulfilled" ? mainPhoto.value : {},
+          otherPhotos,
+          otherFiles,
+        };
+
+        await updateProfile(id, updatedProfile, profile.token);
 
         return id;
       } catch (error) {
+        showErrorToast("Щось пішло не так...");
+        console.error(error);
+        dispatch.profile.clearState();
+        window.location.pathname = routesConstants.CABINET;
+        // window.history.pushState({}, '', routesConstants.CABINET)
+      }
+    },
+
+    async updateProfileData({ id }, state) {
+      try {
+        const {
+          profile,
+          user: { userId },
+        } = state;
+        let mainPhoto = profile.mainPhoto;
+        const queryParams = `userId=${clearUserId(userId)}&profileId=${id}`;
+
+        // if new image setted, upload it
+        if (mainPhoto[0]?.preview) {
+          mainPhoto = await upload(profile.mainPhoto[0], queryParams);
+        }
+
+        // @TODO Check for deleted file
+        const { uploaded, toUpload } = getUpdatedFiles([
+          ...profile.otherPhotos,
+          ...profile.otherFiles,
+        ]);
+
+        const otherData = await Promise.allSettled([
+          ...toUpload.map(async (file) => await upload(file, queryParams)),
+        ]);
+
+        const { otherPhotos, otherFiles } = filterUploadedContent([
+          ...uploaded,
+          ...otherData,
+        ]); // @TODO show message for not uploaded data
+
+        const updatedProfile = {
+          ...profile,
+          mainPhoto,
+          otherPhotos,
+          otherFiles,
+        };
+
+        const { filesToDelete } = await updateProfile(
+          id,
+          updatedProfile,
+          profile.token
+        );
+
+        if (filesToDelete.length) {
+          await removeFiles(filesToDelete, queryParams);
+        }
+
+        dispatch.profile.getProfile({ id, token: profile.token });
+        showSuccessToast("Профіль успішно оновлено");
+      } catch (error) {
+        showErrorToast("Щось пішло не так...");
+        console.error(error);
         dispatch.profile.clearState();
         window.location.pathname = routesConstants.CABINET;
       }
     },
 
-    async getProfile(payload, state) {
-      const { id, token } = payload;
-      const profile = await getProfile(id, token);
-
-      dispatch.profiles.setProfile(profile);
+    async getProfile(payload) {
+      try {
+        const { id, token } = payload;
+        const profile = await getProfile(id, token);
+        dispatch.profile.setProfile(profile);
+      } catch (error) {
+        dispatch.profile.setProfile(profileDataMock);
+      }
     },
   }),
 };
 
-const clearUserId = (id) => id.split("|")?.[1] || "";
-
-async function upload(file, id) {
+async function upload(file, queryParams) {
   const formData = new FormData();
   formData.append("files", file);
-  const respone = await uploadFile(formData, clearUserId(id));
+  const respone = await uploadFile(formData, queryParams);
 
   return await respone;
 }
