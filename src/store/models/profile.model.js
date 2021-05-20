@@ -55,6 +55,8 @@ export const profile = {
       };
     },
   },
+
+
   effects: (dispatch) => ({
     async setProfileEffect(payload, state) {
       const nextStep = getNextStep(ADD_PROFILE_STEPS, state.profile.currenStep);
@@ -76,6 +78,7 @@ export const profile = {
         ADD_PROFILE_STEPS,
         state.profile.currenStep
       );
+
 
       if (shouldRedirect) {
         dispatch.profile.clearState();

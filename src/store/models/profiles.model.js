@@ -1,5 +1,4 @@
-import { getProfiles, getProfile } from "services/api/profile.service";
-import { profileDataMock } from "constants/profile-data.mock";
+import { getProfiles } from "services/api/profile.service";
 
 export const profiles = {
   state: {
