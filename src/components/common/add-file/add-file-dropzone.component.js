@@ -29,14 +29,19 @@ const rejectStyle = {
   borderColor: "#ff1744",
 };
 
-const AddFileDropzone = ({ className, onDrop, maxFiles = 15 }) => {
+const AddFileDropzone = ({
+  className,
+  onDrop,
+  maxFiles = 15,
+  accept = "image/*",
+}) => {
   const {
     getRootProps,
     getInputProps,
     isDragActive,
     isDragAccept,
     isDragReject,
-  } = useDropzone({ onDrop: onDrop, maxFiles });
+  } = useDropzone({ onDrop: onDrop, maxFiles, accept });
 
   const style = useMemo(
     () => ({

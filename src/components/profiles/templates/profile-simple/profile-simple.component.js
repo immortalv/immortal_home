@@ -57,7 +57,7 @@ const ProfileSimple = ({ profileData }) => {
           />
         ))}
       </div>
-      {otherFiles.length && (
+      {!!otherFiles.length && (
         <div className="video-data__container video-data__container--simple">
           {otherFiles.map((file) => (
             <Video url={file} key={file} className={'video-img__wrapper--simple'} />
