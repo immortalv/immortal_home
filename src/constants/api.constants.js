@@ -9,12 +9,12 @@ const EMAIL_GATEWAY =
 
 export const EMAIL_GATEWAY_URL =
   process.env.NODE_ENV === "production"
-    ? 'email/data'
+    ? "/email/data"
     : `${CORS}/${EMAIL_GATEWAY}`;
 
 export const FILE_UPLOAD_GATEWAY_URL =
   process.env.NODE_ENV === "production"
-    ? "upload/data"
+    ? "/upload/data"
     : `${CORS}/${FILE_UPLOAD_GATEWAY}`;
 
 export const CONTENT_BUCKET =
