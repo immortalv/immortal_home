@@ -137,7 +137,7 @@ const ProfileEdit = () => {
         className="profile-edit__media"
         addFiles={setOtherFiles}
         files={profile.otherFiles}
-        label="Інші файли"
+        label="Відео"
       />
 
       <ProfileTypes label="Тип профілю" />
