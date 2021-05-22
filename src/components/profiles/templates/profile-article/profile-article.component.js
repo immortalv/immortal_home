@@ -4,7 +4,8 @@ import Video from "components/video";
 import Image from "components/common/image";
 
 import { transfromDate } from "utils/profile.utils";
-import { getProfileDataFromBucket, getProfileImg } from "utils/image.utils";
+import { getProfileDataFromBucket } from "utils/image.utils";
+import ProfileDefaultImage from "assets/profile-default.jpg";
 
 import "./style.scss";
 
@@ -26,7 +27,11 @@ const ProfileArticle = ({ profileData }) => {
         <div className="profile-article__data-container">
           <div className="profile-article__img-block">
             <img
-              src={getProfileDataFromBucket(mainPhoto.key)}
+              src={
+                mainPhoto?.key
+                  ? getProfileDataFromBucket(mainPhoto?.key)
+                  : ProfileDefaultImage
+              }
               alt="Main profile photo"
               className="profile-article__avatar-img"
             />
