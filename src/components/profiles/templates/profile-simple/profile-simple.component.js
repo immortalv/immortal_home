@@ -3,9 +3,9 @@ import React from "react";
 import forestImg from "assets/profile-simple-background.jpg";
 import { getProfileDataFromBucket } from "utils/image.utils";
 import { transfromDate } from "utils/profile.utils";
-
-import Video from 'components/video';
+import Video from "components/video";
 import Image from "components/common/image";
+import ProfileDefaultImage from "assets/profile-default.jpg";
 
 import "./style.scss";
 
@@ -21,8 +21,6 @@ const ProfileSimple = ({ profileData }) => {
     descriptionAdditional,
   } = profileData;
 
-  console.log("profileData", profileData);
-
   return (
     <main className="profile profile-simple">
       <div className="profile-simple__top-container">
@@ -32,7 +30,11 @@ const ProfileSimple = ({ profileData }) => {
           className="profile-simple__background-img"
         />
         <img
-          src={getProfileDataFromBucket(mainPhoto.key)}
+          src={
+            mainPhoto?.key
+              ? getProfileDataFromBucket(mainPhoto?.key)
+              : ProfileDefaultImage
+          }
           alt="Main photo"
           className="profile-simple__avatar-img"
         />
@@ -50,7 +52,7 @@ const ProfileSimple = ({ profileData }) => {
       <div className="image-data__container--simple">
         {otherPhotos.map((img) => (
           <Image
-            key={img}
+            key={img?.key}
             img={getProfileDataFromBucket(img.key)}
             alt="profile image"
             className={"image-data__item image-data__item--simple"}
@@ -60,7 +62,11 @@ const ProfileSimple = ({ profileData }) => {
       {!!otherFiles.length && (
         <div className="video-data__container video-data__container--simple">
           {otherFiles.map((file) => (
-            <Video url={file} key={file} className={'video-img__wrapper--simple'} />
+            <Video
+              url={file}
+              key={file}
+              className={"video-img__wrapper--simple"}
+            />
           ))}
         </div>
       )}
