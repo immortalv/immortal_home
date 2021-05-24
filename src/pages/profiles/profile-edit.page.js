@@ -30,9 +30,6 @@ const ProfileEdit = () => {
     loading: { global: loading },
   } = useSelector((state) => state);
   const { getAccessTokenSilently } = useAuth0();
-
-  useGetProfile(id);
-
   const [state, setState] = useState({});
 
   const handleChange = (e) => {
@@ -43,17 +40,21 @@ const ProfileEdit = () => {
     });
   };
 
-  const goToCabinet = () => history.push(routesConstants.CABINET);
-
   const setData = (label, data) =>
     dispatch.profile.setProfile({ [label]: data });
 
-  const updateProfile = () => dispatch.profile.updateProfileData({ id });
+  const updateProfile = async () => {
+    const token = await getAccessTokenSilently();
+    await dispatch.profile.setProfile({ token });
+    await dispatch.profile.updateProfileData({ id });
+  };
 
   const setMainPhoto = (file) => setData("mainPhoto", file);
   const setOtherPhotos = (files) => setData("otherPhotos", files);
   const setOtherFiles = (files) => setData("otherFiles", files);
+  const goToCabinet = () => history.push(routesConstants.CABINET);
 
+  useGetProfile(id);
   useEffect(() => {
     if (!profile) return;
     const { name } = profile;
@@ -66,15 +67,6 @@ const ProfileEdit = () => {
       surName,
     });
   }, [profile]);
-
-  useEffect(() => {
-    async function generageToken() {
-      const token = await getAccessTokenSilently();
-      await dispatch.profile.setProfile({ token });
-    }
-
-    if (!profile.token) generageToken();
-  }, []);
 
   if (loading) return <Spinner text="Оновлюємо профіль" />;
   return (
