@@ -28,6 +28,12 @@ const AddProfile = () => {
   };
 
   const handleNextStep = (data) => dispatch.profile.setProfileEffect(data);
+  const createProfile = async (data) => {
+    const token = await getAccessTokenSilently();
+    await dispatch.profile.setProfile({ token });
+    await dispatch.profile.setProfileEffect(data);
+    await dispatch.profile.saveProfile();
+  };
   const clearProfileState = () => dispatch.profile.clearState();
 
   useEffect(() => {
@@ -49,7 +55,7 @@ const AddProfile = () => {
       case ADD_PROFILE_STEPS_NAME.PHOTOS:
         return <AddImages onSubmit={handleNextStep} />;
       case ADD_PROFILE_STEPS_NAME.ADDITIONAL_INFORMATION:
-        return <AdditionalInfo profile={profile} onSubmit={handleNextStep} />;
+        return <AdditionalInfo profile={profile} onSubmit={createProfile} />;
       case ADD_PROFILE_STEPS_NAME.PROFILE_CREATED:
         return (
           <ProfileCreated id={profile.id} onPageChange={clearProfileState} />
@@ -60,7 +66,6 @@ const AddProfile = () => {
   };
 
   if (loading.global) return <Spinner text="Профіль створюється..." />;
-
   return (
     <div className="add-profile">
       <HeaderDark onBackClick={handleBackClick} />

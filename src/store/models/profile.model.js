@@ -56,20 +56,9 @@ export const profile = {
     },
   },
 
-
   effects: (dispatch) => ({
     async setProfileEffect(payload, state) {
       const nextStep = getNextStep(ADD_PROFILE_STEPS, state.profile.currenStep);
-
-      if (nextStep === ADD_PROFILE_STEPS_NAME.PROFILE_CREATED) {
-        dispatch.profile.setProfile({ ...payload });
-        const id = await dispatch.profile.saveProfile();
-        if (id) {
-          dispatch.profile.setProfile({ ...payload, id, currenStep: nextStep });
-        }
-        return;
-      }
-
       dispatch.profile.setProfile({ ...payload, currenStep: nextStep });
     },
 
@@ -78,7 +67,6 @@ export const profile = {
         ADD_PROFILE_STEPS,
         state.profile.currenStep
       );
-
 
       if (shouldRedirect) {
         dispatch.profile.clearState();
@@ -130,7 +118,7 @@ export const profile = {
 
         await updateProfile(id, updatedProfile, profile.token);
 
-        return id;
+        dispatch.profile.setProfile({ id });
       } catch (error) {
         showErrorToast("Щось пішло не так...");
         console.error(error);
