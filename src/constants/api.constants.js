@@ -19,10 +19,19 @@ export const FILE_UPLOAD_GATEWAY_URL =
 
 export const CONTENT_BUCKET =
   "https://immortal-content.s3.us-east-2.amazonaws.com";
-export const USER_PROFILE_CONTENT_BUCKET =
+
+const PROFILE_CONTENT_BUCKET =
   "https://immortal-profile-content.s3.eu-central-1.amazonaws.com";
 
+const PROD_PROFILE_CONTENT_BUCKET =
+  "https://prod-immortal-profile-content.s3.eu-central-1.amazonaws.com";
+
 export const PROFILES_CONTENT = `${CONTENT_BUCKET}/profiles`;
+
+export const USER_PROFILE_CONTENT_BUCKET =
+  process.env.NODE_ENV === "production"
+    ? PROD_PROFILE_CONTENT_BUCKET
+    : PROFILE_CONTENT_BUCKET;
 
 export const BASE_API_URL =
   process.env.NODE_ENV === "production"
