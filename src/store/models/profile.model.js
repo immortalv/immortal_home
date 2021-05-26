@@ -14,7 +14,11 @@ import {
   filterUploadedContent,
   getUpdatedFiles,
 } from "utils/profile.utils";
-import { showErrorToast, showSuccessToast } from "components/toasters";
+import {
+  showErrorToast,
+  showSuccessToast,
+  showWarningToast,
+} from "components/toasters";
 import {
   ADD_PROFILE_STEPS_NAME,
   ADD_PROFILE_STEPS,
@@ -152,7 +156,7 @@ export const profile = {
           ...toUpload.map(async (file) => await upload(file, queryParams)),
         ]);
 
-        const { otherPhotos, otherFiles } = filterUploadedContent([
+        const { otherPhotos, otherFiles, rejected } = filterUploadedContent([
           ...uploaded,
           ...otherData,
         ]); // @TODO show message for not uploaded data
@@ -175,7 +179,14 @@ export const profile = {
         }
 
         dispatch.profile.getProfile({ id, token: profile.token });
-        showSuccessToast("Профіль успішно оновлено");
+
+        if (rejected.length) {
+          showWarningToast(
+            "Щось пішло не так, можливо не всі зміни збережені!"
+          );
+        } else {
+          showSuccessToast("Профіль успішно оновлено!");
+        }
       } catch (error) {
         showErrorToast("Щось пішло не так...");
         console.error(error);

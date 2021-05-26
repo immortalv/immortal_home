@@ -66,7 +66,10 @@ export const isImage = (file) => file.mimeType.includes("image/");
 export const filterUploadedContent = (files) => {
   return files.reduce(
     (acc, file) => {
-      if (file.status && file.status !== "fulfilled") return acc;
+      if (file.status && file.status !== "fulfilled") {
+        acc.rejected.push(file.value || file);
+        return acc;
+      }
       if (isImage(file.value || file)) {
         acc.otherPhotos.push(file.value || file);
       } else {
@@ -75,7 +78,7 @@ export const filterUploadedContent = (files) => {
 
       return acc;
     },
-    { otherPhotos: [], otherFiles: [] }
+    { otherPhotos: [], otherFiles: [], rejected: [] }
   );
 };
 
