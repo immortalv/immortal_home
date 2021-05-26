@@ -25,6 +25,7 @@ export const showErrorToast = (msg) => {
 
 export const showSuccessToast = (msg) => toast.success(msg, toastConfig);
 export const showInfoToast = (msg) => toast.info(msg, toastConfig);
+export const showWarningToast = (msg) => toast.warning(msg, toastConfig);
 
 export const ToastContainer = () => (
   <Container
