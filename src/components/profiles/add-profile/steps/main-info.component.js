@@ -4,13 +4,9 @@ import {
   Button,
   ProfileDoubleDescription,
 } from "components/common";
-import clsx from "clsx";
 import { showErrorToast } from "components/toasters";
 
 import "./style.scss";
-
-const getFullName = (firstName, lastName, surName) =>
-  `${firstName || ""} ${lastName || ""} ${surName || ""}`;
 
 const AddProfileMainInfo = ({ profile = {}, onSubmit }) => {
   const [state, setState] = useState({
@@ -32,23 +28,12 @@ const AddProfileMainInfo = ({ profile = {}, onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const {
-      firstName,
-      lastName,
-      surName,
-      description,
-      descriptionAdditional,
-    } = state;
-
+    const { firstName, lastName, description } = state;
     if (!firstName) return showErrorToast("Додайте ім'я!");
     if (!lastName) return showErrorToast("Додайте прізвище!");
     if (!description) return showErrorToast("Додайте опис!");
 
-    onSubmit({
-      name: getFullName(firstName, lastName, surName),
-      description,
-      descriptionAdditional,
-    });
+    onSubmit(state);
     setState({});
   };
 
