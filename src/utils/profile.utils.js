@@ -120,3 +120,8 @@ export const getFilePreview = (file) => {
 };
 
 export const clearUserId = (id) => id.split("|")?.[1] || "";
+
+export const getFullName = (profile) =>
+  `${profile?.firstName || ""} ${profile?.lastName || ""} ${
+    profile?.surName || ""
+  }`.trim();

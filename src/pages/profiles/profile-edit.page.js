@@ -45,7 +45,7 @@ const ProfileEdit = () => {
 
   const updateProfile = async () => {
     const token = await getAccessTokenSilently();
-    await dispatch.profile.setProfile({ token });
+    await dispatch.profile.setProfile({ ...state, token });
     await dispatch.profile.updateProfileData({ id });
   };
 
