@@ -1,1 +1,1 @@
-export { default } from "./date.component";
+export { default } from "./life-date-picker.component";

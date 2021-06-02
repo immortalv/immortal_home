@@ -1,57 +1,49 @@
-import React, { useEffect, useState } from "react";
-import { FormField, Button } from "components/common";
+import React from "react";
+import { useSelector } from "react-redux";
+import { dispatch } from "store";
+import compareAsc from "date-fns/compareAsc";
+import { FormField, Button, LifeTimeDatePicker } from "components/common";
 import { showErrorToast } from "components/toasters";
-import { transfromDate } from "utils/profile.utils";
 
 import "./style.scss";
 
-const AddProfileAdditionalInfo = ({ profile = {}, onSubmit }) => {
-  const [state, setState] = useState({
-    birthDate: "",
-    deathDate: "",
-    profileType: "public",
-    epitaph: "",
-  });
+const AddProfileAdditionalInfo = ({ onSubmit }) => {
+  const { birthDate, deathDate, epitaph } = useSelector(
+    (state) => state.profile
+  );
 
-  const handleChange = (e) => {
-    setState({
-      ...state,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const setData = (label, data) =>
+    dispatch.profile.setProfile({ [label]: data });
+
+  const setBirthDate = (value) => setData("birthDate", value);
+  const setDeathDate = (value) => setData("deathDate", value);
+  const setEpitaph = ({ target }) => setData("epitaph", target.value);
 
   const handleSubmit = () => {
-    if (!state.birthDate) return showErrorToast("Додайте дату народження");
-    if (!state.deathDate) return showErrorToast("Додайте дату смерті");
+    if (!birthDate) return showErrorToast("Додайте дату народження");
+    if (!deathDate) return showErrorToast("Додайте дату смерті");
 
-    onSubmit(state, true);
-    setState({});
+    const isRightOrder = compareAsc(birthDate, deathDate);
+    if (isRightOrder === 1) {
+      return showErrorToast(
+        "Дата народження повина бути швидше за дату смерті"
+      );
+    }
+
+    onSubmit();
   };
-
-  useEffect(() => {
-    setState(profile);
-  }, []);
 
   return (
     <>
       <h1 className="title add-profile__title">Вкажіть інформацію</h1>
       <div className="add-profile__content">
         <div className="add-profile__additional-info">
-          <FormField
-            className="add-profile__date"
-            type="date"
-            name="birthDate"
-            label="Дата народження"
-            onChange={handleChange}
-            value={transfromDate(state.birthDate, true)}
-          />
-          <FormField
-            className="add-profile__date"
-            type="date"
-            name="deathDate"
-            label="Дата смерті"
-            onChange={handleChange}
-            value={transfromDate(state.deathDate, true)}
+          <LifeTimeDatePicker
+            className="add-profile__additional-info__date"
+            birthValue={birthDate}
+            deathValue={deathDate}
+            setBirthDate={setBirthDate}
+            setDeathDate={setDeathDate}
           />
 
           {/* <div className="profile-type__container">
@@ -85,8 +77,8 @@ const AddProfileAdditionalInfo = ({ profile = {}, onSubmit }) => {
             type="textarea"
             tag="textarea"
             name="epitaph"
-            onChange={handleChange}
-            value={state.epitaph}
+            onChange={setEpitaph}
+            value={epitaph}
           />
         </div>
       </div>
@@ -94,7 +86,7 @@ const AddProfileAdditionalInfo = ({ profile = {}, onSubmit }) => {
       <Button
         onClick={handleSubmit}
         type="secondary"
-        className="add-profile__btn"
+        className="add-profile__btn add-profile__additional-info__btn"
       >
         Згенерувати Сторінку
       </Button>
