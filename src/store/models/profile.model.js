@@ -95,8 +95,8 @@ export const profile = {
           name: getFullName(profile),
           description: profile.description,
           descriptionAdditional: profile.descriptionAdditional,
-          birthDate: format(profile.birthDate),
-          deathDate: format(profile.deathDate),
+          birthDate: profile.birthDate,
+          deathDate: profile.deathDate,
           profileType: profile.profileType, // public/privat
           epitaph: profile.epitaph,
           template: profile.template,

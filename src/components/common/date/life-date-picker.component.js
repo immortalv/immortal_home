@@ -22,8 +22,6 @@ const LifeTimeDatePicker = ({
     setBirthDate(value);
   };
 
-  console.log("birthValue", birthValue, typeof birthValue);
-
   return (
     <div className={clsx("life-date__container", className)}>
       <LocalizationProvider dateAdapter={AdapterDateFns} locale={ukLocale}>

@@ -19,7 +19,7 @@ export const filterFalsy = (obj, options = {}) => {
       return acc;
     }
 
-    if (!opt.acceptEmpty && !obj[key].length) {
+    if (Array.isArray(obj[key]) && !opt.acceptEmpty && !obj[key].length) {
       return acc;
     }
 
