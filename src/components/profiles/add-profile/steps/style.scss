@@ -14,8 +14,9 @@
     min-width: 300px;
     max-width: 312px;
     transition: transform 0.2s ease;
-    margin: 10px 20px 30px;
+    margin: 30px;
     object-fit: contain;
+    border: 1px solid #212121;
 
     @include no-edge-margins();
 

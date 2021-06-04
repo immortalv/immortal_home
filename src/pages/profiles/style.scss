@@ -177,10 +177,6 @@
   .select-profile {
     padding: 15px 0 20px;
 
-    .select-profile__item {
-      margin: 15px;
-    }
-
     @include for-phablet {
       .select-profile__item {
         min-width: 250px;
