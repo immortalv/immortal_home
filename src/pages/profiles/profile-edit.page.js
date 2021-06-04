@@ -3,12 +3,13 @@ import { useHistory, useParams } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector } from "react-redux";
 import { dispatch } from "store";
-import { transfromDate, getFilePreview } from "utils/profile.utils";
+import { getFilePreview } from "utils/profile.utils";
 import {
   NameFormGroup,
   ProfileDoubleDescription,
   FormField,
   Button,
+  LifeTimeDatePicker,
 } from "components/common";
 import {
   AddOtherImages,
@@ -49,9 +50,12 @@ const ProfileEdit = () => {
     await dispatch.profile.updateProfileData({ id });
   };
 
+  const setBirthDate = (value) => setData("birthDate", value);
+  const setDeathDate = (value) => setData("deathDate", value);
   const setMainPhoto = (file) => setData("mainPhoto", file);
   const setOtherPhotos = (files) => setData("otherPhotos", files);
   const setOtherFiles = (files) => setData("otherFiles", files);
+
   const goToCabinet = () => history.push(routesConstants.CABINET);
 
   useGetProfile(id);
@@ -97,24 +101,13 @@ const ProfileEdit = () => {
           value={state.epitaph}
         />
 
-        <div>
-          <FormField
-            className="profile-edit__date"
-            type="date"
-            name="birthDate"
-            label="Дата народження"
-            onChange={handleChange}
-            value={transfromDate(state.birthDate, true)}
-          />
-          <FormField
-            className="profile-edit__date"
-            type="date"
-            name="deathDate"
-            label="Дата смерті"
-            onChange={handleChange}
-            value={transfromDate(state.deathDate, true)}
-          />
-        </div>
+        <LifeTimeDatePicker
+          className="profile-edit__date"
+          birthValue={profile.birthDate}
+          deathValue={profile.deathDate}
+          setBirthDate={setBirthDate}
+          setDeathDate={setDeathDate}
+        />
       </div>
 
       <AddOtherImages

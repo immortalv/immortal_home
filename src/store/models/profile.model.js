@@ -1,3 +1,4 @@
+import format from "date-fns/format";
 import routesConstants from "constants/routes.constants";
 import {
   createProfile,
@@ -33,8 +34,8 @@ const initialState = {
   description: "",
   descriptionAdditional: "",
 
-  birthDate: "",
-  deathDate: "",
+  birthDate: null,
+  deathDate: null,
   profileType: "", // public/privat
   epitaph: "",
 
