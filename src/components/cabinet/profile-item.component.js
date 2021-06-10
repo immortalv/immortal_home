@@ -82,12 +82,13 @@ const ProfileItem = ({ profile }) => {
     sendEmail(["immortall.lv.mail@gmail.com"], null, messageHtml);
   };
 
+
   return (
     <>
       <div className="profile-item">
         <img
           onClick={goToProfilePage}
-          src={getProfileDataFromBucket(profile.mainPhoto.key)}
+          src={getProfileDataFromBucket(profile.mainPhoto?.key)}
           className="profile-item__img"
           alt="profile picture"
         />
