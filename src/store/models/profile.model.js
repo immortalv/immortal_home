@@ -1,3 +1,4 @@
+import format from "date-fns/format";
 import routesConstants from "constants/routes.constants";
 import {
   createProfile,
@@ -13,12 +14,18 @@ import {
   getPreviousStep,
   filterUploadedContent,
   getUpdatedFiles,
+  getFullName,
 } from "utils/profile.utils";
-import { showErrorToast, showSuccessToast } from "components/toasters";
+import {
+  showErrorToast,
+  showSuccessToast,
+  showWarningToast,
+} from "components/toasters";
 import {
   ADD_PROFILE_STEPS_NAME,
   ADD_PROFILE_STEPS,
 } from "constants/profile.constants";
+import { filterFalsy } from "utils/object.utils";
 
 const initialState = {
   currenStep: ADD_PROFILE_STEPS_NAME.TEMPLATE,
@@ -27,12 +34,12 @@ const initialState = {
   description: "",
   descriptionAdditional: "",
 
-  birthDate: "",
-  deathDate: "",
+  birthDate: null,
+  deathDate: null,
   profileType: "", // public/privat
   epitaph: "",
 
-  mainPhoto: [],
+  mainPhoto: {},
   otherPhotos: [],
   otherFiles: [],
 
@@ -56,20 +63,9 @@ export const profile = {
     },
   },
 
-
   effects: (dispatch) => ({
     async setProfileEffect(payload, state) {
       const nextStep = getNextStep(ADD_PROFILE_STEPS, state.profile.currenStep);
-
-      if (nextStep === ADD_PROFILE_STEPS_NAME.PROFILE_CREATED) {
-        dispatch.profile.setProfile({ ...payload });
-        const id = await dispatch.profile.saveProfile();
-        if (id) {
-          dispatch.profile.setProfile({ ...payload, id, currenStep: nextStep });
-        }
-        return;
-      }
-
       dispatch.profile.setProfile({ ...payload, currenStep: nextStep });
     },
 
@@ -78,7 +74,6 @@ export const profile = {
         ADD_PROFILE_STEPS,
         state.profile.currenStep
       );
-
 
       if (shouldRedirect) {
         dispatch.profile.clearState();
@@ -97,7 +92,7 @@ export const profile = {
         //@TODO Check whether all data is present
 
         const profileData = {
-          name: profile.name,
+          name: getFullName(profile),
           description: profile.description,
           descriptionAdditional: profile.descriptionAdditional,
           birthDate: profile.birthDate,
@@ -130,7 +125,7 @@ export const profile = {
 
         await updateProfile(id, updatedProfile, profile.token);
 
-        return id;
+        dispatch.profile.setProfile({ id });
       } catch (error) {
         showErrorToast("Щось пішло не так...");
         console.error(error);
@@ -146,12 +141,14 @@ export const profile = {
           profile,
           user: { userId },
         } = state;
-        let mainPhoto = profile.mainPhoto;
+        const updatedProfile = filterFalsy(profile, { acceptEmpty: false });
+        updatedProfile.name = getFullName(profile);
         const queryParams = `userId=${clearUserId(userId)}&profileId=${id}`;
 
         // if new image setted, upload it
-        if (mainPhoto[0]?.preview) {
-          mainPhoto = await upload(profile.mainPhoto[0], queryParams);
+        if (profile.mainPhoto[0]?.preview) {
+          const mainPhoto = await upload(profile.mainPhoto[0], queryParams);
+          updatedProfile.mainPhoto = mainPhoto;
         }
 
         // @TODO Check for deleted file
@@ -164,17 +161,13 @@ export const profile = {
           ...toUpload.map(async (file) => await upload(file, queryParams)),
         ]);
 
-        const { otherPhotos, otherFiles } = filterUploadedContent([
+        const { otherPhotos, otherFiles, rejected } = filterUploadedContent([
           ...uploaded,
           ...otherData,
         ]); // @TODO show message for not uploaded data
 
-        const updatedProfile = {
-          ...profile,
-          mainPhoto,
-          otherPhotos,
-          otherFiles,
-        };
+        if (otherPhotos.length) updatedProfile.otherPhotos = otherPhotos;
+        if (otherFiles.length) updatedProfile.otherFiles = otherFiles;
 
         const { filesToDelete } = await updateProfile(
           id,
@@ -187,7 +180,14 @@ export const profile = {
         }
 
         dispatch.profile.getProfile({ id, token: profile.token });
-        showSuccessToast("Профіль успішно оновлено");
+
+        if (rejected.length) {
+          showWarningToast(
+            "Щось пішло не так, можливо не всі зміни збережені!"
+          );
+        } else {
+          showSuccessToast("Профіль успішно оновлено!");
+        }
       } catch (error) {
         showErrorToast("Щось пішло не так...");
         console.error(error);

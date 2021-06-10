@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { renderEmail, Email, Item, Image } from "react-html-email";
 import { useHistory } from "react-router";
 import QRCodeStyling from "qr-code-styling";
-import { Button, Checkbox } from "components/common";
+import { Button } from "components/common";
 import { getProfileDataFromBucket } from "utils/image.utils";
 import { getQRProfileUrl } from "utils/profile.utils";
 import { sendEmail } from "services/api/email.service";
@@ -10,6 +10,7 @@ import { PROFILE } from "constants/routes.constants";
 import { QRCodeSettings } from "constants/profile.constants";
 
 import QRCodeModal from "./qrcode-modal.component";
+import ProfileDefaultImage from "assets/profile-default.jpg";
 
 import "./style.scss";
 
@@ -24,11 +25,9 @@ const ProfileItem = ({ profile }) => {
   const qrCodeRef = useRef(null);
   const modalQRCodeRef = useRef(null);
   const history = useHistory();
-  const { name, description, profileType } = profile;
-  const [isPublic, setIsPublic] = useState(true);
+  const { name, description } = profile;
   const [isModalOpen, setIsOpen] = useState(false);
 
-  const handleChange = () => setIsPublic(!isPublic);
   const goToProfilePage = () => history.push(`${PROFILE}/${profile.id}`);
   const goToEditPage = () => history.push(`${PROFILE}/${profile.id}/edit`);
 
@@ -88,7 +87,11 @@ const ProfileItem = ({ profile }) => {
       <div className="profile-item">
         <img
           onClick={goToProfilePage}
-          src={getProfileDataFromBucket(profile.mainPhoto?.key)}
+          src={
+            profile?.mainPhoto?.key
+              ? getProfileDataFromBucket(profile?.mainPhoto?.key)
+              : ProfileDefaultImage
+          }
           className="profile-item__img"
           alt="profile picture"
         />

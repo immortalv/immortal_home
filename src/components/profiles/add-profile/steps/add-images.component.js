@@ -36,7 +36,7 @@ const AddImages = ({ onSubmit }) => {
         <AddMedia
           addFiles={setOtherFiles}
           files={otherFiles}
-          title="Додайте інші файли"
+          title="Додайте відео"
         />
       </div>
 

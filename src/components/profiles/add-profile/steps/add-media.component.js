@@ -30,6 +30,7 @@ const AddMedia = ({ className, title, label, files, addFiles }) => {
 
       <div className="add-file-block add-file-media">
         <AddFileDropzone
+          accept="video/*"
           onDrop={onOtherMediaDrop}
           className="add-file__other-files"
         />

@@ -1,10 +1,10 @@
 import React from "react";
 
-import Video from 'components/video';
+import Video from "components/video";
 import Image from "components/common/image";
-
-import { getProfileImg, getProfileDataFromBucket } from "utils/image.utils";
+import { getProfileDataFromBucket } from "utils/image.utils";
 import { transfromDate } from "utils/profile.utils";
+import ProfileDefaultImage from "assets/profile-default.jpg";
 
 import "./style.scss";
 
@@ -26,7 +26,11 @@ const ProfileBook = ({ profileData }) => {
         <div className="profile-book__page profile-book__page--dark profile-book__page-main">
           <h1 className="title profile__name profile-book__name">{name}</h1>
           <img
-            src={getProfileDataFromBucket(mainPhoto.key)}
+            src={
+              mainPhoto?.key
+                ? getProfileDataFromBucket(mainPhoto?.key)
+                : ProfileDefaultImage
+            }
             alt="Main profile photo"
             className="profile-book__avatar-img"
           />
@@ -68,7 +72,11 @@ const ProfileBook = ({ profileData }) => {
 
           <div className="video-data__container--book">
             {otherFiles.map((file) => (
-              <Video url={file} key={file} className={'video-img__wrapper--book'} />
+              <Video
+                url={file}
+                key={file}
+                className={"video-img__wrapper--book"}
+              />
             ))}
           </div>
         </div>

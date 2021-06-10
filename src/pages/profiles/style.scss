@@ -95,6 +95,11 @@
   .add-file__container,
   .image-row-list__img {
     border-radius: 6px;
+
+    // @include for-phablet {
+    //   width: 150px;
+    //   height: 150px;
+    // }
   }
 
   &__row {
@@ -116,6 +121,12 @@
   }
 
   &__date {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    padding-top: 50px;
+    margin-left: 10px;
+
     width: 280px;
     max-width: 100%;
 
@@ -129,6 +140,14 @@
       @include for-phone-only {
         margin-top: 10px;
         margin-bottom: 10px;
+      }
+    }
+
+    .life-date__item {
+      label {
+        color: red;
+        font-family: "Exo 2";
+        color: #000;
       }
     }
   }

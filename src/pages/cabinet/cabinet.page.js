@@ -3,15 +3,13 @@ import clsx from "clsx";
 import { useSelector } from "react-redux";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
+import { dispatch } from "store";
 import routesConstants from "constants/routes.constants";
 import Spinner from "components/spinner/spinner.component";
 import { Button } from "components/common";
 import ProfileItem from "components/cabinet";
 
-import coverImg from "./cover.jpg";
-
 import "./style.scss";
-import { dispatch } from "store";
 
 const CabinetPage = () => {
   const { user, getAccessTokenSilently } = useAuth0();
@@ -24,6 +22,7 @@ const CabinetPage = () => {
     async function getUserProfiles() {
       const token = await getAccessTokenSilently();
       await dispatch.profiles.getProfiles(token);
+      dispatch.profile.clearState();
     }
 
     getUserProfiles();
