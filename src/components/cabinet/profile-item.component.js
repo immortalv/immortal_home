@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { renderEmail, Email, Item, Image } from "react-html-email";
 import { useHistory } from "react-router";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 import QRCodeStyling from "qr-code-styling";
 import { Button } from "components/common";
 import { getProfileDataFromBucket } from "utils/image.utils";
@@ -28,8 +30,11 @@ const ProfileItem = ({ profile }) => {
   const { name, description } = profile;
   const [isModalOpen, setIsOpen] = useState(false);
 
+  const isPhoneOnly = useMediaQuery('(min-width:480px)');
+
   const goToProfilePage = () => history.push(`${PROFILE}/${profile.id}`);
   const goToEditPage = () => history.push(`${PROFILE}/${profile.id}/edit`);
+
 
   useEffect(() => {
     const qrCode = new QRCodeStyling({
@@ -38,6 +43,11 @@ const ProfileItem = ({ profile }) => {
     });
 
     qrCode.append(qrCodeRef.current);
+
+    return () => {
+      qrCode.current = 0
+    }
+
   }, []);
 
   const afterOpenModal = () => {
@@ -50,6 +60,7 @@ const ProfileItem = ({ profile }) => {
 
     qrCode.append(modalQRCodeRef.current);
   };
+
 
   const downloadQrCode = () => {
     const qrCode = new QRCodeStyling({
@@ -99,6 +110,7 @@ const ProfileItem = ({ profile }) => {
           <h4 className="profile-item__name">{name}</h4>
           <p className="profile-item__description">{description}</p>
 
+
           {/* <div className="profile-item__type-container">
             <span className="profile-item__type">{profileType}</span>
             <Checkbox checked={isPublic} onChange={handleChange} />
@@ -113,12 +125,13 @@ const ProfileItem = ({ profile }) => {
           </Button>
         </div>
         <div className="qr-code__container">
-          <div
-            className="qr-code"
-            ref={qrCodeRef}
-            onClick={() => setIsOpen(true)}
-          ></div>
-          <span className="qr-code__label">QR код</span>
+          <button className='qr-code__button' onClick={() => setIsOpen(true)}>
+            {!isPhoneOnly && 'QR код'}
+            <div
+              className="qr-code"
+              ref={qrCodeRef}
+            />
+          </button>
         </div>
       </div>
       {isModalOpen && (

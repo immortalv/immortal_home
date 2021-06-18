@@ -1,6 +1,7 @@
 import React, { useRef, forwardRef } from "react";
 import Modal from "react-modal";
 import { CrossIcon, EmailIcon, CopyIcon } from "icons";
+import GetAppIcon from '@material-ui/icons/GetApp';
 import { getProfileQrCodeImage } from "utils/profile.utils";
 import { uploadFile } from "services/api/profile.service";
 
@@ -41,7 +42,6 @@ const QRCodeModal = forwardRef(
             ref={downloadQRCodeRef}
           />
           <div className="qr-code-modal__qr-code" ref={ref}></div>
-          <h2 className="header-s-1 qr-code-modal__title">QR код</h2>
 
           <button className="qr-code-modal__close" onClick={closeModal}>
             <CrossIcon className="qr-code-modal__close-icon" />
@@ -55,7 +55,7 @@ const QRCodeModal = forwardRef(
               </span>
             </button> */}
             <button className="qr-code-modal__action" onClick={download}>
-              <CopyIcon className="qr-code-modal__action-icon" />
+              <GetAppIcon fontSize="large" className="qr-code-modal__action-icon" />
               <span className="qr-code-modal__action-text">Завантажити</span>
             </button>
           </div>
