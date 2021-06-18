@@ -45,7 +45,7 @@ export const transfromDate = (date, dateInput = false) => {
   return `${day}.${month}.${year}`;
 };
 
-export const getQRProfileUrl = (id) => `${IMMORTAL_URL}/${PROFILE}}/${id}`;
+export const getQRProfileUrl = (id) => `${IMMORTAL_URL}${PROFILE}/${id}`;
 
 export const getProfileQrCodeImage = (data) => {
   const {
@@ -125,3 +125,16 @@ export const getFullName = (profile) =>
   `${profile?.firstName || ""} ${profile?.lastName || ""} ${
     profile?.surName || ""
   }`.trim();
+
+export const validateProfileSearchValue = (str) => {
+  let validate = str;
+  if (!validate.trim().length) validate = "";
+  // avoid two spaces
+  if (validate.includes("  ")) validate = validate.replace(/\s\s+/g, " ");
+  // avoid special symbols
+  validate = validate.replace(/[^\w\s]/gi, "");
+  // symbols limitation
+  if (validate.length > 50) validate = validate.substring(0, 50);
+
+  return validate;
+};

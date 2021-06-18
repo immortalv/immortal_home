@@ -26,6 +26,7 @@
   &__account {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     width: 80vw;
     margin: auto;
     padding-top: 20vh;
@@ -64,6 +65,12 @@
     }
   }
 
+  &__btn-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+  }
+
   &__btn {
     padding: 10px 50px;
     width: 344px;
@@ -79,5 +86,36 @@
     @include for-phablet {
       width: 90vw;
     }
+  }
+
+  &__delete-modal {
+    text-align: center;
+  }
+
+  &__delete__title {
+    font-size: 24px;
+    font-weight: normal;
+    margin: 0 5px;
+  }
+
+  &__delete__confirmation {
+    font-size: 24px;
+    line-height: 150%;
+    margin: 0 15px 0 5;
+  }
+
+  
+  &__delete__btn-container {
+    display: flex;
+    justify-content: center;
+    column-gap: 30px;
+    margin-top: 25px;
+  }
+
+  &__delete__btn {
+    padding: 5px;
+    width: 150px;
+    height: 40px;
+    border-radius: 6px;
   }
 }

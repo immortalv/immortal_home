@@ -27,6 +27,7 @@
     @include for-phone-only {
       max-height: 40vh;
       margin: 10px 0;
+      border: none;
     }
 
     &--active {

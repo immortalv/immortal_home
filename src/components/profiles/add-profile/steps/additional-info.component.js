@@ -25,9 +25,7 @@ const AddProfileAdditionalInfo = ({ onSubmit }) => {
 
     const isRightOrder = compareAsc(birthDate, deathDate);
     if (isRightOrder === 1) {
-      return showErrorToast(
-        "Дата народження повина бути швидше за дату смерті"
-      );
+      return showErrorToast("Некоректна дата");
     }
 
     onSubmit();
