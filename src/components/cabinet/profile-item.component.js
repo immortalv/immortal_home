@@ -30,8 +30,6 @@ const ProfileItem = ({ profile }) => {
   const { name, description } = profile;
   const [isModalOpen, setIsOpen] = useState(false);
 
-  const isPhoneOnly = useMediaQuery('(max-width:480px)');
-
   const goToProfilePage = () => history.push(`${PROFILE}/${profile.id}`);
   const goToEditPage = () => history.push(`${PROFILE}/${profile.id}/edit`);
 
@@ -126,7 +124,7 @@ const ProfileItem = ({ profile }) => {
         </div>
         <div className="qr-code__container">
           <button className='qr-code__button' onClick={() => setIsOpen(true)}>
-            {isPhoneOnly && 'QR код'}
+            <span className='qr-code__title'>QR код</span>
             <div
               className="qr-code"
               ref={qrCodeRef}
