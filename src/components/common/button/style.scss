@@ -28,9 +28,14 @@
     background-color: $theme-c-black;
     color: $theme-c-white;
 
+    &:focus,
     &:hover,
     &:active {
       background-color: #2c3232;
     }
+  }
+
+  &--outline {
+    border: 1px solid $theme-c-black;
   }
 }
