@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import { useSelector } from "react-redux";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
@@ -8,10 +8,12 @@ import routesConstants from "constants/routes.constants";
 import Spinner from "components/spinner/spinner.component";
 import { Button } from "components/common";
 import ProfileItem from "components/cabinet";
+import DeleteAccountModal from "./delete-account-modal.component";
 
 import "./style.scss";
 
 const CabinetPage = () => {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { user, getAccessTokenSilently } = useAuth0();
   const {
     loading: { global: loading },
@@ -28,10 +30,16 @@ const CabinetPage = () => {
     getUserProfiles();
   }, []);
 
+  const openDeleteModal = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => setIsDeleteModalOpen(false);
+
   if (loading && !profiles?.length)
     return <Spinner text="Завантажуємо профілі..." />;
 
-  // if (!profiles?.length) return <h1>У вас ще не має профілів</h1>;
+  if (!profiles?.length) return <h1>У вас ще не має профілів</h1>;
 
   return (
     <main className="cabinet">
@@ -41,11 +49,20 @@ const CabinetPage = () => {
             <ProfileAccountIcon className="cabinet__account-img" />
           </div> */}
         <h1 className="cabinet__account-name title">{user.name}</h1>
-        <Link className="cabinet__link" to={routesConstants.ADD_PROFILE}>
-          <Button type="secondary" className="cabinet__btn">
-            Додати профіль
+        <div className="cabinet__btn-container">
+          <Link className="cabinet__link" to={routesConstants.ADD_PROFILE}>
+            <Button type="secondary" className="cabinet__btn">
+              Додати профіль
+            </Button>
+          </Link>
+          <Button
+            className="cabinet__btn"
+            type="outline"
+            onClick={openDeleteModal}
+          >
+            Видалити профіль
           </Button>
-        </Link>
+        </div>
       </div>
       <div
         className={clsx(
@@ -63,6 +80,7 @@ const CabinetPage = () => {
           )}
         </div>
       </div>
+      <DeleteAccountModal isOpen={isDeleteModalOpen} close={closeDeleteModal} profiles={profiles} />
     </main>
   );
 };

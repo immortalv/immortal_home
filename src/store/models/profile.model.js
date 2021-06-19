@@ -1,4 +1,3 @@
-import format from "date-fns/format";
 import routesConstants from "constants/routes.constants";
 import {
   createProfile,
@@ -6,6 +5,7 @@ import {
   getProfile,
   updateProfile,
   removeFiles,
+  deleteProfile,
 } from "services/api/profile.service";
 import { profileDataMock } from "constants/profile-data.mock";
 import {
@@ -36,7 +36,6 @@ const initialState = {
 
   birthDate: null,
   deathDate: null,
-  profileType: "", // public/privat
   epitaph: "",
 
   mainPhoto: {},
@@ -203,6 +202,15 @@ export const profile = {
         dispatch.profile.setProfile(profile);
       } catch (error) {
         dispatch.profile.setProfile(profileDataMock);
+      }
+    },
+
+    async removeProfile({ id, token }) {
+      try {
+        await deleteProfile(id, token);
+      } catch (err) {
+        console.log("Error", err);
+        showErrorToast("Щось пішло не так...");
       }
     },
   }),

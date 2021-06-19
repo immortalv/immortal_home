@@ -50,7 +50,13 @@ const securePatch = (url, data, token, params) =>
     },
     ...params,
   });
-const secureDel = (url, params) => client.delete(url, params);
+  const secureDel = (url, token, params) =>
+  client.delete(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    ...params,
+  });
 
 export default {
   get,
