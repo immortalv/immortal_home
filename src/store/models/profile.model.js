@@ -216,6 +216,7 @@ export const profile = {
   }),
 };
 
+
 async function upload(file, queryParams) {
   const formData = new FormData();
   formData.append("files", file);

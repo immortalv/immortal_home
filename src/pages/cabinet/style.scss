@@ -32,24 +32,21 @@
     padding-top: 20vh;
     padding-bottom: 20vh;
 
-    @include for-desktop-up {
-      width: 75vw;
-      max-width: 1080px;
-    }
 
     @include for-tablet-landscape-up {
-      padding-bottom: 10vw;
+      width: 100vw;
+      padding-left: 25px;
+      padding-right: 25px;
     }
 
     @include for-phablet {
-      width: 100vw;
-      padding: 120px 50px 80px;
+      flex-direction: column;
     }
 
     @include for-phone-only {
-      flex-direction: column;
-      align-items: flex-start;
+      padding-bottom: 10vh;
     }
+
   }
 
   &__account-name {
@@ -58,10 +55,9 @@
 
   &__link {
     height: fit-content;
-    margin-left: auto;
 
-    @include for-phone-only {
-      margin: 25px 0 0;
+    @include for-phablet {
+      margin: 10px 0;
     }
   }
 
@@ -83,9 +79,9 @@
     flex-direction: column;
     align-items: baseline;
 
-    @include for-phablet {
-      width: 90vw;
-    }
+    // @include for-phablet {
+    //   width: 90vw;
+    // }
   }
 
   &__delete-modal {
