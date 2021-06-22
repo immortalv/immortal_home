@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { renderEmail, Email, Item, Image } from "react-html-email";
 import { useHistory } from "react-router";
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import QRCodeStyling from "qr-code-styling";
 import { Button } from "components/common";
