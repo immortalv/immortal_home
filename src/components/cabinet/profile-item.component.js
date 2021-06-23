@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
-import { renderEmail, Email, Item, Image } from "react-html-email";
+// import { renderEmail, Email, Item, Image } from "react-html-email";
 import { useHistory } from "react-router";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import QRCodeStyling from "qr-code-styling";
 import { Button } from "components/common";
 import { getProfileDataFromBucket } from "utils/image.utils";
 import { getQRProfileUrl } from "utils/profile.utils";
-import { sendEmail } from "services/api/email.service";
+// import { sendEmail } from "services/api/email.service";
 import { PROFILE } from "constants/routes.constants";
 import { QRCodeSettings } from "constants/profile.constants";
 
@@ -14,12 +15,12 @@ import ProfileDefaultImage from "assets/profile-default.jpg";
 
 import "./style.scss";
 
-const MyEmail = ({ name, imageSrc }) => (
-  <Email title="link">
-    <Item>Hello {name}</Item>
-    <Image alt="Qr Code Image" width="300" height="300" src={imageSrc} />
-  </Email>
-);
+// const MyEmail = ({ name, imageSrc }) => (
+//   <Email title="link">
+//     <Item>Hello {name}</Item>
+//     <Image alt="Qr Code Image" width="300" height="300" src={imageSrc} />
+//   </Email>
+// );
 
 const ProfileItem = ({ profile }) => {
   const qrCodeRef = useRef(null);
@@ -27,6 +28,7 @@ const ProfileItem = ({ profile }) => {
   const history = useHistory();
   const { name, description } = profile;
   const [isModalOpen, setIsOpen] = useState(false);
+  const isPhablet = useMediaQuery("(max-width: 767px)");
 
   const goToProfilePage = () => history.push(`${PROFILE}/${profile.id}`);
   const goToEditPage = () => history.push(`${PROFILE}/${profile.id}/edit`);
@@ -38,13 +40,30 @@ const ProfileItem = ({ profile }) => {
     });
 
     qrCode.append(qrCodeRef.current);
+
+    return () => {
+      qrCode.current = null;
+    };
   }, []);
+
+  useEffect(() => {
+    const canvas = qrCodeRef?.current?.firstChild;
+    if (!canvas) return;
+    if (isPhablet) {
+      canvas.style.width = "150px";
+      canvas.style.height = "150px";
+    } else {
+      canvas.style.width = "200px";
+      canvas.style.height = "200px";
+    }
+    console.log("isPhablet", isPhablet);
+  }, [isPhablet]);
 
   const afterOpenModal = () => {
     const qrCode = new QRCodeStyling({
       ...QRCodeSettings,
-      width: 150,
-      height: 150,
+      width: 250,
+      height: 250,
       data: getQRProfileUrl(profile.id),
     });
 
@@ -62,24 +81,24 @@ const ProfileItem = ({ profile }) => {
     qrCode.download({ name: "immortal" });
   };
 
-  const sendEm = () => {
-    const {
-      _canvas: { _canvas },
-    } = new QRCodeStyling({
-      ...QRCodeSettings,
-      width: 300,
-      height: 300,
-      data: getQRProfileUrl(profile.id),
-    });
+  // const sendEm = () => {
+  //   const {
+  //     _canvas: { _canvas },
+  //   } = new QRCodeStyling({
+  //     ...QRCodeSettings,
+  //     width: 300,
+  //     height: 300,
+  //     data: getQRProfileUrl(profile.id),
+  //   });
 
-    const dataUrl = _canvas.toDataURL();
-    const messageHtml = renderEmail(
-      <MyEmail name={"Name!!!!!!!!"} imageSrc={dataUrl} />
-    );
+  //   const dataUrl = _canvas.toDataURL();
+  //   const messageHtml = renderEmail(
+  //     <MyEmail name={"Name!!!!!!!!"} imageSrc={dataUrl} />
+  //   );
 
-    console.log("htmlBody", messageHtml);
-    sendEmail(["immortall.lv.mail@gmail.com"], null, messageHtml);
-  };
+  //   console.log("htmlBody", messageHtml);
+  //   sendEmail(["immortall.lv.mail@gmail.com"], null, messageHtml);
+  // };
 
   return (
     <>
@@ -112,19 +131,17 @@ const ProfileItem = ({ profile }) => {
           </Button>
         </div>
         <div className="qr-code__container">
-          <div
-            className="qr-code"
-            ref={qrCodeRef}
-            onClick={() => setIsOpen(true)}
-          ></div>
-          <span className="qr-code__label">QR код</span>
+          <button className="qr-code__button" onClick={() => setIsOpen(true)}>
+            <span className="qr-code__title">QR код</span>
+            <div className="qr-code" ref={qrCodeRef} />
+          </button>
         </div>
       </div>
       {isModalOpen && (
         <QRCodeModal
           ref={modalQRCodeRef}
           download={downloadQrCode}
-          sendEmail={sendEm}
+          // sendEmail={sendEm}
           qrCodeData={getQRProfileUrl(profile.id)}
           isOpen={isModalOpen}
           setIsOpen={setIsOpen}

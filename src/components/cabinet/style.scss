@@ -7,37 +7,67 @@
   margin: 0 20px 50px;
   width: -webkit-fill-available;
 
+  @include for-phablet {
+    align-items: center;
+    margin: 0 10px 50px;
+  }
+
+  @include for-phone-only {
+    display: grid;
+    gap: 10px;
+    grid-template-areas:
+      "img info"
+      "qrCode  info";
+    max-width: 90vw;
+  }
+
   &__img {
+    grid-area: img;
     width: 280px;
     height: auto;
     max-width: 25vw;
-    min-width: 200px;
     max-height: 300px;
-    object-fit: contain;
+    object-fit: cover;
     cursor: pointer;
 
+    min-width: 150px;
+    min-height: 150px;
+
     @include for-phablet {
-      display: none;
+      // display: none;
     }
   }
 
   &__info {
+    grid-area: info;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin: 0 55px 0 20px;
     width: min-content;
 
-    @include for-tablet-landscape-up {
-      margin: 0 30px 0 10px;
+    @include for-phablet {
+      margin: 0 15px 0 10px;
+    }
+
+    @include for-phone-only {
+      margin: 0 15px 0 10px;
+      width: 100%;
+      height: 100%;
     }
   }
 
   &__name {
+    text-transform: capitalize;
     font-weight: bold;
     font-size: 24px;
     margin: 15px 0;
     font-family: $theme-f-playfair;
+
+    @include for-phablet {
+      font-size: 20px;
+      margin: 10px 0;
+    }
   }
 
   &__description {
@@ -51,6 +81,10 @@
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+
+    @include for-phablet {
+      margin: 10px 0;
+    }
   }
 
   &__type-container {
@@ -69,6 +103,10 @@
     padding: 10px 50px;
     width: 280px;
     max-width: 30vw;
+
+    @include for-phablet {
+      padding: 10px 30px;
+    }
   }
 }
 
@@ -76,10 +114,34 @@
   cursor: pointer;
   margin: auto;
 
+  @include for-phone-only {
+    display: none;
+  }
+
   &__container {
     display: flex;
     align-items: center;
-    flex-direction: column;
+    grid-area: qrCode;
+  }
+
+  &__button {
+    border: none;
+    font-size: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+
+    @include for-phone-only {
+      background-color: $theme-c-black;
+      color: $theme-c-white;
+      font-size: 100%;
+      padding: 10px 50px;
+      width: 280px;
+      max-width: 30vw;
+      white-space: nowrap;
+      font-weight: bold;
+      min-width: fit-content;
+    }
   }
 
   &__label {
@@ -107,7 +169,6 @@
   padding: 40px 60px 20px;
 
   &__qr-code {
-
   }
 
   &__title {
@@ -141,6 +202,7 @@
     align-items: center;
     flex: 1;
     margin: 0 15px;
+    padding-top: 15px;
     border: none;
     background: transparent;
     cursor: pointer;
