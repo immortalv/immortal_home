@@ -14,6 +14,12 @@ import "./style.scss";
 const Header = () => {
   const location = useLocation();
 
+  const handleLinkClick = (e, route) => {
+    if (location.pathname === route.path) {
+      e.preventDefault();
+    }
+  };
+
   return (
     <header className="header">
       <Link to={routesConstants.HOME}>
@@ -29,6 +35,7 @@ const Header = () => {
               <Link
                 key={route.path}
                 to={route.path}
+                onClick={(e) => handleLinkClick(e, route)}
                 className={clsx(
                   "header__link",
                   location.pathname === route.path && "header__link--active"
