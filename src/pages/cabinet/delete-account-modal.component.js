@@ -26,7 +26,7 @@ const style = {
   p: 4,
 };
 
-const DeleteAccountModal = ({ isOpen, close, profiles }) => {
+const DeleteAccountModal = ({ isOpen, onClose, profiles }) => {
   const { getAccessTokenSilently } = useAuth0();
   const [checked, setChecked] = useState([]);
 
@@ -45,18 +45,21 @@ const DeleteAccountModal = ({ isOpen, close, profiles }) => {
 
   const deleteAccounts = async () => {
     const token = await getAccessTokenSilently();
+    if (!checked.length) return onClose();
+
+    const filteredProfiles = profiles.filter(({ id }) => !checked.includes(id));
     checked.forEach(async (id) => {
       await dispatch.profile.removeProfile({ id, token });
     });
+    setChecked([]);
     showSuccessToast("Профіль успішно видалено");
-    await dispatch.profiles.getProfiles(token);
-    close();
+    onClose(filteredProfiles);
   };
 
   return (
     <Modal
       open={isOpen}
-      onClose={close}
+      onClose={() => onClose()}
       aria-labelledby="modal-delete-account"
       className="cabinet__delete-modal"
     >
@@ -97,7 +100,7 @@ const DeleteAccountModal = ({ isOpen, close, profiles }) => {
           <Button
             className="cabinet__delete__btn"
             type="secondary"
-            onClick={close}
+            onClick={() => onClose()}
           >
             Ні
           </Button>

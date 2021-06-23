@@ -14,16 +14,17 @@ import "./style.scss";
 
 const CabinetPage = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [profiles, setProfiles] = useState([]);
   const { user, getAccessTokenSilently } = useAuth0();
   const {
     loading: { global: loading },
-    profiles: { data: profiles },
   } = useSelector((state) => state);
 
   useEffect(() => {
     async function getUserProfiles() {
       const token = await getAccessTokenSilently();
-      await dispatch.profiles.getProfiles(token);
+      const data = await dispatch.profiles.getProfiles(token);
+      setProfiles(data);
       dispatch.profile.clearState();
     }
 
@@ -34,7 +35,10 @@ const CabinetPage = () => {
     setIsDeleteModalOpen(true);
   };
 
-  const closeDeleteModal = () => setIsDeleteModalOpen(false);
+  const handleDeleteModal = (filtered) => {
+    setIsDeleteModalOpen(false);
+    if (filtered) setProfiles(filtered);
+  };
 
   if (loading && !profiles?.length)
     return <Spinner text="Завантажуємо профілі..." />;
@@ -80,7 +84,11 @@ const CabinetPage = () => {
           )}
         </div>
       </div>
-      <DeleteAccountModal isOpen={isDeleteModalOpen} close={closeDeleteModal} profiles={profiles} />
+      <DeleteAccountModal
+        isOpen={isDeleteModalOpen}
+        onClose={handleDeleteModal}
+        profiles={profiles}
+      />
     </main>
   );
 };

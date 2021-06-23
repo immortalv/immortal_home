@@ -17,6 +17,7 @@ export const profiles = {
       try {
         const profiles = await getProfiles(payload);
         await dispatch.profiles.setProfiles({ data: profiles });
+        return profiles;
       } catch (error) {
         dispatch.profiles.setProfiles({ data: [] });
       }
