@@ -84,6 +84,11 @@
       max-width: 50vw;
       padding: 10px;
     }
+
+    &-empty {
+      width: 100%;
+      max-width: 100vw;
+    }
   }
 
   &__profile-list {
@@ -124,5 +129,13 @@
     width: 150px;
     height: 40px;
     border-radius: 6px;
+  }
+
+  &__no-profiles {
+    margin: auto;
+
+    @include for-phablet {
+      font-size: 12px;
+    }
   }
 }
