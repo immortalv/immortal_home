@@ -56,7 +56,6 @@ const ProfileItem = ({ profile }) => {
       canvas.style.width = "200px";
       canvas.style.height = "200px";
     }
-    console.log("isPhablet", isPhablet);
   }, [isPhablet]);
 
   const afterOpenModal = () => {

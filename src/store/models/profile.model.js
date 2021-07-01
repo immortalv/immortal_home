@@ -6,6 +6,7 @@ import {
   updateProfile,
   removeFiles,
   deleteProfile,
+  getUploadSignedUrl,
 } from "services/api/profile.service";
 import { profileDataMock } from "constants/profile-data.mock";
 import {
@@ -26,9 +27,10 @@ import {
   ADD_PROFILE_STEPS,
 } from "constants/profile.constants";
 import { filterFalsy } from "utils/object.utils";
+import axios from "axios";
 
 const initialState = {
-  currenStep: ADD_PROFILE_STEPS_NAME.TEMPLATE,
+  currentStep: ADD_PROFILE_STEPS_NAME.TEMPLATE,
 
   name: "",
   description: "",
@@ -64,14 +66,17 @@ export const profile = {
 
   effects: (dispatch) => ({
     async setProfileEffect(payload, state) {
-      const nextStep = getNextStep(ADD_PROFILE_STEPS, state.profile.currenStep);
-      dispatch.profile.setProfile({ ...payload, currenStep: nextStep });
+      const nextStep = getNextStep(
+        ADD_PROFILE_STEPS,
+        state.profile.currentStep
+      );
+      dispatch.profile.setProfile({ ...payload, currentStep: nextStep });
     },
 
     handleBackClick(payload, state) {
       const { previousStep, shouldRedirect } = getPreviousStep(
         ADD_PROFILE_STEPS,
-        state.profile.currenStep
+        state.profile.currentStep
       );
 
       if (shouldRedirect) {
@@ -79,7 +84,7 @@ export const profile = {
         return { shouldRedirect };
       }
 
-      dispatch.profile.setProfile({ currenStep: previousStep });
+      dispatch.profile.setProfile({ currentStep: previousStep });
     },
 
     async saveProfile(payload, state) {
@@ -96,7 +101,7 @@ export const profile = {
           descriptionAdditional: profile.descriptionAdditional,
           birthDate: profile.birthDate,
           deathDate: profile.deathDate,
-          profileType: profile.profileType, // public/privat
+          profileType: profile.profileType, // public/private
           epitaph: profile.epitaph,
           template: profile.template,
         };
@@ -110,12 +115,27 @@ export const profile = {
           ...profile.otherPhotos.map(
             async (file) => await upload(file, queryParams)
           ),
+        ]);
+
+        const videos = await Promise.allSettled([
           ...profile.otherFiles.map(
-            async (file) => await upload(file, queryParams)
+            async (file) => await putS3file(file, queryParams)
           ),
         ]);
 
-        const { otherPhotos, otherFiles } = filterUploadedContent(otherData); // @TODO show message for not uploaded data
+        const { otherPhotos } = filterUploadedContent(otherData); // @TODO show message for not uploaded data
+        const otherFiles = videos.reduce((acc, cur) => {
+          if (cur.status === "fulfilled") {
+            acc.push(cur.value.item);
+          }
+          return acc;
+        }, []);
+
+        console.log(
+          "🚀 ~ file: profile.model.js ~ line 130 ~ saveProfile ~ otherFiles",
+          otherFiles
+        );
+
         const updatedProfile = {
           mainPhoto: mainPhoto.status === "fulfilled" ? mainPhoto.value : {},
           otherPhotos,
@@ -144,7 +164,7 @@ export const profile = {
         updatedProfile.name = getFullName(profile);
         const queryParams = `userId=${clearUserId(userId)}&profileId=${id}`;
 
-        // if new image setted, upload it
+        // if new image settled, upload it
         if (profile.mainPhoto[0]?.preview) {
           const mainPhoto = await upload(profile.mainPhoto[0], queryParams);
           updatedProfile.mainPhoto = mainPhoto;
@@ -216,11 +236,33 @@ export const profile = {
   }),
 };
 
-
 async function upload(file, queryParams) {
   const formData = new FormData();
   formData.append("files", file);
-  const respone = await uploadFile(formData, queryParams);
+  const response = await uploadFile(formData, queryParams);
 
-  return await respone;
+  return response;
+}
+
+async function putS3file(file, queryParams) {
+  const signedUrlParams = `${queryParams}&fileName=${file.name}`;
+  const signedUrl = await getUploadSignedUrl(signedUrlParams);
+
+  const formData = new FormData();
+  formData.append("files", file);
+
+  const response = await axios.put(signedUrl.presignedUrl, formData, {
+    headers: {
+      "Content-Type": file.type,
+    },
+  });
+
+  const item = {
+    id: signedUrl.id,
+    key: signedUrl.key,
+    fileName: signedUrl.fileName,
+    mimeType: file.type,
+  };
+
+  return { response, item };
 }

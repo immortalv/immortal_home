@@ -78,8 +78,8 @@ const ProfileArticle = ({ profileData }) => {
         <div className="video-data__container--article">
           {otherFiles.map((file) => (
             <Video
-              url={file}
-              key={file}
+              url={getProfileDataFromBucket(file.key)}
+              key={file.key}
               className={"video-img__wrapper--article"}
             />
           ))}

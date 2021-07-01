@@ -28,6 +28,11 @@ export const uploadFile = async (data, queryParams) =>
     .post(`${FILE_UPLOAD_GATEWAY_URL}?${queryParams}`, data)
     .then(({ data }) => data);
 
+export const getUploadSignedUrl = async (queryParams) =>
+    await axios
+      .post(`${FILE_UPLOAD_GATEWAY_URL}?withSignedUrl=true&${queryParams}`)
+      .then(({ data }) => data);
+
 export const removeFiles = async (files, queryParams) =>
   await axios
     .post(`${FILE_UPLOAD_GATEWAY_URL}?${queryParams}&remove=true`, { files })
