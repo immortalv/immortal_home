@@ -25,27 +25,48 @@ import {
 import {
   ADD_PROFILE_STEPS_NAME,
   ADD_PROFILE_STEPS,
+  PROFILE_TEMPLATE_TYPES,
 } from "constants/profile.constants";
 import { filterFalsy } from "utils/object.utils";
 import axios from "axios";
+import { isProduction } from "constants/api.constants";
+import { readFileAsync, toBinary } from "utils/general.utils";
 
-const initialState = {
-  currentStep: ADD_PROFILE_STEPS_NAME.TEMPLATE,
+const initialState = isProduction
+  ? {
+      currentStep: ADD_PROFILE_STEPS_NAME.TEMPLATE,
 
-  name: "",
-  description: "",
-  descriptionAdditional: "",
+      name: "",
+      description: "",
+      descriptionAdditional: "",
 
-  birthDate: null,
-  deathDate: null,
-  epitaph: "",
+      birthDate: null,
+      deathDate: null,
+      epitaph: "",
 
-  mainPhoto: {},
-  otherPhotos: [],
-  otherFiles: [],
+      mainPhoto: {},
+      otherPhotos: [],
+      otherFiles: [],
 
-  template: "",
-};
+      template: PROFILE_TEMPLATE_TYPES.SIMPLE,
+    }
+  : {
+      currentStep: ADD_PROFILE_STEPS_NAME.TEMPLATE,
+
+      name: "John Doe",
+      description: "Description of John Doe",
+      descriptionAdditional: "",
+
+      birthDate: new Date(1231231231),
+      deathDate: new Date(2231312311),
+      epitaph: "",
+
+      mainPhoto: {},
+      otherPhotos: [],
+      otherFiles: [],
+
+      template: PROFILE_TEMPLATE_TYPES.SIMPLE,
+    };
 
 export const profile = {
   state: initialState,
@@ -131,11 +152,6 @@ export const profile = {
           return acc;
         }, []);
 
-        console.log(
-          "🚀 ~ file: profile.model.js ~ line 130 ~ saveProfile ~ otherFiles",
-          otherFiles
-        );
-
         const updatedProfile = {
           mainPhoto: mainPhoto.status === "fulfilled" ? mainPhoto.value : {},
           otherPhotos,
@@ -171,18 +187,34 @@ export const profile = {
         }
 
         // @TODO Check for deleted file
-        const { uploaded, toUpload } = getUpdatedFiles([
-          ...profile.otherPhotos,
-          ...profile.otherFiles,
+        const { uploaded: photosUploaded, toUpload: photosToUpload } =
+          getUpdatedFiles(profile.otherPhotos);
+
+        const { uploaded: videosUploaded, toUpload: videosToUpload } =
+          getUpdatedFiles(profile.otherFiles);
+
+        const videos = await Promise.allSettled([
+          ...videosToUpload.map(
+            async (file) => await putS3file(file, queryParams)
+          ),
         ]);
 
-        const otherData = await Promise.allSettled([
-          ...toUpload.map(async (file) => await upload(file, queryParams)),
+        const otherFiles = videos.reduce((acc, cur) => {
+          if (cur.status === "fulfilled") {
+            acc.push(cur.value.item);
+          }
+          return acc;
+        }, []);
+
+        const otherPhotosUploaded = await Promise.allSettled([
+          ...photosToUpload.map(
+            async (file) => await upload(file, queryParams)
+          ),
         ]);
 
-        const { otherPhotos, otherFiles, rejected } = filterUploadedContent([
-          ...uploaded,
-          ...otherData,
+        const { otherPhotos, rejected } = filterUploadedContent([
+          ...photosUploaded,
+          ...otherPhotosUploaded,
         ]); // @TODO show message for not uploaded data
 
         if (otherPhotos.length) updatedProfile.otherPhotos = otherPhotos;
@@ -248,14 +280,18 @@ async function putS3file(file, queryParams) {
   const signedUrlParams = `${queryParams}&fileName=${file.name}`;
   const signedUrl = await getUploadSignedUrl(signedUrlParams);
 
-  const formData = new FormData();
-  formData.append("files", file);
+  const fileString = await readFileAsync(file);
+  const binaryFile = toBinary(fileString, file.type);
 
-  const response = await axios.put(signedUrl.presignedUrl, formData, {
+  console.log("binaryFile", binaryFile);
+
+  const params = {
     headers: {
       "Content-Type": file.type,
     },
-  });
+  };
+
+  const response = await axios.put(signedUrl.presignedUrl, binaryFile, params);
 
   const item = {
     id: signedUrl.id,

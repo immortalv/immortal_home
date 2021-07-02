@@ -29,13 +29,15 @@ export const getPreviousStep = (steps, activeStep) => {
   return { previousStep, shouldRedirect: false };
 };
 
-export const transfromDate = (date, dateInput = false) => {
+export const transformDate = (date, dateInput = false) => {
+  console.log("date", date);
   const dateObject = new Date(date);
   let day = dateObject.getDate();
   let month = dateObject.getMonth();
   const year = dateObject.getFullYear();
 
-  if (!day || !month || !year) return date;
+  if ((!day && day !== 0) || (!month && month !== 0) || !year)
+    return String(date);
 
   if (String(month).length === 1) month = `0${month}`;
   if (String(day).length === 1) day = `0${day}`;
@@ -102,7 +104,7 @@ export const getUpdatedFiles = (data) => {
   // If file has preview property, it need to be uploaded file and needs to be updated in Db
   return data.reduce(
     (acc, cur) => {
-      if (cur.preview) {
+      if (cur instanceof File) {
         acc.toUpload.push(cur);
       } else {
         acc.uploaded.push(cur);

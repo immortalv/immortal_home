@@ -44,7 +44,7 @@ const CabinetPage = () => {
     return <Spinner text="Завантажуємо профілі..." />;
 
   if (!profiles?.length) return <h1>У вас ще не має профілів</h1>;
-
+  
   return (
     <main className="cabinet">
       {/* <img src={coverImg} alt="profile cover" className="cabinet__cover-img" /> */}
@@ -79,7 +79,7 @@ const CabinetPage = () => {
             <h1 className="cabinet__no-profiles">У вас ще не має профілів</h1>
           ) : (
             profiles.map((profile) => (
-              <ProfileItem key={profile.name} profile={profile} />
+              <ProfileItem key={profile.id} profile={profile} />
             ))
           )}
         </div>

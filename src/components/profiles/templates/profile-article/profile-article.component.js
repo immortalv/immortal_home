@@ -3,7 +3,7 @@ import React from "react";
 import Video from "components/video";
 import Image from "components/common/image";
 
-import { transfromDate } from "utils/profile.utils";
+import { transformDate } from "utils/profile.utils";
 import { getProfileDataFromBucket } from "utils/image.utils";
 import ProfileDefaultImage from "assets/profile-default.jpg";
 
@@ -36,7 +36,7 @@ const ProfileArticle = ({ profileData }) => {
               className="profile-article__avatar-img"
             />
             <span className="profile-article__date">
-              {transfromDate(birthDate)} &#8212; {transfromDate(deathDate)}
+              {transformDate(birthDate)} &#8212; {transformDate(deathDate)}
             </span>
           </div>
           <div className="profile-article__description-block">

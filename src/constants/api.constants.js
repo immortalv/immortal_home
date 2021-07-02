@@ -1,7 +1,7 @@
 export const IMMORTAL_URL = "https://immortalv.com";
 const CORS = "https://cors-anywhere.herokuapp.com";
 
-const isProduction = process.env.NODE_ENV === "production";
+export const isProduction = process.env.NODE_ENV === "production";
 
 const FILE_UPLOAD_GATEWAY =
   "https://81srnuryr6.execute-api.eu-central-1.amazonaws.com/Prod/data";

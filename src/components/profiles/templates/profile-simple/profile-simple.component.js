@@ -2,7 +2,7 @@ import React from "react";
 
 import forestImg from "assets/profile-simple-background.jpg";
 import { getProfileDataFromBucket } from "utils/image.utils";
-import { transfromDate } from "utils/profile.utils";
+import { transformDate } from "utils/profile.utils";
 import Video from "components/video";
 import Image from "components/common/image";
 import ProfileDefaultImage from "assets/profile-default.jpg";
@@ -39,10 +39,10 @@ const ProfileSimple = ({ profileData }) => {
           className="profile-simple__avatar-img"
         />
         <span className="profile-simple__date profile-simple__date--birth">
-          {transfromDate(birthDate)}
+          {transformDate(birthDate)}
         </span>
         <span className="profile-simple__date profile-simple__date--death">
-          {transfromDate(deathDate)}
+          {transformDate(deathDate)}
         </span>
       </div>
       <h1 className="title profile__name profile-simple__name">{name}</h1>

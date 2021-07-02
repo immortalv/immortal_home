@@ -3,7 +3,7 @@ import React from "react";
 import Video from "components/video";
 import Image from "components/common/image";
 import { getProfileDataFromBucket } from "utils/image.utils";
-import { transfromDate } from "utils/profile.utils";
+import { transformDate } from "utils/profile.utils";
 import ProfileDefaultImage from "assets/profile-default.jpg";
 
 import "./style.scss";
@@ -35,7 +35,7 @@ const ProfileBook = ({ profileData }) => {
             className="profile-book__avatar-img"
           />
           <span className="profile-book__date">
-            {transfromDate(birthDate)} &#8212; {transfromDate(deathDate)}
+            {transformDate(birthDate)} &#8212; {transformDate(deathDate)}
           </span>
           <div className="quoute-block  quoute-block--inverted">
             <h2 className="quoute__title">
