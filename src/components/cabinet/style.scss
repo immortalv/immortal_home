@@ -52,7 +52,6 @@
 
     @include for-phone-only {
       margin: 0 15px 0 10px;
-      width: 100%;
       height: 100%;
     }
   }
@@ -106,6 +105,10 @@
 
     @include for-phablet {
       padding: 10px 30px;
+    }
+
+    @include for-phone-only {
+      font-size: 12px;
     }
   }
 }

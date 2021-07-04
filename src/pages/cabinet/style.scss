@@ -54,6 +54,10 @@
 
   &__account-name {
     margin: 0 15px;
+
+    @include for-phone-only {
+      font-size: 20px;
+    }
   }
 
   &__link {
@@ -74,7 +78,6 @@
     padding: 10px 25px;
     width: 344px;
     max-width: 25vw;
-    font-size: 18px;
 
     @include for-phablet {
       max-width: 30vw;
