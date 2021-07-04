@@ -3,7 +3,6 @@ import clsx from "clsx";
 import { useSelector } from "react-redux";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
-import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import { dispatch } from "store";
 import routesConstants from "constants/routes.constants";
 import Spinner from "components/spinner/spinner.component";
