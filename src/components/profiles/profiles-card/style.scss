@@ -21,6 +21,7 @@
   &__img {
     width: 312px;
     height: 312px;
+    object-fit: contain;
 
     @include for-phone-only {
       width: 204px;

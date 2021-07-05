@@ -1,78 +1,39 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import debounce from "lodash.debounce";
+// import debounce from "lodash.debounce";
 import { PROFILE } from "constants/routes.constants";
-import { getPublicProfiles } from "services/api/profile.service";
+import { useProfiles } from "queries/profiles/use-profiles";
 import ProfilesCard from "components/profiles/profiles-card";
 import SearchContainer from "components/common/search-input";
-import { getProfileImg } from "utils/image.utils";
 import { validateProfileSearchValue } from "utils/profile.utils";
-import profilesData from "./profile.data";
 
 import "./style.scss";
+// const DEBOUNCE_TIME = 400;
 
-const DEBOUNCE_TIME = 400;
+// const defaultOptions = {
+//   leading: false,
+//   trailing: true,
+// };
 
-const defaultOptions = {
-  leading: false,
-  trailing: true,
-};
+// const useDebouncedFn = (
+//   fn,
+//   wait = 100,
+//   options = defaultOptions,
+//   dependencies
+// ) => {
+//   console.log("dependencies", dependencies);
+//   const debounced = debounce(fn, wait, options);
 
-const useDebouncedFn = (
-  fn,
-  wait = 100,
-  options = defaultOptions,
-  dependencies
-) => {
-  console.log("dependencies", dependencies);
-  const debounced = debounce(fn, wait, options);
-
-  return useCallback(debounced, dependencies);
-};
+//   return useCallback(debounced, dependencies);
+// };
 
 const ProfilesPage = () => {
-  const [data, setData] = useState(profilesData);
-  const [search, setSeach] = useState("");
-
-  useEffect(() => {
-    const getProfiles = async () => {
-      // let valid = search.replace(/\s/, "|");
-      const query = `name=${search}`;
-      const profiles = await getPublicProfiles(query);
-      console.log("profiles", profiles);
-      setData([...data, ...profiles.results]);
-    };
-
-    debounce(getProfiles, 1);
-
-    getProfiles();
-  }, [search]);
-
-  // useDebouncedFn(
-  //   async () => {
-  //     const query = `name=${search}`;
-  //     const profiles = await getPublicProfiles(query);
-  //     console.log("profiles", profiles);
-  //     setData([...data, ...profiles.results]);
-  //   },
-  //   1,
-  //   {},
-  //   [search]
-  // );
+  const [search, setSearch] = useState("");
+  const { data } = useProfiles(search);
 
   const handleChange = ({ target }) => {
     const validated = validateProfileSearchValue(target.value);
-    setSeach(validated);
-
-    const getProfiles = async () => {
-      console.log("call");
-      const query = `name=${search}`;
-      const profiles = await getPublicProfiles(query);
-      console.log("profiles", profiles);
-      setData([...data, ...profiles.results]);
-    };
-
-    debounce(() => getProfiles(), DEBOUNCE_TIME, defaultOptions);
+    setSearch(validated);
   };
 
   return (
@@ -89,13 +50,9 @@ const ProfilesPage = () => {
         <SearchContainer value={search} onChange={handleChange} />
         <div className="profiles__list">
           <h3 className="title">Публічні профілі</h3>
-          {data.map((profile, index) => (
+          {data?.results?.map((profile, index) => (
             <Link key={profile.id} to={`${PROFILE}/${profile.id}`}>
-              <ProfilesCard
-                fullName={profile.name}
-                description={profile.description}
-                imgSrc={getProfileImg(`profile-image-${index + 1}`)}
-              />
+              <ProfilesCard profile={profile} />
             </Link>
           ))}
         </div>

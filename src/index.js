@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
+import { QueryClient, QueryClientProvider } from "react-query";
 import App from "./App";
 import { store } from "store";
 
@@ -10,14 +11,18 @@ import Auth0ProviderWithHistory from "components/auth/auth0-provider-with-histor
 import "styles/normalaize.scss";
 // import reportWebVitals from './reportWebVitals';
 
+const queryClient = new QueryClient();
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <Auth0ProviderWithHistory>
-          <App />
-        </Auth0ProviderWithHistory>
-      </BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Auth0ProviderWithHistory>
+            <App />
+          </Auth0ProviderWithHistory>
+        </BrowserRouter>
+      </QueryClientProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
