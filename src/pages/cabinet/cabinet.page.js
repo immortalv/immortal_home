@@ -43,7 +43,15 @@ const CabinetPage = () => {
   if (loading && !profiles?.length)
     return <Spinner text="Завантажуємо профілі..." />;
 
-  if (!profiles?.length) return <h1>У вас ще не має профілів</h1>;
+  if (!profiles?.length)
+    return <div className="cabinet__no-profiles">
+      <h1>У вас ще не має профілів</h1>
+      <Link className="cabinet__link" to={routesConstants.ADD_PROFILE}>
+        <Button type="secondary" className="cabinet__btn cabinet__btn-empty">
+          Додати профіль
+        </Button>
+      </Link>
+    </div>
 
   return (
     <main className="cabinet">
