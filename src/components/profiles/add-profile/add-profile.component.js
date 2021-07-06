@@ -47,7 +47,7 @@ const AddProfile = () => {
   }, []);
 
   const renderActiveStep = () => {
-    switch (profile.currenStep) {
+    switch (profile.currentStep) {
       case ADD_PROFILE_STEPS_NAME.TEMPLATE:
         return <SelectProfile onSubmit={handleNextStep} />;
       case ADD_PROFILE_STEPS_NAME.MAIN_INFORMATION:

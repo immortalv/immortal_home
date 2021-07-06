@@ -5,6 +5,8 @@ import {
   getProfile,
   updateProfile,
   removeFiles,
+  deleteProfile,
+  getUploadSignedUrl,
 } from "services/api/profile.service";
 import { profileDataMock } from "constants/profile-data.mock";
 import {
@@ -23,26 +25,48 @@ import {
 import {
   ADD_PROFILE_STEPS_NAME,
   ADD_PROFILE_STEPS,
+  PROFILE_TEMPLATE_TYPES,
 } from "constants/profile.constants";
 import { filterFalsy } from "utils/object.utils";
+import axios from "axios";
+import { isProduction } from "constants/api.constants";
+import { readFileAsync, toBinary } from "utils/general.utils";
 
-const initialState = {
-  currenStep: ADD_PROFILE_STEPS_NAME.TEMPLATE,
+const initialState = isProduction
+  ? {
+      currentStep: ADD_PROFILE_STEPS_NAME.TEMPLATE,
 
-  name: "",
-  description: "",
-  descriptionAdditional: "",
+      name: "",
+      description: "",
+      descriptionAdditional: "",
 
-  birthDate: null,
-  deathDate: null,
-  epitaph: "",
+      birthDate: null,
+      deathDate: null,
+      epitaph: "",
 
-  mainPhoto: {},
-  otherPhotos: [],
-  otherFiles: [],
+      mainPhoto: {},
+      otherPhotos: [],
+      otherFiles: [],
 
-  template: "",
-};
+      template: PROFILE_TEMPLATE_TYPES.SIMPLE,
+    }
+  : {
+      currentStep: ADD_PROFILE_STEPS_NAME.TEMPLATE,
+
+      name: "John Doe",
+      description: "Description of John Doe",
+      descriptionAdditional: "",
+
+      birthDate: new Date(1231231231),
+      deathDate: new Date(2231312311),
+      epitaph: "",
+
+      mainPhoto: {},
+      otherPhotos: [],
+      otherFiles: [],
+
+      template: PROFILE_TEMPLATE_TYPES.SIMPLE,
+    };
 
 export const profile = {
   state: initialState,
@@ -63,14 +87,17 @@ export const profile = {
 
   effects: (dispatch) => ({
     async setProfileEffect(payload, state) {
-      const nextStep = getNextStep(ADD_PROFILE_STEPS, state.profile.currenStep);
-      dispatch.profile.setProfile({ ...payload, currenStep: nextStep });
+      const nextStep = getNextStep(
+        ADD_PROFILE_STEPS,
+        state.profile.currentStep
+      );
+      dispatch.profile.setProfile({ ...payload, currentStep: nextStep });
     },
 
     handleBackClick(payload, state) {
       const { previousStep, shouldRedirect } = getPreviousStep(
         ADD_PROFILE_STEPS,
-        state.profile.currenStep
+        state.profile.currentStep
       );
 
       if (shouldRedirect) {
@@ -78,7 +105,7 @@ export const profile = {
         return { shouldRedirect };
       }
 
-      dispatch.profile.setProfile({ currenStep: previousStep });
+      dispatch.profile.setProfile({ currentStep: previousStep });
     },
 
     async saveProfile(payload, state) {
@@ -95,7 +122,7 @@ export const profile = {
           descriptionAdditional: profile.descriptionAdditional,
           birthDate: profile.birthDate,
           deathDate: profile.deathDate,
-          profileType: profile.profileType, // public/privat
+          profileType: profile.profileType, // public/private
           epitaph: profile.epitaph,
           template: profile.template,
         };
@@ -109,12 +136,22 @@ export const profile = {
           ...profile.otherPhotos.map(
             async (file) => await upload(file, queryParams)
           ),
+        ]);
+
+        const videos = await Promise.allSettled([
           ...profile.otherFiles.map(
-            async (file) => await upload(file, queryParams)
+            async (file) => await putS3file(file, queryParams)
           ),
         ]);
 
-        const { otherPhotos, otherFiles } = filterUploadedContent(otherData); // @TODO show message for not uploaded data
+        const { otherPhotos } = filterUploadedContent(otherData); // @TODO show message for not uploaded data
+        const otherFiles = videos.reduce((acc, cur) => {
+          if (cur.status === "fulfilled") {
+            acc.push(cur.value.item);
+          }
+          return acc;
+        }, []);
+
         const updatedProfile = {
           mainPhoto: mainPhoto.status === "fulfilled" ? mainPhoto.value : {},
           otherPhotos,
@@ -143,25 +180,41 @@ export const profile = {
         updatedProfile.name = getFullName(profile);
         const queryParams = `userId=${clearUserId(userId)}&profileId=${id}`;
 
-        // if new image setted, upload it
+        // if new image settled, upload it
         if (profile.mainPhoto[0]?.preview) {
           const mainPhoto = await upload(profile.mainPhoto[0], queryParams);
           updatedProfile.mainPhoto = mainPhoto;
         }
 
         // @TODO Check for deleted file
-        const { uploaded, toUpload } = getUpdatedFiles([
-          ...profile.otherPhotos,
-          ...profile.otherFiles,
+        const { uploaded: photosUploaded, toUpload: photosToUpload } =
+          getUpdatedFiles(profile.otherPhotos);
+
+        const { uploaded: videosUploaded, toUpload: videosToUpload } =
+          getUpdatedFiles(profile.otherFiles);
+
+        const videos = await Promise.allSettled([
+          ...videosToUpload.map(
+            async (file) => await putS3file(file, queryParams)
+          ),
         ]);
 
-        const otherData = await Promise.allSettled([
-          ...toUpload.map(async (file) => await upload(file, queryParams)),
+        const otherFiles = videos.reduce((acc, cur) => {
+          if (cur.status === "fulfilled") {
+            acc.push(cur.value.item);
+          }
+          return acc;
+        }, []);
+
+        const otherPhotosUploaded = await Promise.allSettled([
+          ...photosToUpload.map(
+            async (file) => await upload(file, queryParams)
+          ),
         ]);
 
-        const { otherPhotos, otherFiles, rejected } = filterUploadedContent([
-          ...uploaded,
-          ...otherData,
+        const { otherPhotos, rejected } = filterUploadedContent([
+          ...photosUploaded,
+          ...otherPhotosUploaded,
         ]); // @TODO show message for not uploaded data
 
         if (otherPhotos.length) updatedProfile.otherPhotos = otherPhotos;
@@ -211,5 +264,32 @@ async function upload(file, queryParams) {
   formData.append("files", file);
   const response = await uploadFile(formData, queryParams);
 
-  return await response;
+  return response;
+}
+
+async function putS3file(file, queryParams) {
+  const signedUrlParams = `${queryParams}&fileName=${file.name}`;
+  const signedUrl = await getUploadSignedUrl(signedUrlParams);
+
+  const fileString = await readFileAsync(file);
+  const binaryFile = toBinary(fileString, file.type);
+
+  console.log("binaryFile", binaryFile);
+
+  const params = {
+    headers: {
+      "Content-Type": file.type,
+    },
+  };
+
+  const response = await axios.put(signedUrl.presignedUrl, binaryFile, params);
+
+  const item = {
+    id: signedUrl.id,
+    key: signedUrl.key,
+    fileName: signedUrl.fileName,
+    mimeType: file.type,
+  };
+
+  return { response, item };
 }

@@ -6,9 +6,9 @@ import { CrossIconSolid } from "icons";
 import "./style.scss";
 
 const AddMedia = ({ className, title, label, files, addFiles }) => {
-  const onOtherMediaDrop = (settedFiles) => {
+  const onOtherMediaDrop = (settledFiles) => {
     const fileNames = files.map((file) => file.name);
-    const filteredFiles = settedFiles.filter(
+    const filteredFiles = settledFiles.filter(
       (file) => !fileNames.includes(file.name)
     );
 
@@ -37,8 +37,8 @@ const AddMedia = ({ className, title, label, files, addFiles }) => {
 
         <ul className="file-list">
           {files.map((file) => (
-            <li key={file.name} className="file-list__item">
-              {file.name}
+            <li key={file.name || file.fileName} className="file-list__item">
+              {file.name || file.fileName}
               <button
                 className="file-list__btn"
                 onClick={() => removeFile(file.name)}
