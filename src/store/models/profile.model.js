@@ -5,7 +5,6 @@ import {
   getProfile,
   updateProfile,
   removeFiles,
-  deleteProfile,
 } from "services/api/profile.service";
 import { profileDataMock } from "constants/profile-data.mock";
 import {
@@ -204,23 +203,13 @@ export const profile = {
         dispatch.profile.setProfile(profileDataMock);
       }
     },
-
-    async removeProfile({ id, token }) {
-      try {
-        await deleteProfile(id, token);
-      } catch (err) {
-        console.log("Error", err);
-        showErrorToast("Щось пішло не так...");
-      }
-    },
   }),
 };
-
 
 async function upload(file, queryParams) {
   const formData = new FormData();
   formData.append("files", file);
-  const respone = await uploadFile(formData, queryParams);
+  const response = await uploadFile(formData, queryParams);
 
-  return await respone;
+  return await response;
 }
