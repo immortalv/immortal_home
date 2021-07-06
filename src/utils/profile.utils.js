@@ -134,7 +134,7 @@ export const validateProfileSearchValue = (str) => {
   // avoid two spaces
   if (validate.includes("  ")) validate = validate.replace(/\s\s+/g, " ");
   // avoid special symbols
-  validate = validate.replace(/[^\w\s]/gi, "");
+  validate = validate.replace(/[^\w\s\p{L}]/gui, "");
   // symbols limitation
   if (validate.length > 50) validate = validate.substring(0, 50);
 

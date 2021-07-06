@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Modal from "@material-ui/core/Modal";
 import Box from "@material-ui/core/Box";
-import { dispatch } from "store";
 import { Button } from "components/common";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -10,9 +9,9 @@ import ListItemButton from "@material-ui/core/ListItemButton";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
+import { deleteUserProfileMutation } from "queries/profiles/use-profiles";
 
 import "./style.scss";
-import { showSuccessToast } from "components/toasters";
 
 const style = {
   position: "absolute",
@@ -29,6 +28,7 @@ const style = {
 const DeleteAccountModal = ({ isOpen, onClose, profiles }) => {
   const { getAccessTokenSilently } = useAuth0();
   const [checked, setChecked] = useState([]);
+  const deleteMutation = deleteUserProfileMutation();
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -44,16 +44,14 @@ const DeleteAccountModal = ({ isOpen, onClose, profiles }) => {
   };
 
   const deleteAccounts = async () => {
-    const token = await getAccessTokenSilently();
     if (!checked.length) return onClose();
+    const token = await getAccessTokenSilently();
 
-    const filteredProfiles = profiles.filter(({ id }) => !checked.includes(id));
     checked.forEach(async (id) => {
-      await dispatch.profile.removeProfile({ id, token });
+      deleteMutation.mutate({ id, token });
     });
+
     setChecked([]);
-    showSuccessToast("Профіль успішно видалено");
-    onClose(filteredProfiles);
   };
 
   return (
@@ -68,7 +66,13 @@ const DeleteAccountModal = ({ isOpen, onClose, profiles }) => {
           Оберіть профіль, що хочете назавжди видалити
         </h4>
         <List
-          sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+          sx={{
+            width: "100%",
+            maxWidth: 360,
+            maxHeight: 500,
+            overflowX: "auto",
+            bgcolor: "background.paper",
+          }}
         >
           {profiles.map((profile) => {
             return (

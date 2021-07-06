@@ -256,15 +256,6 @@ export const profile = {
         dispatch.profile.setProfile(profileDataMock);
       }
     },
-
-    async removeProfile({ id, token }) {
-      try {
-        await deleteProfile(id, token);
-      } catch (err) {
-        console.log("Error", err);
-        showErrorToast("Щось пішло не так...");
-      }
-    },
   }),
 };
 
