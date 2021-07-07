@@ -274,8 +274,6 @@ async function putS3file(file, queryParams) {
   const fileString = await readFileAsync(file);
   const binaryFile = toBinary(fileString, file.type);
 
-  console.log("binaryFile", binaryFile);
-
   const params = {
     headers: {
       "Content-Type": file.type,
