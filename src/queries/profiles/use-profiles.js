@@ -4,6 +4,7 @@ import {
   getPublicProfiles,
   getProfiles,
   deleteProfile,
+  removeFolder,
 } from "services/api/profile.service";
 import { showErrorToast, showSuccessToast } from "components/toasters";
 
@@ -36,8 +37,10 @@ export const deleteUserProfileMutation = () => {
       return deleteProfile(id, token);
     },
     {
-      onSuccess: () => {
-        // @TODO Remove files from bucket
+      onSuccess: (_, { id, userId }) => {
+        const queryParams = `userId=${userId}&profileId=${id}`;
+        removeFolder(queryParams);
+
         showSuccessToast("Профіль успішно видалено");
         queryClient.invalidateQueries(USER_PROFILES);
       },

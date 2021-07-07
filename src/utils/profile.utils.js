@@ -30,7 +30,6 @@ export const getPreviousStep = (steps, activeStep) => {
 };
 
 export const transformDate = (date, dateInput = false) => {
-  console.log("date", date);
   const dateObject = new Date(date);
   let day = dateObject.getDate();
   let month = dateObject.getMonth();
