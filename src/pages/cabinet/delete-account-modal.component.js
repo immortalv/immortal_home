@@ -12,6 +12,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { deleteUserProfileMutation } from "queries/profiles/use-profiles";
 
 import "./style.scss";
+import { clearUserId } from "utils/profile.utils";
 
 const style = {
   position: "absolute",
@@ -26,9 +27,9 @@ const style = {
 };
 
 const DeleteAccountModal = ({ isOpen, onClose, profiles }) => {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, user } = useAuth0();
   const [checked, setChecked] = useState([]);
-  const deleteMutation = deleteUserProfileMutation();
+  const { mutate } = deleteUserProfileMutation();
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -48,10 +49,11 @@ const DeleteAccountModal = ({ isOpen, onClose, profiles }) => {
     const token = await getAccessTokenSilently();
 
     checked.forEach(async (id) => {
-      deleteMutation.mutate({ id, token });
+      mutate({ id, token, userId: clearUserId(user.sub) });
     });
 
     setChecked([]);
+    onClose();
   };
 
   return (

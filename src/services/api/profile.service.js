@@ -32,3 +32,8 @@ export const removeFiles = async (files, queryParams) =>
   await axios
     .post(`${FILE_UPLOAD_GATEWAY_URL}?${queryParams}&remove=true`, { files })
     .then(({ data }) => data);
+
+export const removeFolder = async (queryParams) =>
+  await axios
+    .post(`${FILE_UPLOAD_GATEWAY_URL}?${queryParams}&remove=true&removeFolder=true`)
+    .then(({ data }) => data);
