@@ -5,7 +5,6 @@ import {
   getProfile,
   updateProfile,
   removeFiles,
-  deleteProfile,
   getUploadSignedUrl,
 } from "services/api/profile.service";
 import { profileDataMock } from "constants/profile-data.mock";
@@ -30,7 +29,7 @@ import {
 import { filterFalsy } from "utils/object.utils";
 import axios from "axios";
 import { isProduction } from "constants/api.constants";
-import { readFileAsync, toBinary } from "utils/general.utils";
+import { promisifyAsync, readFileAsync, toBinary } from "utils/general.utils";
 
 const initialState = isProduction
   ? {
@@ -204,7 +203,7 @@ export const profile = {
             acc.push(cur.value.item);
           }
           return acc;
-        }, []);
+        }, [...videosUploaded]);
 
         const otherPhotosUploaded = await Promise.allSettled([
           ...photosToUpload.map(
@@ -227,7 +226,10 @@ export const profile = {
         );
 
         if (filesToDelete.length) {
-          await removeFiles(filesToDelete, queryParams);
+          removeFiles(filesToDelete, queryParams).catch((error) => {
+            console.error(error);
+            showWarningToast("Щось пішло не так");
+          });
         }
 
         dispatch.profile.getProfile({ id, token: profile.token });
