@@ -175,7 +175,7 @@ export const profile = {
           profile,
           user: { userId },
         } = state;
-        const updatedProfile = filterFalsy(profile, { acceptEmpty: false });
+        const updatedProfile = filterFalsy(profile, { acceptEmpty: true });
         updatedProfile.name = getFullName(profile);
         const queryParams = `userId=${clearUserId(userId)}&profileId=${id}`;
 
