@@ -1,6 +1,7 @@
 import { store } from "store";
 import routesConstants from "constants/routes.constants";
 import HomePage from "pages/home";
+import RulesPage from "pages/rules";
 // import HomePage from "pages/home/v2";
 
 import { ProfilesPage, ProfilePage, ProfileEdit } from "pages/profiles";
@@ -42,7 +43,7 @@ const routes = [
     isInNavigation: true,
     exact: true,
     path: routesConstants.RULES,
-    component: HomePage,
+    component: RulesPage,
   },
 
   {
