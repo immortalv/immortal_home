@@ -33,7 +33,7 @@ const ProfilesPage = () => {
         <SearchContainer value={searchTerm} onChange={handleChange} />
         <div className="profiles__list">
           <h3 className="title">Публічні профілі</h3>
-          {data?.results?.map((profile, index) => (
+          {data?.results?.map((profile) => (
             <Link key={profile.id} to={`${PROFILE}/${profile.id}`}>
               <ProfilesCard profile={profile} />
             </Link>
