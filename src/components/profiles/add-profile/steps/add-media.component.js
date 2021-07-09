@@ -5,7 +5,7 @@ import { CrossIconSolid } from "icons";
 
 import "./style.scss";
 
-const getFileName = (file) => file.name || file.originalName || file.fileName;
+const getFileName = (file) => file.name || file.fileName;
 const getFileKey = (file) => file.id || file.name || file.fileName;
 
 const AddMedia = ({ className, title, label, files, addFiles }) => {
@@ -26,7 +26,6 @@ const AddMedia = ({ className, title, label, files, addFiles }) => {
     addFiles(filteredFiles);
   };
 
-  console.log('files', files);
   return (
     <div className={clsx("add-media__container", className)}>
       {title && <h2 className="header-s-2 add-profile__subtitle">{title}</h2>}
