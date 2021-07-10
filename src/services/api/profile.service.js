@@ -20,6 +20,9 @@ export const getPublicProfiles = (query) =>
 export const getProfile = (id, token) =>
   axios.secureGet(`${BASE_PROFILE_URL}/${id}`, token).then(({ data }) => data);
 
+export const getPublicProfile = (id) =>
+  axios.get(`${BASE_PROFILE_URL}/${id}`).then(({ data }) => data);
+
 export const deleteProfile = (id, token) =>
   axios.secureDel(`${BASE_PROFILE_URL}/${id}`, token).then(({ data }) => data);
 
@@ -29,9 +32,9 @@ export const uploadFile = async (data, queryParams) =>
     .then(({ data }) => data);
 
 export const getUploadSignedUrl = async (queryParams) =>
-    await axios
-      .post(`${FILE_UPLOAD_GATEWAY_URL}?withSignedUrl=true&${queryParams}`)
-      .then(({ data }) => data);
+  await axios
+    .post(`${FILE_UPLOAD_GATEWAY_URL}?withSignedUrl=true&${queryParams}`)
+    .then(({ data }) => data);
 
 export const removeFiles = async (files, queryParams) =>
   await axios
@@ -40,5 +43,7 @@ export const removeFiles = async (files, queryParams) =>
 
 export const removeFolder = async (queryParams) =>
   await axios
-    .post(`${FILE_UPLOAD_GATEWAY_URL}?${queryParams}&remove=true&removeFolder=true`)
+    .post(
+      `${FILE_UPLOAD_GATEWAY_URL}?${queryParams}&remove=true&removeFolder=true`
+    )
     .then(({ data }) => data);

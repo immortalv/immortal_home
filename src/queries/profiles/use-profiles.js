@@ -1,6 +1,7 @@
 import { useQueryClient, useQuery, useMutation } from "react-query";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
+  getPublicProfile,
   getPublicProfiles,
   getProfiles,
   deleteProfile,
@@ -8,8 +9,16 @@ import {
 } from "services/api/profile.service";
 import { showErrorToast, showSuccessToast } from "components/toasters";
 
+const USER_PROFILE = "USER_PROFILE";
 const USER_PROFILES = "USER_PROFILES";
 const PUBLIC_PROFILES = "PUBLIC_PROFILES";
+
+export const useProfile = (id) => {
+  return useQuery(USER_PROFILE, async () => {
+    const data = await getPublicProfile(id);
+    return data;
+  });
+};
 
 export const useProfiles = (search = "") => {
   const query = `name=${search}`;

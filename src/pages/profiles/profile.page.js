@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useProfile } from "queries/profiles/use-profiles";
 import { PROFILE_TEMPLATE_TYPES } from "constants/profile.constants";
 import {
   ProfileSimple,
@@ -8,16 +8,15 @@ import {
   ProfileBook,
 } from "components/profiles/templates";
 import Spinner from "components/spinner/spinner.component";
-import { useGetProfile } from "./hooks";
 
 import "./style.scss";
 
 const ProfilePage = () => {
   const { id } = useParams();
-  const { profile } = useSelector((state) => state);
+  const { data: profile, isLoading, error } = useProfile(id);
 
-  useGetProfile(id);
-
+  if (isLoading) return <Spinner />;
+  if (error) return <h1>Щось пішло не так...</h1>
 
   switch (profile?.template) {
     case PROFILE_TEMPLATE_TYPES.SIMPLE:

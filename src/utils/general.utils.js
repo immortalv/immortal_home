@@ -11,12 +11,25 @@ export const readFileAsync = (file) => {
   });
 };
 
-export const toBinary = (file, type) => {
-  let binary = atob(file.split(",")[1]);
-  let array = [];
-  for (var i = 0; i < binary.length; i++) {
-    array.push(binary.charCodeAt(i));
+export const toBinary = (dataURI) => {
+  const byteString = atob(dataURI.split(",")[1]);
+  const mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
+
+  const arrayBuffer = new ArrayBuffer(byteString.length);
+  const _ia = new Uint8Array(arrayBuffer);
+
+  for (let i = 0; i < byteString.length; i++) {
+    _ia[i] = byteString.charCodeAt(i);
   }
-  let blobData = new Blob([new Uint8Array(array)], { type });
-  return blobData;
+
+  const dataView = new DataView(arrayBuffer);
+  const blob = new Blob([dataView], { type: mimeString });
+  return blob;
+};
+
+export const readDataAsBinary = async (file) => {
+  const fileString = await readFileAsync(file);
+  const binaryFile = toBinary(fileString);
+
+  return binaryFile;
 };
