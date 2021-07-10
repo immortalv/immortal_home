@@ -1,0 +1,12 @@
+@import "styles/variables.module";
+@import "styles/media-queries.module";
+
+.rules {
+  margin: 100px auto;
+  padding: 0 90px;
+
+  &__information {
+    display: block;
+    white-space: pre-line;
+  }
+}
