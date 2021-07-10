@@ -51,7 +51,7 @@ const ProfileEdit = () => {
       return;
     }
 
-    if (!profile?.mainPhoto?.length) {
+    if (!profile?.mainPhoto?.[0] && !profile.mainPhoto.fileName) {
       showWarningToast("Будь ласка додайте головне фото!");
       return;
     }

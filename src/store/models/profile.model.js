@@ -29,7 +29,7 @@ import {
 import { filterFalsy } from "utils/object.utils";
 import axios from "axios";
 import { isProduction } from "constants/api.constants";
-import { readFileAsync, toBinary } from "utils/general.utils";
+import { readDataAsBinary, readFileAsync, toBinary } from "utils/general.utils";
 
 const initialState = isProduction
   ? {
@@ -274,10 +274,11 @@ async function upload(file, queryParams) {
 
 async function putS3file(file, queryParams) {
   const signedUrlParams = `${queryParams}&fileName=${file.name}`;
-  const signedUrl = await getUploadSignedUrl(signedUrlParams);
 
-  const fileString = await readFileAsync(file);
-  const binaryFile = toBinary(fileString, file.type);
+  const [binaryFile, signedUrl] = await Promise.all([
+    await readDataAsBinary(file),
+    await getUploadSignedUrl(signedUrlParams),
+  ]);
 
   const params = {
     headers: {
