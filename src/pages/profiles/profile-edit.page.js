@@ -22,6 +22,7 @@ import { ChevronLeftIcon } from "icons";
 import { useGetProfile } from "./hooks";
 import routesConstants from "constants/routes.constants";
 import Spinner from "components/spinner/spinner.component";
+import { showWarningToast } from "components/toasters";
 
 const ProfileEdit = () => {
   const { id } = useParams();
@@ -45,6 +46,16 @@ const ProfileEdit = () => {
     dispatch.profile.setProfile({ [label]: data });
 
   const updateProfile = async () => {
+    if (!profile.description) {
+      showWarningToast("Будь ласка додайте опис!");
+      return;
+    }
+
+    if (!profile?.mainPhoto?.length) {
+      showWarningToast("Будь ласка додайте головне фото!");
+      return;
+    }
+
     const token = await getAccessTokenSilently();
     await dispatch.profile.setProfile({ ...state, token });
     await dispatch.profile.updateProfileData({ id });

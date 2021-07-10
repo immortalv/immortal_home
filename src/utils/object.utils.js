@@ -23,9 +23,12 @@ export const filterFalsy = (obj, options = {}) => {
       return acc;
     }
 
-    if (!obj[key]) return acc;
+    if (typeof obj[key] === "string" && opt.acceptEmpty) {
+      acc[key] = obj[key];
+    }
 
-    acc[key] = obj[key];
+    if (obj[key]) acc[key] = obj[key];
+
     return acc;
   }, {});
 };

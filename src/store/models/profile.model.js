@@ -29,7 +29,7 @@ import {
 import { filterFalsy } from "utils/object.utils";
 import axios from "axios";
 import { isProduction } from "constants/api.constants";
-import { promisifyAsync, readFileAsync, toBinary } from "utils/general.utils";
+import { readFileAsync, toBinary } from "utils/general.utils";
 
 const initialState = isProduction
   ? {
@@ -198,12 +198,15 @@ export const profile = {
           ),
         ]);
 
-        const otherFiles = videos.reduce((acc, cur) => {
-          if (cur.status === "fulfilled") {
-            acc.push(cur.value.item);
-          }
-          return acc;
-        }, [...videosUploaded]);
+        const otherFiles = videos.reduce(
+          (acc, cur) => {
+            if (cur.status === "fulfilled") {
+              acc.push(cur.value.item);
+            }
+            return acc;
+          },
+          [...videosUploaded]
+        );
 
         const otherPhotosUploaded = await Promise.allSettled([
           ...photosToUpload.map(
