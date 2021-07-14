@@ -111,6 +111,7 @@
     display: flex;
     overflow: hidden;
     overflow-x: auto;
+    max-height: 175px;
 
     @include styled-scrollbar();
 
