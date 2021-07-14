@@ -86,6 +86,7 @@
 
 .image-data__item {
   min-width: 185px;
+  object-fit: cover;
   padding-right: 15px;
   border-radius: 20px;
   filter: drop-shadow(4px 4px 25px rgba(0, 0, 0, 0.15));
@@ -96,10 +97,12 @@
   overflow: hidden;
   overflow-x: auto;
   margin: 50px 90px;
+  max-height: 225px;
 
   @include for-phone-only {
     margin: 15px;
   }
+
   &__item {
     width: 176px;
     height: 176px;

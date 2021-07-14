@@ -33,39 +33,39 @@ import { readDataAsBinary, readFileAsync, toBinary } from "utils/general.utils";
 
 const initialState = isProduction
   ? {
-      currentStep: ADD_PROFILE_STEPS_NAME.TEMPLATE,
+    currentStep: ADD_PROFILE_STEPS_NAME.TEMPLATE,
 
-      name: "",
-      description: "",
-      descriptionAdditional: "",
+    name: "",
+    description: "",
+    descriptionAdditional: "",
 
-      birthDate: null,
-      deathDate: null,
-      epitaph: "",
+    birthDate: null,
+    deathDate: null,
+    epitaph: "",
 
-      mainPhoto: {},
-      otherPhotos: [],
-      otherFiles: [],
+    mainPhoto: {},
+    otherPhotos: [],
+    otherFiles: [],
 
-      template: PROFILE_TEMPLATE_TYPES.SIMPLE,
-    }
+    template: PROFILE_TEMPLATE_TYPES.SIMPLE,
+  }
   : {
-      currentStep: ADD_PROFILE_STEPS_NAME.TEMPLATE,
+    currentStep: ADD_PROFILE_STEPS_NAME.TEMPLATE,
 
-      name: "John Doe",
-      description: "Description of John Doe",
-      descriptionAdditional: "",
+    name: "John Doe",
+    description: "Description of John Doe",
+    descriptionAdditional: "",
 
-      birthDate: new Date(1231231231),
-      deathDate: new Date(2231312311),
-      epitaph: "",
+    birthDate: new Date(1231231231),
+    deathDate: new Date(2231312311),
+    epitaph: "",
 
-      mainPhoto: {},
-      otherPhotos: [],
-      otherFiles: [],
+    mainPhoto: {},
+    otherPhotos: [],
+    otherFiles: [],
 
-      template: PROFILE_TEMPLATE_TYPES.SIMPLE,
-    };
+    template: PROFILE_TEMPLATE_TYPES.SIMPLE,
+  };
 
 export const profile = {
   state: initialState,
@@ -250,6 +250,7 @@ export const profile = {
         dispatch.profile.clearState();
         window.location.pathname = routesConstants.CABINET;
       }
+
     },
 
     async getProfile(payload) {
@@ -261,7 +262,10 @@ export const profile = {
         dispatch.profile.setProfile(profileDataMock);
       }
     },
+
   }),
+
+
 };
 
 async function upload(file, queryParams) {
